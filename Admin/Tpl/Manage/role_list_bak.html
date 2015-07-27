@@ -1,0 +1,96 @@
+<script src="__ROOT__/Public/Admin/js/jquery-1.6.js"></script>
+<script src="__ROOT__/Public/Admin/js/list.js"></script> 
+<link href="__ROOT__/Public/Admin/css/list.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+function check_all(){
+   obj = document.getElementsByName("role_id[]");
+	  for( i=0; i<obj.length; i++)
+	  {
+	  	obj[i].checked = obj[i].checked ? false : true;
+	  }     
+}
+function check_from(type,url){ 
+	if (confirm("您确定要"+type+"所选记录吗？")){
+		document.orgtype.action=url; 
+		document.orgtype.submit(); 
+	}
+}
+function del_info(name){
+	if (confirm("您确定要删除名字为--'"+name+"'--的角色吗？")){ 
+		return true;
+	}else{
+		return false;
+	}
+}  
+</script> 
+
+<div class="addconten">
+   <div>角色管理</div> 
+   <a  href="__APP__/Role/role_add/" {$add}><div>添加新角色</div></a>
+</div>
+<div class="currentposition">
+    <div></div>
+</div>
+<div class="searchdiv">
+<table class="searchClass" width="100%" border="0" cellspacing="1" > 
+    <form action="" name="formfind"  method="GET"/>
+       <tr>
+          <td width="10%">
+               角色名称:<input type="text" name="role_name" value="{$role_name}" id="role_name" /> 
+          </td>  
+          <td width="50%">
+               <input type="submit" name="findsub" class="buttonfind" id="findsub" value="查找" />
+               <input type="button" name="findall" class="buttonfindall" id="findTel" value="显示所有" onclick="document.location='__APP__/Role/role_list/'"/>
+          </td>  
+       </tr> 
+       </form>
+</table> 
+</div>
+
+<table class="tableTitle" width="100%" id="" border="0" cellspacing="1" >
+		<tr>
+          <td width="2%" align="center"><input type="checkbox" name="del_idall" onclick="check_all();" value=""/></td>
+          <td width="10%"> 角色名称</td> 
+          <td width="8%">说明</td> 
+          <td width="50%">成员</td> 
+          <td align="center" width="20%">操作</td>
+       </tr> 
+</table>
+<table class="tableClass" width="100%" id="tableClass" border="0" cellspacing="1" > 
+    <form action="" method="POST" name="orgtype" />
+       
+       <foreach name="role_list" item="name">
+       <tr id="div_{$name.role_id}">
+          <td width="2%" align="center"><input type="checkbox" <?php if(in_array($name['role_id'],$notdel) OR $notdel=='ALL'){echo "disabled";} ?> name="role_id[]" value="{$name.role_id}"/></td>
+          <td width="10%"> <a href="__APP__/Role/rolepriv_allot/{$name.role_id}/{$name.role_name}/" >{$name.role_name}</a></td>  
+          <td width="8%">{$name.desc}</td> 
+          <td width="50%">
+		  <?php $table=M('roleadmin'); 
+	          $where['cms_roleadmin.role_id']=array('eq',$name['role_id']);
+	          $where['cms_admin.is_del']=array('eq','0');
+	          $arr=$table->join('LEFT JOIN cms_admin ON cms_roleadmin.admin_id=cms_admin.admin_id')->join('LEFT JOIN cms_admininfo ON cms_roleadmin.admin_id=cms_admininfo.admin_id')->field('cms_admin.account,cms_admin.admin_id,cms_admininfo.admin_name')->where($where)->select();
+              foreach ($arr as $id=>$key){
+              	  echo " <a href='__APP__/Adminuser/adminuser_edit/".$key['admin_id']."'/>".$key['admin_name']."(".$key['account'].")</a>&nbsp;|&nbsp;";
+              }
+	          
+          ?>
+          
+		   
+		  
+          </td> 
+          <td width="20%" align="center">
+          <div class="editdiv" {$manage}><a href="__APP__/Role/member_manage/{$name.role_id}/{$name.role_name}/" >成员管理</a></div>
+          <div class="editdiv" {$edit}><a href="__APP__/Role/rolepriv_allot/{$name.role_id}/{$name.role_name}/" {$edit}>| &nbsp;分配权限</a></div>
+          <div class="editdiv" {$edit}><a  href="__APP__/Role/role_edit/{$name.role_id}/" {$edit}>| &nbsp;编辑</a></div>
+          <div class="editdiv" {$del}><a <?php if(in_array($name['role_id'],$notdel) OR $notdel=='ALL'){echo "style='display:none;'";} ?> href="__APP__/Role/role_del/{$name.role_id}/"  onclick="return del_info('{$name.role_name}');">| &nbsp;删除</a></div>
+          </td>
+       </tr>
+       </foreach>
+</table> 
+<div class="deluppage">
+     <div class="delup"> 
+	     <input type="button" class="buttondel" value="删除" {$del} onclick="check_from('删除','__APP__/Role/role_del/')" name="delall" id="delall"/>  
+	  </div> 
+	  <div class="page">{$page}</div>
+</div> 
+</form>

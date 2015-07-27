@@ -1,0 +1,81 @@
+<link href="__ROOT__/Public/Admin/css/list.css" rel="stylesheet" type="text/css" />
+<script src="__ROOT__/Public/Admin/js/jquery-1.6.js" type="text/javascript"></script>
+  
+<div class="currentposition">
+    <div>{$cur_menu} > {$cur_title}</div>
+</div>
+<div class="addclass">
+<div class="addtopheight">&nbsp;</div>
+<table width="100%" class="addsearchClass" id="tableClass" border="0" cellpadding="0" cellspacing="0">   
+<form name="form1" id="form1" method="POST" action=""> 
+   <input type="hidden" name="user_id" value="{$user_id}" />
+    <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">宝宝姓名：</td>
+       <td width="80%" >{$user_name}</td>
+   </tr>
+       
+   <tr>
+       <td height="10" align="right" class="left_txt2">理由：</td>
+       <td>
+       <div style="float:left;"><textarea name="remark" class="textarea" cols="60" rows="3" >{$info['remark']}</textarea></div>
+       <div class="note" style="float:left;" id="remarkTip"></div>
+       </td>
+   </tr>
+   <tr>
+       <td colspan="2">
+          <div class="addoperation">
+          <input type="submit" class="buttonsave" value="保存" name="sub_authority" />
+          &nbsp;
+          <input type="reset" class="buttoncancel" value="取消" onclick="javascript:history.go(-1);" name="B12" />
+          </div>
+       </td> 
+   </tr>
+</form>
+</table>
+<div>&nbsp;</div>
+</div>
+<script>
+var btn = document.getElementById('buttonupload');
+btn.onclick = function(){
+	if($("#small").val()==""){
+		alert("你没有选择要上传的文件");
+		return;
+	}
+    ajaxFileUpload({
+        id:'small',
+        callback:function(){
+                var src = this.responseText;  
+                $("#upimage1").attr("src","{$userimgurl}"+src); 
+                $("#updiv1show").hide();
+                $("#head_icon").val(src);
+                $("#updiv1hid").show(); 
+        }
+    });    
+} 
+
+function exportAllMovie(){
+	var searchParam='';
+	if($('#true_name').val()!=''){
+		searchParam+='/true_name/'+encodeURI($('#true_name').val());
+	}
+	if($('#user_label_id').val()!=''){
+		searchParam+='/user_label_id/'+encodeURI($('#user_label_id').val());
+	}
+	if($('#region_id').val()!=''){
+		searchParam+='/region_id/'+encodeURI($('#region_id').val());
+	}
+	if($('#admin_id').val()!=''){
+		searchParam+='/admin_id/'+encodeURI($('#admin_id').val());
+	}
+	if($('#source_id').val()!=''){
+		searchParam+='/source_id/'+encodeURI($('#source_id').val());
+	}	
+        if($('#start_time').val()!=''){
+		searchParam+='/start_time/'+encodeURI($('#start_time').val());
+	}
+	if($('#end_time').val()!=''){
+		searchParam+='/end_time/'+encodeURI($('#end_time').val());
+	}
+	location.href="{:U('Member/member_export')}"+searchParam;
+}
+</script>

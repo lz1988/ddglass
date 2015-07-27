@@ -1,0 +1,195 @@
+<link href="__ROOT__/Public/Admin/css/list.css" rel="stylesheet" type="text/css" />
+<script src="__ROOT__/Public/Admin/js/jquery-1.6.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.3"></script>
+<script type="text/javascript">
+    $(function(){
+        $('#track').toggle(function(){
+           $('#node').show('100');
+
+        }, function() {
+           $('#node').hide('100');
+
+        });
+    })
+
+
+</script>
+<style type="text/css">
+    tr{height:30px;}
+    .STYLE1 {
+        font-size: 12px;
+        font-weight: bold;
+    }
+</style>
+<form name="form1" id="form1" method="POST"  action="__URL__/order_save" enctype='multipart/form-data'>
+    <div class="currentposition">
+        <div>{$cur_menu} > {$cur_title}</div>
+    </div>
+    <div class="addclass">
+        <div class="addtopheight">&nbsp;</div>
+        <table width="100%" class="addsearchClass" id="tableClass" border="0" cellpadding="0" cellspacing="0">
+
+
+
+            <input type="hidden" id="id" name="order_id" value="{$order.order_id}" />
+           <!-- <input type="hidden" id="" name="order_goods_id" value="{$good.id}" />
+-->
+
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">订单号:</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id="" name="order_sn" disabled="disabled" value="{$order.order_sn}" /></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">下单时间:</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id="" name="fstcreate" disabled="disabled" value="{$order.fstcreate}" /></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">收件人:</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id="" name="consignee"  value="{$order.consignee}" /></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">手机号:</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id="" name="mobile"  value="{$order.mobile}" /></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">邮编:</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id="" name="zipcode"  value="{$order.zipcode}" /></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">收货地址:</td>
+                <td width="80%" ><div style="float:left;">
+                   <!-- <input type="text" id="" name="address"  value="{$order.address}" /></div></td>-->
+                    <textarea rows="15" cols="30" name="address">{$order.address}</textarea></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">订单备注:</td>
+                <td width="80%" ><div style="float:left;">
+                    <textarea rows="15" cols="30" name="remark">{$order.remark}</textarea></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">订单状态：</td>
+                <td width="80%" >
+                    <div style="float:left;">
+                        <select name="order_status" id="">
+                            <option value=0 <if condition="$order['order_status'] eq 0 ">selected</if> >有效订单</option>
+                            <option value=1 <if condition="$order['order_status'] eq 1 ">selected</if> >无效订单</option>
+                        </select>
+
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">物流状态：</td>
+                <td width="80%" >
+                    <div style="float:left;">
+                        <select name="shipping_status" id="">
+                            <option value=0 <if condition="$order['shipping_status'] eq '0'">selected</if> >未发货</option>
+                            <option value=1 <if condition="$order['shipping_status'] eq '1' ">selected</if> >已发货</option>
+                        </select>
+
+                    </div>
+                    <if condition="$order['shipping_status'] eq 1">
+                    <div ><input type="button" name="track" id="track" value="查询快递信息"></div>
+                    </if>
+                </td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">物流单号:</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id="" name="tracking_no"  value="{$order.tracking_no}" /></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">物流公司:</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id="" name="logistics"  value="{$order.logistics}" /></div></td>
+            </tr>
+          <!-- <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">运单号:</td>
+                <td width="80%" ><div style="float:left;">{$res.companytype}</div></td>
+                <td width="80%" ><div style="float:left;"><foreach name="res[data]" item="kuailistdata">
+                    {$kuailistdata[location]}，{$kuailistdata[context]}
+                    {$kuailistdata[time]}
+                </foreach></div></td>
+
+            </tr>-->
+            <tr id="node" style="display: none;">
+                <td width="10%" height="30" align="right" class="left_txt2"></td>
+                <td><div style="float:left;" class="order_trace">
+                    <foreach name="res[data]" item="kuailistdata">
+                        <p>{$kuailistdata[location]}，{$kuailistdata[context]} </p>
+                        <p><time>{$kuailistdata[time]}</time></p>
+                    </foreach>
+                </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">发货时间：</td>
+                <td width="80%" ><div style="float:left;"><input id="text2" runat="" type="text" name="delivery_time"  value="{$order.delivery_time}" /></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">运费：</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id="" name="shiping_fee" value="{$order.fee_price}" /></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">商户订单号：</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id="" disabled="disabled" name="trade_no" value="{$order.trade_no}" /></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">微信支付订单号：</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id="" disabled="disabled" name="trade_no" value="{$order.transaction_id}" /></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">付款状态：</td>
+                <td width="80%" >
+                    <div style="float:left;">
+                        <select name="pay_status" id="">
+                            <option value=0 <if condition="$order['pay_status'] eq 0">selected</if> >未付款</option>
+                            <option value=1 <if condition="$order['pay_status'] eq 1 ">selected</if> >已付款</option>
+                        </select>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">支付时间：</td>
+                <td width="80%" ><div style="float:left;"><input id="text2" disabled="disabled" runat="" type="text" name="pay_time"  value="{$order.pay_time}" /></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">产品名称：</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id="" disabled="disabled" name="good_name" value="{$good.goods_name}" /></div></td>
+            </tr>
+
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">市场价格：</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id="" disabled="disabled" name="good_price" value="{$good.market_price}" /></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">产品价格：</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id="" disabled="disabled" name="good_price" value="{$good.goods_price}" /></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">产品数量：</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id="" disabled="disabled" name="good_number" value="{$good.goods_number}" /></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">商品属性：</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id="" disabled="disabled"  name="good_attr" value="{$good.goods_attr}" /></div></td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">流程备注：</td>
+                <td width="80%" ><div style="float:left;"><input type="text" id=""   name="process_remark" value="{$order.process_remark}" /></div></td>
+            </tr>
+
+
+            <tr>
+                <td colspan="2">
+                    <div class="addoperation">
+                        <input type="submit" class="buttonsave" value="保存" name="sub_authority" />
+                        &nbsp;
+                        <input type="reset" class="buttoncancel" value="取消" onclick="javascript:history.go(-1);" name="B12" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+</form>
+

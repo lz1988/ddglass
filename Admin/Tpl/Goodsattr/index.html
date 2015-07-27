@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="author" content="OEdev"/>
+    <script src="__ROOT__/Public/Admin/js/jquery-1.6.js"></script>
+    <script src="__ROOT__/Public/Admin/js/public.js"></script>
+    <link type="text/css" rel="stylesheet" href="__ROOT__/Public/Admin/css/admin.css">
+</head>
+<body>
+<div class="main-wrap">
+    <div class="path"><p>{$cur_menu} > {$res.menu_title}</p></div>
+    <div class="main-cont">
+        <h3 class="title">
+            <a class="btn-general" href="__URL__/add"><span>添加属性</span></a> 商品列表
+        </h3>
+        <div class="search-area ">
+            <form id="" name="formfind" action="" method="GET">
+                <input type="hidden" name="pid" value="{$request.pid}" />
+                <div class="item">
+                    <label>属性分类名称：</label>
+                    <input type="text" size="14" class="input-150" name="goods_name" value=""/>
+                    <label>是否上架：</label>
+                    <select name="is_on_sale">
+                        <option value="">全部</option>
+                        <option value="0">下架</option>
+                        <option value="1">上架</option>
+                    </select>
+                    <input class="button_s" type="submit" name="findsub" value="搜 索"/>
+                </div>
+            </form>
+        </div>
+        <form action="" method="POST" name="orgtype" />
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table" align="center">
+            <thead class="tb-tit-bg">
+            <tr>
+                <th width="5%"><div class="th-gap">属性分类编号</div></th>
+                <th width="20%"><div class="th-gap">属性分类名称</div></th>
+                <th width="10%"><div class="th-gap">属性值</div></th>
+                <!--<th width="10%"><div class="th-gap">邮寄费</div></th>
+                <th width="20%"><div class="th-gap">活动时间</div></th>
+                <th width="10%"><div class="th-gap">是否上架</div></th>
+                <th width="10%"><div class="th-gap">库存</div></th>-->
+                <th width="20%"><div class="th-gap">操作</div></th>
+            </tr>
+            </thead>
+            <tfoot class="tb-foot-bg"></tfoot>
+            <tbody  id="tableClass">
+            <foreach name="res" item="vo">
+                <tr>
+                    <td align="center">{$vo.id}</td>
+                    <td align="center">{$vo.attr_type_value}</td>
+                    <td align="center">
+                        <foreach name="rs" item="vt">
+                            <if condition="$vo['id'] eq $vt['goods_attr_type_id']">
+                                {$vt.goods_attr_type_value}|
+                            </if>
+                        </foreach>
+
+                    </td>
+                    <!-- <td align="center">{$name.fee_price}</td>
+                     <td align="center">{$name.start_release_time}到{$name.end_release_time}</td>-->
+                    <!--<td align="center">
+                        <if condition="($name['is_on_sale'] eq '1')">
+                            <img id="flag8" alt="上架" src="__ROOT__/Public/Admin/images/yes.gif" onclick="javascript:sale_ajax('0', '{$name.goods_id}', this);" style="cursor:pointer;"/>
+                            <else/>
+                            <img id="flag8" alt="下架" src="__ROOT__/Public/Admin/images/no.gif" onclick="javascript:sale_ajax('1', '{$name.goods_id}', this);" style="cursor:pointer;">
+                        </if>
+                    </td>-->
+
+                    <td align="center">
+                        <a href="__URL__/edit/?id={$vo.id}" class="icon-edit" {$message_edit}>编辑</a>
+                        &nbsp;
+                        <a href="__URL__/del?id={$vo.id}" class="icon-del" >删除</a>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+            <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin-top:10px;">
+                <tbody><tr>
+                    <td align="center" class="page">{$page}</td>
+                </tr>
+                </tbody>
+            </table>
+            </form>
+    </div>
+</div>
+<script type="text/javascript">
+    function sale_ajax(status, goods_id, flg) {
+        if (status !== "") {
+            $.ajax({
+                url: "__URL__/is_on_sale_ajax?status=" + status + "&goods_id=" + goods_id,
+                type: "get",
+                dataType: "json",
+                success: function(data) {
+                    if (data == true) {
+                        var f = $(flg).attr("src");
+                        if (f == "/Public/Admin/images/yes.gif") {
+                            $(flg).attr("src", "/Public/Admin/images/no.gif");
+                        }
+                        if (f == "/Public/Admin/images/no.gif") {
+                            $(flg).attr("src", "/Public/Admin/images/yes.gif");
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+</body>
+</html>

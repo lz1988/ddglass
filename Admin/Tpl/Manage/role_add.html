@@ -1,0 +1,44 @@
+<link href="__ROOT__/Public/Admin/css/list.css" rel="stylesheet" type="text/css" />
+<script src="__ROOT__/Public/Admin/js/jquery-1.6.js" type="text/javascript"></script> 
+<script src="__ROOT__/Public/Admin/js/formvalidator/formValidator-4.1.1.js" type="text/javascript" charset="UTF-8"></script> 
+<script src="__ROOT__/Public/Admin/js/manage/role_add.js" type="text/javascript" charset="UTF-8"></script>
+<script type="text/javascript"> 
+</script> 
+<div class="currentposition">
+    <div>{$cur_menu}</div>
+</div>
+<div class="addclass">
+<div class="addtopheight">&nbsp;</div>
+<table width="100%" class="addsearchClass" border="0" cellpadding="0" cellspacing="0">   
+<form name="form1" method="POST" id="form1"  action=""> 
+   <input type="hidden" name="role_id" value="{$arr[0]['role_id']}" />
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>角色名称：</td>
+       <td width="80%" >
+          <div style="float:left;"><input type="text" id="role_name" name="role_name" value="{$arr[0]['role_name']}" /></div>
+          <div class="note" style="float:left;" id="role_nameTip">*</div> 
+       </td>
+   </tr>  
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2"></td>
+       <td width="80%" valign="top"> 
+          <div class="note">输入4-20个字符，支持中文、字母、数字</div>
+       </td>
+   </tr> 
+   <tr>
+       <td height="10" align="right" class="left_txt2">说明：</td>
+       <td><textarea name="desc" class="textarea" cols="70" rows="5" > {$arr[0]['desc']}</textarea></td>
+   </tr> 
+   <tr>
+       <td colspan="2">
+          <div class="addoperation">
+          <input type="submit" class="buttonsave" value="保存" name="sub_authority" />
+          &nbsp;
+          <input type="reset" class="buttoncancel" value="取消" onclick="javascript:history.go(-1);" name="B12" />
+          </div>
+       </td> 
+   </tr>
+</form>
+</table>
+<div>&nbsp;</div>
+</div>

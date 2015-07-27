@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="author" content="OEdev"/>
+    <script src="__ROOT__/Public/Admin/js/jquery-1.6.js"></script>
+    <script src="__ROOT__/Public/Admin/js/public.js"></script>
+    <link type="text/css" rel="stylesheet" href="__ROOT__/Public/Admin/css/admin.css">
+</head>
+<body>
+<div class="main-wrap">
+    <div class="path"><p>{$cur_menu} > {$res.menu_title}</p></div>
+    <div class="main-cont">
+        <h3 class="title">
+            <a class="btn-general" href="__URL__/add"><span>添加商品</span></a> 商品列表
+        </h3>
+        <div class="search-area ">
+            <form id="" name="formfind" action="" method="GET">
+                <input type="hidden" name="pid" value="{$request.pid}" />
+                <div class="item">
+                    <label>商品名称：</label>
+                    <input type="text" size="14" class="input-150" name="product_name" value=""/>
+                    <label>是否上架：</label>
+                    <select name="is_on_sale">
+                        <option value="">全部</option>
+                        <option value="0">下架</option>
+                        <option value="1">上架</option>
+                    </select>
+                    <input class="button_s" type="submit" name="findsub" value="搜 索"/>
+                </div>
+            </form>
+        </div>
+        <form action="" method="POST" name="orgtype" />
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table" align="center">
+            <thead class="tb-tit-bg">
+            <tr>
+                <th width="5%"><div class="th-gap">商品编号</div></th>
+                <th width="20%"><div class="th-gap">商品名称</div></th>
+                <th width="10%"><div class="th-gap">价格</div></th>
+                <th width="10%"><div class="th-gap">邮寄费</div></th>
+                <th width="20%"><div class="th-gap">活动时间</div></th>
+                <th width="10%"><div class="th-gap">是否上架</div></th>
+                <th width="10%"><div class="th-gap">库存</div></th>
+                <th width="20%"><div class="th-gap">操作</div></th>
+            </tr>
+            </thead>
+            <tfoot class="tb-foot-bg"></tfoot>
+            <tbody  id="tableClass">
+            <foreach name="goods_list" item="name">
+                <tr>
+                    <td align="center">{$name.product_id}</td>
+                    <td align="center">{$name.product_name}</td>
+                    <td align="center">{$name.shop_price}</td>
+                    <td align="center">{$name.fee_price}</td>
+                    <td align="center">{$name.start_release_time}到{$name.end_release_time}</td>
+                    <td align="center">
+                        <if condition="($name['is_on_sale'] eq '0')">
+                            <img id="flag8" alt="上架" src="__ROOT__/Public/Admin/images/yes.gif" onclick="javascript:sale_ajax('0', '{$name.product_id}', this);" style="cursor:pointer;"/>
+                            <else/>
+                            <img id="flag8" alt="下架" src="__ROOT__/Public/Admin/images/no.gif" onclick="javascript:sale_ajax('1', '{$name.product_id}', this);" style="cursor:pointer;">
+                        </if>
+                    </td>
+                    <td align="center">{$name.product_stock}</td>
+                    <td align="center">
+                        <a href="__URL__/product_edit?id={$name.product_id}" class="icon-edit" {$message_edit}>编辑</a>
+                        &nbsp;
+                        <a {$message_del} href="__URL__/del?id={$name.goods_id}" onclick="{
+                        if (confirm( & #39; 确定要删除吗？一旦删除无法恢复！ & #39; )){
+                        return true;
+                        }
+                        return false;
+                        }" class="icon-del" <?php if(in_array($name['id'],$notdel) OR $notdel=='ALL'){echo "style='display:none;'";} ?>>删除</a>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+            <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin-top:10px;">
+                <tbody><tr>
+                    <td align="center" class="page">{$page}</td>
+                </tr>
+                </tbody>
+            </table>
+            </form>
+    </div>
+</div>
+<script type="text/javascript">
+    function sale_ajax(status, goods_id, flg) {
+        if (status !== "") {
+            $.ajax({
+                url: "__URL__/is_on_sale_ajax?status=" + status + "&goods_id=" + goods_id,
+                type: "get",
+                dataType: "json",
+                success: function(data) {
+                    if (data == true) {
+                        var f = $(flg).attr("src");
+                        if (f == "/Public/Admin/images/yes.gif") {
+                            $(flg).attr("src", "/Public/Admin/images/no.gif");
+                        }
+                        if (f == "/Public/Admin/images/no.gif") {
+                            $(flg).attr("src", "/Public/Admin/images/yes.gif");
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+</body>
+</html>

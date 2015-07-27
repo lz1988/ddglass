@@ -1,0 +1,286 @@
+<meta charset="utf-8" />
+<link href="__ROOT__/Public/Admin/css/list.css" rel="stylesheet" type="text/css" />
+<script src="__ROOT__/Public/Admin/js/jquery-1.6.js" type="text/javascript"></script>
+<script src="__ROOT__/Public/Admin/js/DatePicker/WdatePicker.js" type="text/javascript"></script> 
+    <link rel="stylesheet" href="__ROOT__/Public/Admin/kindeditor/themes/default/default.css" />
+	<link rel="stylesheet" href="__ROOT__/Public/Admin/kindeditor/plugins/code/prettify.css" />
+	<script charset="utf-8" src="__ROOT__/Public/Admin/kindeditor/kindeditor.js"></script>
+	<script charset="utf-8" src="__ROOT__/Public/Admin/kindeditor/lang/zh_CN.js"></script>
+	<script charset="utf-8" src="__ROOT__/Public/Admin/kindeditor/plugins/code/prettify.js"></script>
+<script src="__ROOT__/Public/Admin/js/formvalidator/formValidator-4.1.1.js" type="text/javascript" charset="UTF-8"></script> 
+<script src="__ROOT__/Public/Admin/js/message/message_add.js" type="text/javascript" charset="UTF-8"></script>
+<script src="__ROOT__/Public/Admin/js/game/jscolor.js"></script> 
+<script type="text/javascript">
+/* 
+说明：ajax文件上传 begin
+*/
+var ajaxFileUpload = function(opts){
+return new ajaxFileUpload.prototype.init(opts);
+};
+ajaxFileUpload.prototype = {
+init:function(opts){
+    var set = this.extend({
+        url:'__APP__/Common/upload/New/n/',//路径+模块名+图片保存文件夹名字+方法名+图片首字母+大小+
+        id:'fileId',
+        callback:function(){}
+    },opts || {});
+    var _this = this;
+    var id = +new Date();
+    var form = this.createForm(id),frame = this.createIframe(id,set.url);
+    var oldFile = document.getElementById(set.id)
+    var newFile = oldFile.cloneNode(true);
+    var fileId = 'ajaxFileUploadFile'+id;
+    oldFile.setAttribute('id',fileId);
+    oldFile.parentNode.insertBefore(newFile,oldFile);
+    form.appendChild(oldFile);//注意浏览器安全问题，要将原文件域放到创建的form里提交
+    form.setAttribute('target',frame.id);//将form的target设置为iframe,这样提交后返回的内容就在iframe里
+    form.setAttribute('action',set.url);
+    setTimeout(function(){
+        form.submit();
+        if(frame.attachEvent){
+            frame.attachEvent('onload',function(){_this.uploadCallback(id,set.callback);});
+        }else{
+            frame.onload = function(){_this.uploadCallback(id,set.callback);}
+        }
+    },100);
+},
+/*
+    创建iframe，ie7和6比较蛋疼，得像下面那样创建，否则会跳转
+*/
+createIframe:function(id,url){
+    var frameId = 'ajaxFileUploadFrame'+id,iFrame;
+    var IE = /msie ((\d+\.)+\d+)/i.test(navigator.userAgent) ? (document.documentMode ||  RegExp['\x241']) : false,
+    url = url || 'javascript:false';
+    if(IE && IE < 8){
+        iFrame = document.createElement('<iframe id="' + frameId + '" name="' + frameId + '" />');
+        iFrame.src = url;
+    }else{
+        iFrame = document.createElement('iframe');
+        this.attr(iFrame,{
+            'id':frameId,
+            'name':frameId,
+            'src':url
+        });
+    };
+    iFrame.style.cssText = 'position:absolute; top:-9999px; left:-9999px';
+    return document.body.appendChild(iFrame);
+},
+/*
+    创建form
+*/
+createForm:function(id){
+    var formId = 'ajaxFileUploadForm'+id;
+    var form = document.createElement('form');
+    this.attr(form,{
+        'action':'',
+        'method':'POST',
+        'name':formId,
+        'id':formId,
+        'enctype':'multipart/form-data',
+        'encoding':'multipart/form-data'
+    });
+    form.style.cssText = 'position:absolute; top:-9999px; left:-9999px';
+    return document.body.appendChild(form);  
+},
+/*
+    获取iframe内容，执行回调函数，并移除生成的iframe和form
+*/
+uploadCallback:function(id,callback){
+    var frame = document.getElementById('ajaxFileUploadFrame'+id),form = document.getElementById('ajaxFileUploadForm'+id);data = {};
+    var db = document.body;
+    try{
+        if(frame.contentWindow){
+            data.responseText = frame.contentWindow.document.body ? frame.contentWindow.document.body.innerHTML : null;
+            data.responseXML = frame.contentWindow.document.XMLDocument ? frame.contentWindow.document.XMLDocument : frame.contentWindow.document;
+        }else{
+            data.responseText = frame.contentDocument.document.body ? frame.contentDocument.document.body.innerHTML : null;
+            data.responseXML = frame.contentDocument.document.XMLDocument ? frame.contentDocument.document.XMLDocument : frame.contentDocument.document;
+        }
+    }catch(e){};
+    callback && callback.call(data);
+    setTimeout(function(){
+        db.removeChild(frame);
+        db.removeChild(form);
+    },100);
+},
+attr:function(el,attrs){
+    for(var prop in attrs) el.setAttribute(prop,attrs[prop]);
+    return el;
+},
+extend:function(target,source){
+    for(var prop in source) target[prop] = source[prop];
+    return target;
+}
+};
+ajaxFileUpload.prototype.init.prototype = ajaxFileUpload.prototype;
+/* 
+说明：ajax文件上传 end
+*/
+
+   KindEditor.ready(function(K) {
+			var editor1 = K.create('textarea[name="content"]', {
+				cssPath : '__ROOT__/Public/Admin/kindeditor/plugins/code/prettify.css',
+				uploadJson : '__ROOT__/Public/Admin/kindeditor/php/upload_json.php',
+				fileManagerJson : '__ROOT__/Public/Admin/kindeditor/php/file_manager_json.php',
+				allowFileManager : true,
+				afterBlur : function() {
+				this.sync();
+				K.ctrl(document, 13, function() {
+				K('form[name=myform]')[0].submit();
+				});
+				K.ctrl(this.edit.doc, 13, function() {
+				K('form[name=myform]')[0].submit();
+				});
+				}
+			});
+			prettyPrint();
+		});
+		
+    
+    function upsmall_icon(imgName){
+		 $("#updiv1show").show();
+	     $("#updiv1hid").hide(); 
+	}
+
+	function upsmall_large(imgName){
+		 $("#updiv2show").show(); 
+	     $("#updiv2hid").hide();
+	}
+ 
+	function fontbold(){
+		$("[name='bold']:checkbox").each(function() { 
+			if (this.checked == true) { 
+			    $("#title").css('font-weight','bold');
+		    }else{
+		    	$("#title").css('font-weight','');
+		    }
+		});
+		
+	}
+	
+	function set_color(color){
+		if(color!=''){
+			$("#title").css('color','#'+color);
+		}else{
+			$("#bgcolor").val('');
+		}
+	}
+</script>
+<div class="currentposition">
+    <div>{$cur_menu} > {$cur_title}</div>
+</div>
+<div class="addclass">
+<div class="addtopheight">&nbsp;</div>
+<table width="100%" class="addsearchClass" border="0" cellpadding="0" cellspacing="0">   
+<form name="upload" id="upload" method="POST" onsubmit="return check_from()" action="" enctype="multipart/form-data"> 
+   <input type="hidden" name="id" value="{$arr[0]['id']}" />
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>资讯栏目：</td>
+       <td width="80%" > 
+          <div style="float:left;"><select name="type_id" id="type_id">
+             <option value="" >--请选择--</option>
+             <foreach name="newstypearr" item="name">
+             <option value="{$name.type_id}" <if condition="$name.type_id eq $arr[0]['type_id']">selected</if>>{$name.type_name}</option>
+             </foreach>
+          </select> </div>
+          <div class="note" style="float:left;" id="type_idTip">*</div>
+       </td>
+   </tr>
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>标题：</td>
+       <td width="80%" ><div style="float:left;"><input type="text" id="title" size="50" name="title" value="{$arr[0]['title']}" /></div><div class="note" style="float:left;" id="title2Tip"></div>
+       </td>
+   </tr>
+    
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">缩略图：</td>
+       <td width="80%" >
+         <div id="updiv1show" {$updivisshow}>
+          <input type="file" name="images" id="images" />&nbsp;
+          <input type="hidden" name="icon" value="{$arr[0]['icon']}" id="icon" />
+          <input type="button" name="buttonupload" id="fileId" class="buttonupload" value="上传"/><span class="note">(*支持:jpg,gif,png,jpeg.如果需要其它类型请联系开发人员)</span>
+           </div>
+           <div id="updiv1hid" {$updivishide} >
+              <img src="{$arr[0]['icon2']}" id="upimage1" width="200" />
+              <input type="button" name="" class="buttondel" onclick="upsmall_icon('{$arr[0]['icon']}')" id="" value="修改" /> 
+           </div>  
+       </td>
+   </tr>
+   <tr>
+       <td height="10" align="right" class="left_txt2">URL：</td>
+       <td><input type="text" value="{$arr[0]['news_url']}" name="news_url" id="news_url" size="60"/><span class="note">(注意：如果URL不为空，就以谁图片的URL为准)</span></td>
+   </tr>
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">排序：</td>
+       <td width="80%" ><div style="float:left;"><input type="text" class="textcenter" id="sort_order" size="3" name="sort" value="{$arr[0]['sort']}" /></div><div class="note" style="float:left;" id="sort_orderTip">(*数值越小，位置越靠前)</div></td>
+   </tr>
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">时间：</td>
+       <td width="80%" ><input type="text" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" size="20" class="Wdate" id="create_time" name="create_time" value="{$arr[0]['create_time']|date='Y-m-d H:i:s',###}" />&nbsp;&nbsp;<!--{$update}--></td>
+   </tr>
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">关键词：</td>
+       <td width="80%" ><input type="text" id="seo_key" name="seo_key" size="60" value="{$arr[0]['seo_key']}" /></td>
+   </tr>
+   <tr>
+       <td height="10" align="right" class="left_txt2">描述：</td>
+       <td><textarea name="seo_desc" class="textarea" cols="70" rows="5" > {$arr[0]['seo_desc']}</textarea></td>
+   </tr>
+   
+   <tr>
+       <td  > </td>
+       <td> </td>
+   </tr>
+   <tr>
+       <td height="10" align="right" class="left_txt2"><span class="must">*</span>内容：</td>
+       <td><div style="float:left;"><textarea name="content" id="content" class="textarea" style="width:700px;height:400px;visibility:hidden;" > {$arr[0]['content']}</textarea></div><div class="note" style="float:left;" id="contentTip">*</div></td>
+   </tr>
+   <tr>
+       <td height="10" align="right" class="left_txt2">推荐到：</td>
+       <td>
+           <input type="checkbox" name="is_home" <if condition="1 eq $arr[0]['is_home']">checked</if> value="1" id="is_home" />首页展示&nbsp;&nbsp;&nbsp;&nbsp; 
+       </td>
+   </tr>
+   <tr>
+       <td height="10" align="right" class="left_txt2">状态：</td>
+       <td>
+           <input type="radio" name="status" <if condition="'0' eq $arr[0]['status']">checked</if> value="0" id="status" />关闭&nbsp;&nbsp;&nbsp;&nbsp;
+           <input type="radio" name="status" <if condition="($arr[0]['status'] eq '1') OR ($arr[0]['status'] eq '')">checked</if> value="1" id="status" />开启
+       </td>
+   </tr>
+   <tr>
+       <td colspan="2">
+          <div class="addoperation">
+          <input type="submit" class="buttonsave" value="保存" name="sub_authority" />
+          &nbsp;
+          <input type="reset" class="buttoncancel" value="取消" onclick="javascript:history.go(-1);" name="B12" />
+          </div>
+       </td> 
+   </tr>
+</form>
+</table>
+<div>&nbsp;</div>
+</div>
+<script>  
+var btn = document.getElementById('fileId');
+btn.onclick = function(){
+	if($("#images").val()==""){
+		alert("你没有选择要上传的图片");
+		return;
+	}
+    ajaxFileUpload({
+        id:'images',
+        callback:function(){
+                var src = this.responseText;  
+                $("#upimage1").attr("src","{$newimgurl}"+src); 
+                $("#updiv1show").hide();
+                $("#icon").val(src);
+                $("#updiv1hid").show(); 
+        }
+    });    
+}
+
+$(function(){
+  setTimeout("show()",500);
+});
+</script>

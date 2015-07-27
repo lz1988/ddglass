@@ -1,0 +1,108 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+         <link type="text/css" rel="stylesheet" href="__ROOT__/Public/Admin/css/admin.css"> 
+    </head>
+    <!--<style type="text/css"> 
+         .selectItemcont{padding-left:10px}
+         #selectItem{background:#FFF;position:absolute;top:0px;left:center;border:1px solid #000;overflow:hidden;width:240px;z-index:1000;}
+         #selectItem2{background:#FFF;position:absolute;top:0px;left:center;border:1px solid #000;overflow:hidden;width:240px;z-index:1000;}
+         .selectItemtit{line-height:20px;height:20px;margin:1px;padding-left:12px;}
+         .bgc_ccc{background:#E88E22;}
+         .selectItemleft{float:left;margin:0px;padding:0px;font-size:12px;font-weight:bold;color:#fff;}
+         .selectItemright{float:right;cursor:pointer;color:#fff;}
+         .selectItemcls{clear:both;font-size:0px;height:0px;overflow:hidden;}
+         .selectItemhidden{display:none;}
+         #selectSub div{
+             height: 30px;
+             line-height:30px;
+         }
+         #selectSub div:hover{
+             background-color:  #929292
+         }**-->
+</style> 
+<body>
+    <div class="main-wrap">
+        <div class="path">
+            <p>{$cur_menu} > {$res.menu_title}</p>
+        </div>
+        <div class="main-cont">
+            <div class="search-area ">
+                <form method="GET" action="__URL__/caiji/" name="frmcaiji">
+                    <div class="item">
+                        <label>地区：</label>
+                        <input type="text"  value="" name="region" class="input-150" size="10"/>
+                        <input type="submit" value="开始采集" name="findsub" class="button_s"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--        <div id="selectItem" class="selectItemhidden"> 
+                <div id="selectItemAd" class="selectItemtit bgc_ccc"> 
+                    <h2 id="selectItemTitle" class="selectItemleft">请选择城市</h2> 
+                    <div id="selectItemClose" class="selectItemright">关闭</div>
+                </div> 
+                <div id="selectItemCount" class="selectItemcont"> 
+                    <div id="selectSub"><ul class="menu_area"></ul> 
+    
+                    </div> 
+                </div> 
+            </div> -->
+
+</body>
+<script type="text/javascript">
+//        jQuery.fn.selectCity = function(targetId) {
+//            var _seft = this;
+//            var targetId = $(targetId);
+//            var send = function() {
+//                $.ajax({
+//                    type: "get",
+//                    url: "__URL__/getXmlArea",
+//                    data: {rank: 0},
+//                    dataType: "json",
+//                    success: function(obj) {
+//                        var str = "";
+//                        for (var i = 0; i < obj.length; i++) {
+//                            str += '<li>'+obj[i]+'<ul class="menu_area_city"></ul></li>';
+//                        }
+//                        $(".menu_area").html(str);
+//                    },
+//                    error: function() {
+//
+//                    }
+//                });
+//            };
+//            this.click(function() {
+//                var A_top = $(this).offset().top + $(this).outerHeight(true); //  1
+//                var A_left = $(this).offset().left;
+//                send();
+//                targetId.show().css({"position": "absolute", "top": A_top + "px", "left": A_left + "px"});
+//            });
+//            targetId.find("#selectItemClose").click(function() {
+//                targetId.hide();
+//            });
+//            targetId.find("#selectSub :checkbox").click(function() {
+//                targetId.find(":checkbox").attr("checked", false);
+//                $(this).attr("checked", true);
+//                _seft.val($(this).val());
+//                targetId.hide();
+//            });
+//            $(document).click(function(event) {
+//                if (event.target.id !== _seft.selector.substring(1)) {
+//                    targetId.hide();
+//                }
+//            });
+//            targetId.click(function(e) {
+//                e.stopPropagation(); //  2
+//            });
+//            return this;
+//        };
+//        $("#region").selectCity("#selectItem");
+
+
+
+</script> 
+</html>
+

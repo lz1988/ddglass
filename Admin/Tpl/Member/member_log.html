@@ -1,0 +1,63 @@
+<script src="__ROOT__/Public/Admin/js/jquery-1.6.js"></script>
+<script src="__ROOT__/Public/Admin/js/list.js"></script> 
+<script src="__ROOT__/Public/Admin/js/DatePicker/WdatePicker.js" type="text/javascript"></script>
+<link href="__ROOT__/Public/Admin/css/list.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+function check_all(){
+   obj = document.getElementsByName("user_id[]");
+	  for( i=0; i<obj.length; i++)
+	  {
+	  	obj[i].checked = obj[i].checked ? false : true;
+	  }     
+}
+function check_from(type,url){ 
+	if (confirm("您确定要"+type+"所选记录吗？")){
+		document.orgtype.action=url; 
+		document.orgtype.submit(); 
+	}
+}
+function del_info(name){
+	if (confirm("您确定要删除名字为--'"+name+"'--的会员吗？")){ 
+		return true;
+	}else{
+		return false;
+	}
+}  
+function getSelectEditValue(){
+		var $select = $('select[data]');
+		if( $select.length > 0){
+			$select.each(function(){
+				$(this).val( $(this).attr('data') );
+			})
+		}//if
+	};
+window.onload = function(){ 
+	getSelectEditValue();
+}  
+</script> 
+<div class="addconten">
+   <div>会员操作日志</div> 
+</div>
+<div class="currentposition">
+   <!-- <div><a  href="__APP__/Index/home/"/>后台管理</a> >> 会员管理</div>-->
+</div>
+<table class="tableClass" width="100%" id="tableClass" border="0" cellspacing="1" > 
+       <tr bgcolor="#cccccc" style="font-weight:bold;">
+          <td width="3%" align="center">用户名</td>
+          <td width="8%" align="center">操作</td>
+          <td width="10%" align="center">时间</td>
+          <td width="4%" align="center">IP</td> 
+       </tr> 
+       <volist name="userLog" id="item">
+       <tr id="div_{$name.game_id}">
+          <td align="center">{:getUserNameByID($item['user_id'])}</td> 
+          <td align="center">{$item['action']}</td> 
+          <td align="center">{$item['action_time']|date='Y-m-d H:i:s',###}</td> 
+          <td align="center">{$item['action_ip']}</td>  
+       </tr>
+       </volist>
+</table> 
+<div class="deluppage">
+     
+	  <div class="page">{$page}</div>
+</div> 

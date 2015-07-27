@@ -1,0 +1,290 @@
+<link href="__ROOT__/Public/Admin/css/list.css" rel="stylesheet" type="text/css" />
+<script src="__ROOT__/Public/Admin/js/jquery-1.6.js" type="text/javascript"></script> 
+<script src="__ROOT__/Public/Admin/js/formvalidator/formValidator-4.1.1.js" type="text/javascript" charset="UTF-8"></script> 
+<script src="__ROOT__/Public/Admin/js/message/messagetype_add.js" type="text/javascript" charset="UTF-8"></script>
+<script src="__ROOT__/Public/Admin/js/manage/site_config.js" type="text/javascript" charset="UTF-8"></script>
+<script src="__ROOT__/Public/Admin/js/list.js" type="text/javascript" charset="UTF-8"></script>
+<script language="javascript">
+/* 
+说明：ajax文件上传 begin
+*/
+var ajaxFileUpload = function(opts){
+return new ajaxFileUpload.prototype.init(opts);
+};
+ajaxFileUpload.prototype = {
+init:function(opts){
+    var set = this.extend({
+        url:'__APP__/Common/upload/site_config/c/',//路径+模块名+图片保存文件夹名字+方法名+图片首字母+大小+
+        id:'fileId',
+        callback:function(){}
+    },opts || {});
+    var _this = this;
+    var id = +new Date();
+    var form = this.createForm(id),frame = this.createIframe(id,set.url);
+    var oldFile = document.getElementById(set.id)
+    var newFile = oldFile.cloneNode(true);
+    var fileId = 'ajaxFileUploadFile'+id;
+    oldFile.setAttribute('id',fileId);
+    oldFile.parentNode.insertBefore(newFile,oldFile);
+    form.appendChild(oldFile);//注意浏览器安全问题，要将原文件域放到创建的form里提交
+    form.setAttribute('target',frame.id);//将form的target设置为iframe,这样提交后返回的内容就在iframe里
+    form.setAttribute('action',set.url);
+    setTimeout(function(){
+        form.submit();
+        if(frame.attachEvent){
+            frame.attachEvent('onload',function(){_this.uploadCallback(id,set.callback);});
+        }else{
+            frame.onload = function(){_this.uploadCallback(id,set.callback);}
+        }
+    },100);
+},
+/*
+    创建iframe，ie7和6比较蛋疼，得像下面那样创建，否则会跳转
+*/
+createIframe:function(id,url){
+    var frameId = 'ajaxFileUploadFrame'+id,iFrame;
+    var IE = /msie ((\d+\.)+\d+)/i.test(navigator.userAgent) ? (document.documentMode ||  RegExp['\x241']) : false,
+    url = url || 'javascript:false';
+    if(IE && IE < 8){
+        iFrame = document.createElement('<iframe id="' + frameId + '" name="' + frameId + '" />');
+        iFrame.src = url;
+    }else{
+        iFrame = document.createElement('iframe');
+        this.attr(iFrame,{
+            'id':frameId,
+            'name':frameId,
+            'src':url
+        });
+    };
+    iFrame.style.cssText = 'position:absolute; top:-9999px; left:-9999px';
+    return document.body.appendChild(iFrame);
+},
+/*
+    创建form
+*/
+createForm:function(id){
+    var formId = 'ajaxFileUploadForm'+id;
+    var form = document.createElement('form');
+    this.attr(form,{
+        'action':'',
+        'method':'POST',
+        'name':formId,
+        'id':formId,
+        'enctype':'multipart/form-data',
+        'encoding':'multipart/form-data'
+    });
+    form.style.cssText = 'position:absolute; top:-9999px; left:-9999px';
+    return document.body.appendChild(form);  
+},
+/*
+    获取iframe内容，执行回调函数，并移除生成的iframe和form
+*/
+uploadCallback:function(id,callback){
+    var frame = document.getElementById('ajaxFileUploadFrame'+id),form = document.getElementById('ajaxFileUploadForm'+id);data = {};
+    var db = document.body;
+    try{
+        if(frame.contentWindow){
+            data.responseText = frame.contentWindow.document.body ? frame.contentWindow.document.body.innerHTML : null;
+            data.responseXML = frame.contentWindow.document.XMLDocument ? frame.contentWindow.document.XMLDocument : frame.contentWindow.document;
+        }else{
+            data.responseText = frame.contentDocument.document.body ? frame.contentDocument.document.body.innerHTML : null;
+            data.responseXML = frame.contentDocument.document.XMLDocument ? frame.contentDocument.document.XMLDocument : frame.contentDocument.document;
+        }
+    }catch(e){};
+    callback && callback.call(data);
+    setTimeout(function(){
+        db.removeChild(frame);
+        db.removeChild(form);
+    },100);
+},
+attr:function(el,attrs){
+    for(var prop in attrs) el.setAttribute(prop,attrs[prop]);
+    return el;
+},
+extend:function(target,source){
+    for(var prop in source) target[prop] = source[prop];
+    return target;
+}
+};
+ajaxFileUpload.prototype.init.prototype = ajaxFileUpload.prototype;
+/* 
+说明：ajax文件上传 end
+*/
+
+function upsmall_icon(imgName){
+	 $("#upload_div").show();
+     $("#updiv1hid").hide(); 
+}
+
+function kkdd(){
+	$('#small_icon_div_url').show();
+	$('#upload_div').hide();
+}
+ 
+</script>
+<div class="currentposition">
+    <div>{$cur_menu} > {$cur_title}</div>
+</div>
+<div class="addclass">
+<div class="addtopheight">&nbsp;</div>
+<table width="100%" class="addsearchClass" border="0" cellpadding="0" cellspacing="0">   
+<form name="form1" method="POST" id="form1"  action=""> 
+   <input type="hidden" name="id" value="{$arr['id']}" />
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>站点名称：</td>
+       <td width="80%" >
+          <div style="float:left;"><input type="text" id="site_title" name="site_title" value="{$arr['site_title']}" /></div>
+          <div class="note" style="float:left;" id="type_nameTip">*名称控制在60个字符内</div>
+       </td>
+   </tr>  
+	
+   <!--SEO-->
+   <!--
+      <tr>
+       <td height="10" align="right" class="left_txt2">关键词：</td>
+       <td><textarea name="site_keywords" class="textarea" cols="70" rows="2" > {$arr['site_keywords']}</textarea></td>
+   </tr>
+   
+         <tr>
+       <td height="10" align="right" class="left_txt2">关键词描述：</td>
+       <td><textarea name="site_description" class="textarea" cols="70" rows="2" > {$arr['site_description']}</textarea></td>
+   </tr>
+   -->
+
+   
+	<tr>
+		<td width="10%" height="80" align="right" class="left_txt2"><span style="color:red">*</span>网站logo：</td>
+       <td width="80%" >
+           <div id="upload_div" {$updivisshow}>
+             <input type="file" name="header" id="header" />
+             <input type="hidden" name="header_img" value="{$arr['header_img']}" id="header_img" />
+             <input type="button" name="buttonupload" id="buttonupload" class="buttonupload" value="上传" />
+             <input type="button" value="url" onclick="kkdd()"/>
+           </div>
+           <div id="updiv1hid" {$updivishide}>
+              <img src="{$headerimgurl}{$arr['header_img']}" id="upimage" width="200" height="50" /> 
+              <input type="button" name="" class="buttondel" onclick="upsmall_icon('{$arr['small_icon']}')" id="" value="修改" />
+           </div>
+		     
+		   <div id="small_icon_div_url" style="display:none;">
+				url：<input type="text" name="head_img_url" onblur="$('#header_img').val(this.value)" size="25" value="{$arr['header_img']}" id="head_img_url" />（手动输入站内图片名）
+					 <input type="button" value="上传" onclick="document.getElementById('header_img').value = document.getElementById('head_img_url').value;  
+				 document.getElementById('small_icon_div_url').style.display='none'; 
+				 document.getElementById('upload_div').style.display='block'"/>
+		   </div>
+		   
+       </td>
+	</tr>
+   
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>网站域名：</td>
+       <td width="80%" >
+          <div style="float:left;"><input type="text" size="40" id="header_img_link" name="header_img_link" value="{$arr['header_img_link']}" /></div>
+          <div class="note" style="float:left;" id="header_img_linkTip">*</div>
+       </td>
+   </tr> 
+   
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2"><span class="must"></span>分页数：</td>
+       <td width="80%" >
+          <div style="float:left;"><input type="text" size="5" id="page_num" name="page_num" value="{$arr['page_num']}" /></div>
+          <div class="note" style="float:left;" id="page_numTip">*每页显示多少条数据</div>
+       </td>
+   </tr> 
+   
+   <tr>
+       <td height="10" align="right" class="left_txt2">允许登陆IP：</td>
+       <td>
+       <div style="float:left;"><textarea name="allow_ip" class="textarea" cols="60" rows="3" >{$arr['allow_ip']}</textarea></div>
+       <div class="note" style="float:left;" id="allow_ipTip">*注意:空则为任何IP都可以登陆,否则只允许输入的IP登陆,多个IP请以逗号隔开  如：172.0.0.0,192.1.1.1  </div>
+       </td>
+   </tr>
+  
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2"><span class="must"></span>主机地址：</td>
+       <td width="80%" >
+          <div style="float:left;"><input type="text" size="20" id="db_host" name="db_host" value="{$arr['db_host']}" /></div>
+          <div class="note" style="float:left;" id="page_numTip">*本机是：localhost或127.0.0.1</div>
+       </td>
+   </tr>
+   
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2"><span class="must"></span>数据库名：</td>
+       <td width="80%" >
+          <div style="float:left;"><input type="text" size="20" id="db_name" name="db_name" value="{$arr['db_name']}" /></div>
+          <div class="note" style="float:left;" id=".addclass textareaTip">*</div>
+       </td>
+   </tr>
+   
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2"><span class="must"></span>数据库用户名：</td>
+       <td width="80%" >
+          <div style="float:left;"><input type="text" size="20" id="db_user" name="db_user" value="{$arr['db_user']}" /></div>
+          <div class="note" style="float:left;" id="page_numTip">* </div>
+       </td>
+   </tr>
+   
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2"><span class="must"></span>数据库密码：</td>
+       <td width="80%" >
+          <div style="float:left;"><input type="text" size="20" id="db_pwd" name="db_pwd" value="{$arr['db_pwd']}" /></div>
+          <div class="note" style="float:left;" id="page_numTip">* </div>
+       </td>
+   </tr>
+   
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2"><span class="must"></span>端口：</td>
+       <td width="80%" >
+          <div style="float:left;"><input type="text" size="20" id="db_port" name="db_port" value="{$arr['db_port']}" /></div>
+          <div class="note" style="float:left;" id="page_numTip">* </div>
+       </td>
+   </tr>
+   
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2"><span class="must"></span>表前缀：</td>
+       <td width="80%" >
+          <div style="float:left;"><input type="text" size="20" id="db_prefix" name="db_prefix" value="{$arr['db_prefix']}" /></div>
+          <div class="note" style="float:left;" id="page_numTip">* </div>
+       </td>
+   </tr>
+   
+   <tr>
+       <td colspan="2">
+          <div class="addoperation">
+          <input type="submit" class="buttonsave" value="保存" name="sub_authority" />
+          &nbsp;
+          <input type="reset" class="buttoncancel" value="取消" onclick="javascript:history.go(-1);" name="B12" />
+          </div>
+       </td> 
+   </tr>
+</form>
+</table>
+<div>&nbsp;</div>
+</div>
+<script type="text/javascript"> 
+var btn = document.getElementById('buttonupload');
+
+btn.onclick = function(){
+	if($("#header").val()==""){
+		alert("你没有选择要上传的文件");
+		return;
+	}
+    ajaxFileUpload({
+        id:'header',
+        callback:function(){
+                var src = this.responseText;  
+                var src='c_'+src.substr(2,20); 
+			   
+				var url = "{$headerimgurl}";
+                $("#upimage").attr("src",url+src); 
+                $("#upload_div").hide();
+                $("#header_img").val(src);
+                $("#updiv1hid").show();
+				$("#small_icon_div_url").hide();
+				$("#head_img_url").val(src);
+//                var img = document.createElement('img');
+//                document.body.appendChild(img);
+        }
+    });    
+}
+</script> 

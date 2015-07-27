@@ -1,0 +1,79 @@
+body {
+    margin: 0px;
+    text-align: center;
+    font: 12px/1.5 tahoma,arial,ËÎÌו;
+}
+div {
+    margin: 0 auto;
+    padding:0 auto;
+}
+h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul,
+ol, li, pre, form, fieldset, legend, button, input,
+textarea, th, td {
+    margin: 0px;
+    padding: 0px;
+}
+button, input, select, textarea {
+    font: 12px/1.5 tahoma,arial,ËÎÌו;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+}
+address, cite, dfn, em, var {
+    font-style: normal;
+}
+code, kbd, pre, samp {
+    font-family: courier new,courier,monospace;
+}
+small {
+    font-size: 12px;
+}
+ul {
+    list-style-type: none;
+}
+ol {
+    list-style-type: none;
+}
+a {
+    color: #333;
+    text-decoration: none;
+    outline: none;
+    cursor:pointer;
+}
+a:hover {
+    text-decoration: none;
+}
+sup {
+    vertical-align: text-top;
+}
+sub {
+    vertical-align: text-bottom;
+}
+legend {
+    color: #000;
+}
+fieldset {
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-bottom-width: 0px;
+    border-right-width: 0px;
+}
+img {
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-bottom-width: 0px;
+    border-right-width: 0px;
+}
+button, input, select, textarea {
+    font-size: 100%;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.clear {
+    clear: both;
+    height:1px;
+    margin-top:-1px;
+    overflow:hidden;
+}

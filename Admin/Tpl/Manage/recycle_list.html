@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>{$cur_title}</title>
+<meta name="author" content="OEdev">
+<script src="__ROOT__/Public/Admin/js/jquery-1.6.js"></script>
+<script src="__ROOT__/Public/Admin/js/public.js"></script>
+<script src="__ROOT__/Public/Admin/js/DatePicker/WdatePicker.js" type="text/javascript"></script> 
+<script type="text/javascript">
+function recycle_restore(name){
+	if (confirm("您确定要恢复ID为--'"+name+"'--的信息吗？")){ 
+		return true;
+	}else{
+		return false;
+	}
+}
+</script>
+<link type="text/css" rel="stylesheet" href="__ROOT__/Public/Admin/css/admin.css">
+</head>
+<body>
+<div class="main-wrap">
+  <div class="path"><p>{$cur_menu}</p></div>
+  
+  <div class="main-cont">
+    <h3 class="title">
+	{$cur_title}
+	</h3>
+	<div class="search-area ">
+	<form id="" name="formfind" action="" method="GET">
+	<div class="item">
+	<label>操作人：</label>
+	<select name="admin_id" id="admin_id">
+	             <option value="0" >--全部--</option>
+	             <foreach name="admininfo" item="name">
+	             <option value="{$name.admin_id}" <if condition="$name.admin_id eq $admin_id">selected</if>>{$name.account}</option>
+	             </foreach>
+	          </select>
+	<label>模块：</label>
+	       <select name="module" id="module">
+	             <option value="" >--全部--</option>
+	             <foreach name="arr" item="name">
+	             <option value="{$name.func_name}" <if condition="$name.func_name eq $module">selected</if>>{$name.menu_title}</option>
+	             </foreach>
+	          </select>
+	<label>回收时间：</label>
+	 <input type="text" id="start_time" onClick="WdatePicker()" size="11" class="Wdate" name="start_time" value="{$start_time}" />-
+     <input type="text" id="end_time" onClick="WdatePicker()" size="11" class="Wdate" name="end_time" value="{$end_time}" />&nbsp;&nbsp;
+	
+	<input class="button_s" type="submit" name="findsub" value="搜 索">
+	<input class="button_s" type="button" name="findsub" value="显示所有" onclick="document.location='__APP__/{$cur_url}'">
+	</div>
+	</form>
+	</div>
+	<form action="" method="POST" name="orgtype" />
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table" align="center">
+	  <thead class="tb-tit-bg">
+	  <tr>
+	    <th width="3%"><div class="th-gap">ID</div></th>
+	    <th width="9%"><div class="th-gap">模块</div></th>
+		<th width="4%"><div class="th-gap">操作人</div></th>
+		<th width="39%"><div class="th-gap">内容</div></th>
+		<th width="10%"><div class="th-gap">回收时间</div></th>
+		<th width="6%"><div class="th-gap">操作</div></th>
+	  </tr>
+	  </thead>
+	  <tfoot class="tb-foot-bg"></tfoot>
+	  <tbody  id="tableClass">
+	  <foreach name="recycle_list" item="name">
+	  <tr onmouseover="overColor(this)" onmouseout="outColor(this)">
+	    <td align="left" class="hback">
+	       <input type="checkbox" <?php if(in_array($name['recy_id'],$notdel) OR $notdel=='ALL'){echo "disabled";} ?>  value="{$name.recy_id}" name="recy_id[]">{$name.recy_id}
+	    </td>
+	    <td align="center" class="hback"><?php echo $mod[$name[module]] ?></td>
+	    <td align="center" class="hback">{$name.account}</td>
+	    <td align="center" class="hback"><?php $table=M("$name[table]"); $arr=$table->where("$name[id_name]=$name[id_val]")->find(); print_r($arr); ?></td>
+	    <td align="center" class="hback">{$name.recycle_time|date='Y-m-d H:i:s',###}</td>
+	    
+		<td align="center" class="hback">
+		<!-- 添加子栏目 -->
+			<a href="__APP__/Recycle/recycle_restore/{$name.recy_id}/" onclick="return recycle_restore('{$name.recy_id}');" class="icon-edit" {$recycle_restore}>恢复</a>
+			&nbsp;
+			<a {$recycle_del} href="__APP__/Recycle/recycle_del/{$name.recy_id}/" onclick="{if(confirm(&#39;确定要删除吗？一旦删除无法恢复！&#39;)){return true;} return false;}" class="icon-del" <?php if(in_array($name['recy_id'],$notdel) OR $notdel=='ALL'){echo "style='display:none;'";} ?>>删除</a>
+			 
+		</td>
+	  </tr>
+	  </foreach>
+	  	   
+	  <tr>
+	    <td align="center" colspan="" class="hback"><input type="checkbox" name="del_idall" onclick="check_all('recy_id');" value=""/>选择</td>
+	    <td align="left" colspan="5" class="hback">
+	       <input {$recycle_del} type="button" class="button" value="删除" onclick="check_from('删除','__APP__/Recycle/recycle_del/')" name="delall" id="delall"/>
+	   </td>
+	    
+	  </tr>	
+	   
+	  	</tbody></table>
+	  </form>
+		<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin-top:10px;">
+	  <tbody><tr>
+		<td align="center" class="page">{$page}</td>
+	  </tr>
+	</tbody></table>
+	  </div>
+</div>
+</body></html>

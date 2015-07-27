@@ -1,0 +1,89 @@
+<link href="__ROOT__/Public/Admin/css/list.css" rel="stylesheet" type="text/css" />
+<script src="__ROOT__/Public/Admin/js/jquery-1.6.js" type="text/javascript"></script>  
+<script type="text/javascript"> 
+	function check_all(name,idi,idj){
+        for(i=2;i<=idj; i++)
+ 		{	
+ 			var id=name+idi+i;
+ 			
+ 			var obj = document.getElementById(id);
+ 			obj.checked = obj.checked ? false : true;
+ 		} 
+	}
+	function check_all2(id){
+		if($('.select'+id+' input:checkbox').attr("checked")){
+           $('.select'+id+' input:checkbox').removeAttr("checked");
+        }else{
+           $('.select'+id+' input:checkbox').attr("checked",'true');
+        }  
+	}
+</script>
+<style type="text/css">
+.addclass input{
+height:10px;
+line-height:10px;
+}
+.addoperation input{
+height:30px;
+line-height:30px;
+}
+</style>
+<div class="currentposition">
+    <div>{$cur_menu}({$role_name})</div>
+ 
+</div>
+<div class="addclass">
+<div class="addtopheight">&nbsp;</div>
+<table width="100%" class="addsearchClass" border="0" cellpadding="0" cellspacing="0">   
+<form name="form1" method="POST" id="form1"  action=""> 
+   <input type="hidden" name="role_id" value="{$role_id}" />
+   <tr> 
+       <td width="80%"  >
+       <div style="width:1271px;">
+       <foreach name="hello" item="vo">
+         <div style="">
+         <div style="background-color: #cccccc;font-weight:bold;"><a href="javascript:void(0)">{$vo.menu_title}</a></div>
+         <foreach name="MOD_NAME_ARR" item="vo2" key="kv2"> 
+         <?php   if($vo['menu_id']==$vo2['pid']){  ?>
+         <div style="text-align:right;width:145px;margin-top:5px;background-color: #cff;float:left;border: 1px solid #cccccc;margin-left:5px;margin-right:15px;padding:3px;padding-left:5px;padding-right:10px;">
+             {$vo2.menu_title}
+             <input type="checkbox" onclick="check_all2('{$vo2.menu_id}');" name="" value="" /> 
+         </div>
+         <foreach name="menu_list3" item="vo3" key="kv3"> 
+             <?php  if($vo3['pid']==$vo2['menu_id']){  ?>
+             <div style="margin-top:3px;float:left;margin-left:5px;margin-right:15px;padding:3px;padding-left:5px;padding-right:10px;" class="select{$vo2.menu_id}"> 
+             <input type="checkbox" 
+		     <volist name="rolepriv_list" id="arr">
+		          <?php
+		              if($arr['menu_id']==$vo3['menu_id']){
+		              	echo "checked='checked'";
+		              }
+		           ?> 
+		    </volist>
+      name="modulemethods[]" value="{$vo3.menu_id}" />{$vo3.menu_title}
+             </div>
+             
+             <?php } ?>
+         </foreach> 
+         <div  style="height:33px;">  </div>
+         <?php }?>
+         </foreach> 
+         </div>
+      </foreach> 
+      </div> 
+       </td>
+   </tr>   
+   <tr>
+       <td colspan="2">
+          <div class="currentposition">  </div>
+          <div class="addoperation" style="text-align:center;">
+          <input type="submit" class="buttonsave" value="保存" name="sub_authority" />
+          &nbsp;
+          <input type="reset" class="buttoncancel" value="取消" onclick="javascript:history.go(-1);" name="B12" />
+          </div>
+       </td> 
+   </tr>
+</form>
+</table>
+<div>&nbsp;</div>
+</div>

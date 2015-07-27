@@ -1,0 +1,50 @@
+<link href="__ROOT__/Public/Admin/css/list.css" rel="stylesheet" type="text/css" />
+<script src="__ROOT__/Public/Admin/js/jquery-1.6.js" type="text/javascript"></script>
+<script src="__ROOT__/Public/Admin/js/formvalidator/formValidator-4.1.1.js" type="text/javascript" charset="UTF-8"></script>
+<script src="__ROOT__/Public/Admin/js/formvalidator/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script> 
+
+<style type="text/css">
+tr{height:30px;}
+.STYLE1 {
+	font-size: 12px;
+	font-weight: bold;
+}
+</style>
+<!--<div class="currentposition">
+    <div><a  href="__APP__/Index/home/"/>后台管理</a> >> <a  href="__APP__/Adminuser/adminuser_list/">管理成员管理</a> >>{$typeName}</div>
+</div>-->
+<div class="addclass">
+<div class="addtopheight">&nbsp;</div>
+<form name="form1" id="form1" method="POST" action=""> 
+<input type="hidden" name="cid" value="{$arr.cid}" />
+<input type="hidden" name="pid" value="{$arr.pid}" />
+<table width="100%" class="addsearchClass" id="tableClass" border="0" cellpadding="0" cellspacing="0">   
+
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>名称：</td>
+       <td width="80%" ><div style="float:left;"><input type="text" size="30" id="cname" value="{$arr.cname}" name="cname"  /> <span class="note"></span></div><div class="note" id="accountTip" style="float:left;">*</div></td>
+   </tr>
+	<tr>
+		<td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>状态：</td>
+		<td width="80%" >
+			<div style="float:left;">
+				<input type="radio" id="status_off" <eq name="arr.status" value="0">checked</eq> name="status" value="0" />关闭
+				<input type="radio" id="status_on"  <eq name="arr.status" value="1">checked</eq>  name="status" value="1" />开启
+			</div>
+		</td>
+   </tr> 
+   
+   <tr>
+       <td colspan="2">
+          <div class="addoperation">
+          <input type="submit" class="buttonsave" value="保存" name="sub_authority" />
+          &nbsp;
+          <input type="reset" class="buttoncancel" value="取消" onclick="javascript:history.go(-1);" name="B12" />
+          </div>
+       </td> 
+   </tr>
+
+</table>
+</form>
+<div>&nbsp;</div>
+</div> 

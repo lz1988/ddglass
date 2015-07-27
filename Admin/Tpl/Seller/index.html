@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>栏目设置</title>
+<meta name="author" content="OEdev">
+<script src="__ROOT__/Public/Admin/js/jquery-1.6.js"></script>
+<script src="__ROOT__/Public/Admin/js/public.js"></script>
+<link type="text/css" rel="stylesheet" href="__ROOT__/Public/Admin/css/admin.css">
+</head>
+<body>
+<div class="main-wrap">
+  <div class="path"><p>{$cur_menu}</p></div>
+  
+  <div class="main-cont">
+    <h3 class="title">
+	<a href="__APP__/Seller/add_seller/" class="btn-general" {$adminuser_add}><span>添加商家</span></a>
+	
+	
+	</h3>
+	<div class="search-area ">
+	<form id="" name="formfind" action="" method="GET">
+	<div class="item">
+	<label>用户名称：</label>
+	<input type="text" size="10" class="input-100" name="sellname" value="{$sellname}" id="account" />
+	
+	<input class="button_s" type="submit" name="findsub" value="搜 索">
+	
+	</div>
+	</form>
+	</div>
+	<form action="" method="POST" name="orgtype" />
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table" align="center">
+	  <thead class="tb-tit-bg">
+	  <tr>
+	    
+
+	    <th width="8%"><div class="th-gap">姓名</div></th>
+	     <th width="10%"><div class="th-gap">密码</div></th>
+		
+		<th width="15%"><div class="th-gap">注册时间</div></th>
+		<th width="4%"><div class="th-gap">最后更新时间</div></th>
+	
+
+	
+		<th width="3%"><div class="th-gap">状态</div></th>
+		<th width="10%"><div class="th-gap">操作</div></th>
+	  </tr>
+	  </thead>
+	  <tfoot class="tb-foot-bg"></tfoot>
+	  <tbody  id="tableClass">
+	  <foreach name="seller" item="vo">
+	  <tr onmouseover="overColor(this)" onmouseout="outColor(this)">
+	  
+
+	    <td align="center" class="hback">{$vo.sell_name}</td>
+	    <td align="center" class="hback">{$vo.sell_pwd}</td>
+	     <td align="center" class="hback">{$vo.fstcreate}</td>
+	      <td align="center" class="hback">{$vo.lastmodify}</td>
+	     
+	   
+	      
+	    
+		
+		
+	 
+		<td align="center">
+		<if condition="($vo['isdel'] eq '0')">
+			<img id="flag8" alt="正常" src="__ROOT__/Public/Admin/images/yes.gif" onclick="javascript:fetch_ajax('closed',{$vo.id});" style="cursor:pointer;">
+			<else />
+			<img id="flag8" alt="冻结" src="__ROOT__/Public/Admin/images/no.gif" onclick="javascript:fetch_ajax('open',{$vo.id});" style="cursor:pointer;">
+		</if>
+		</td> 
+		<td align="center" class="hback">
+		<!-- 添加子栏目 -->
+			<a href="__APP__/Seller/edit?id={$vo.id}" class="icon-edit" {$adminuser_edit}>编辑</a>
+			&nbsp;
+			<a href="__APP__/Seller/edit?id={$vo.id}" class="icon-edit" {$adminuser_edit}>编辑商店</a>
+			&nbsp;
+			<a href="__APP__/Seller/edit?id={$vo.id}" class="icon-edit" {$adminuser_edit}>商家活动</a>
+			&nbsp;
+			<a  href="__APP__/Seller/dele_seller?id={$vo.id}"  class="icon-del" >删除</a>
+		</td>
+	  </tr>
+	  </foreach>
+	  	   
+	  <tr>
+	    
+	    
+	  </tr>	
+	   
+	  	</tbody></table>
+	  </form>
+		<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin-top:10px;">
+	  <tbody><tr>
+		<td align="center" class="page">{$page}</td>
+	  </tr>
+	</tbody></table>
+	  </div>
+</div>
+
+<!--           以下为子栏目操作页面          -->
+
+<script type="text/javascript">
+//一级列表栏目
+// $("#tableClass tr").hover(function (){
+// 	alert(44);
+// 	
+// });
+
+function fetch_ajax(status,cid){
+    $.get("__URL__/set_status",{cid:cid,status:status},function (data) {
+        if (data == "1") {
+            window.location.reload();
+        } else {
+            alert("失败！");
+        }
+    });
+}
+
+</script>
+</body></html>

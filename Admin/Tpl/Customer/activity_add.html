@@ -1,0 +1,79 @@
+<link href="__ROOT__/Public/Admin/css/list.css" rel="stylesheet" type="text/css" />
+
+<!--新增  -->
+<link rel="stylesheet" href="__ROOT__/Public/Admin/css/jquery.bigautocomplete.css" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/Home/js/jquery-1.8.3.min.js" ></script>
+<script src="__ROOT__/Public/Admin/js/DatePicker/WdatePicker.js"></script>
+
+
+
+
+<style type="text/css">
+tr{height:30px;}
+.STYLE1 {
+	font-size: 12px;
+	font-weight: bold;
+}
+</style>
+ <form name="form1" id="form1" method="POST" action="__APP__/Customer/save_activity"> 
+ <div class="currentposition">
+    <div>{$cur_menu}> {$cur_title}</div>
+</div> 
+<div class="addclass">
+<div class="addtopheight">&nbsp;</div>
+<!-- <form name="form1" id="form1" method="POST" action="__APP__/Customer/save_activity">   -->
+<table width="100%" class="addsearchClass" id="tableClass" border="0" cellpadding="0" cellspacing="0"> 
+ <input type="hidden" name="shop_id"  value="{$shop_id}"/>  
+ <!-- <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">活动类型：</td>
+       <td width="80%" ><div style="float:left;">
+       
+       
+       <foreach name="rs" item="vo3">
+      
+       <input type="checkbox" name="acheckbox[]" value="{$vo3['id']}"
+        <foreach name="activity" item="acti">
+        <if condition="$acti['activity_id'] eq $vo3['id']">checked</if></foreach>/>
+        {$vo3['activity_name']} </br>
+        </foreach>
+  </tr>   -->
+    
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">活动类型：</td>
+       <td width="80%" > 
+          <div style="float:left;">
+          <select name="activity_name" id="select_images" onchange="b();">
+          <foreach name="rs" item="vo">   
+          <option value="{$vo.id}" >{$vo.activity_name}</option>   
+         <!--  <option value="1" >折</option>
+          <option value="2" >送</option> -->
+          </foreach>   
+          </select>
+          </div>
+       </td>
+   </tr>
+    
+    <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">活动信息：</td>
+       <td width="80%" ><div style="float:left;"><textarea rows="15" cols="30" name="activity_info">  </textarea></div><div class="note" id="phoneTip" style="float:left;"> </div></td>
+   </tr>
+    <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">开始时间：</td>
+       <td width="80%" ><div style="float:left;"><input id="text1" runat="server" type="text" name="start_time"  onclick="WdatePicker()" value="" /></div><div class="note" id="phoneTip" style="float:left;"> </div></td>
+   </tr>
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">结束时间：</td>
+       <td width="80%" ><div style="float:left;"><input id="text1" runat="server" type="text" name="end_time"  onclick="WdatePicker()" value="" /></div><div class="note" id="phoneTip" style="float:left;"> </div></td>
+   </tr>
+</table>
+
+
+         <div class="addoperation">
+         <input type="submit" class="buttonsave" value="保存" name="sub_authority" />
+          &nbsp;
+          <input type="reset" class="buttoncancel" value="取消" onclick="javascript:history.go(-1);" name="B12" />
+          </div>  
+  </form>      
+<div>&nbsp;</div>
+</div> 
+</form>

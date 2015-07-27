@@ -1,0 +1,343 @@
+<link href="__ROOT__/Public/Admin/css/list.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="__ROOT__/Public/Admin/css/jquery.bigautocomplete.css" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/Home/js/jquery-1.8.3.min.js" ></script>
+<script src="__ROOT__/Public/Admin/js/formvalidator/formValidator-4.1.1.js" type="text/javascript" charset="UTF-8"></script> 
+<script src="__ROOT__/Public/Admin/js/message/messagetype_add.js" type="text/javascript" charset="UTF-8"></script>
+<script src="__ROOT__/Public/Admin/js/DatePicker/WdatePicker.js" type="text/javascript"></script> 
+
+<div class="currentposition">
+    <div>{$cur_menu} > {$cur_title}</div>
+</div>
+<form name="form1" method="POST" id="form1"  action="__URL__/edit__" enctype='multipart/form-data'>
+    <div class="addclass">
+        <div class="addtopheight">&nbsp;</div>
+        <table width="100%" class="addsearchClass" border="0" cellpadding="0" cellspacing="0">   
+
+
+            <input type="hidden" name="goods_id" value="{$list.goods_id}" />
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>商品名称：</td>
+                <td width="80%" >
+                    <div style="float:left;"><input type="text" id="type_name" name="goods_name" value="{$list.goods_name}" /></div>
+                    <div class="note" style="float:left;" id="type_nameTip">*</div>
+                </td>
+            </tr> 
+            <!-- <tr>
+                 <td width="10%" height="30" align="right" class="left_txt2">所属店铺ID：</td>
+                 <td width="80%" >
+                     <div style="float:left;"><input type="text" name="shop_name" value="{$list.shop_id}"  disabled="readonly"/></div>
+                     <div class="note" style="float:left;" id="type_nameTip">*</div>
+                 </td>
+             </tr>-->
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">所属店铺：</td>
+                <td width="80%" >
+            <volist name="parent_shop_list" id="vo">
+                <div id="all_shop">
+                    <input type="hidden" name="arr_shop_id[]" value="{$vo.id}" />{$vo.name}&nbsp;<a href="javascript:void(0)" class="del_shop">删除</a><br/>
+                </div>
+            </volist>
+            </td>
+            </tr>
+
+            <tr>
+                <td width="10%" height="60" align="right" class="left_txt2"><span class="must">*</span>新增店铺：</td>
+                <td width="80%" >
+                    <div id="insert_shop_list"></div>
+                    <div>
+                        输入城市：
+                        <input type="text" id="keyword_two" value="" name="" style="width:100px;"/>
+
+                        <input type="hidden"  name='shop_id' id="shop_id"  style="width:200px;" value="">
+                        <input type="text" id="search"  value='' name=""/>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2"></td>
+                <td width="80%" ><div style="float:left;">
+                    </div>
+                    <div class="search_tips"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">属性：</td>
+                <td width="80%" >
+            <foreach name="goods_attr" item="goods_attr_1" key="k">
+                <div style="line-height: 30px;">
+                    <span>{$k}</span>
+                    <foreach name="goods_attr_1" item="goods_attr_2">
+                        <span style="margin-left:10px;color: #aeaeae">
+                            <input type="checkbox" name="attr[]"  data="{$goods_attr_2.id}" value="{$goods_attr_2.id}"/>{$goods_attr_2.goods_attr_type_value}
+                        </span>
+                    </foreach> 
+                </div>    
+            </foreach> 
+            </td>
+            </tr>
+
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>商品价格：</td>
+                <td width="80%" >
+                    <div style="float:left;"><input type="text" name="shop_price" id="shop_price" value="{$list.shop_price}" size="50"/></div>
+                </td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>市场价格：</td>
+                <td width="80%" >
+                    <div style="float:left;"><input type="text" name="market_price" id="shop_price" value="{$list.market_price}" size="50"/></div>
+                </td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>邮寄费：</td>
+                <td width="80%" >
+                    <div style="float:left;"><input type="text" name="fee_price"  value="{$list.fee_price}" size="50"/></div>
+                </td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>活动开始时间：</td>
+                <td width="80%" >
+                    <div style="float:left;"><input onClick="WdatePicker()" type="text" name="start_release_time"  value="{$list.start_release_time}" size="50"/></div>
+                </td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>活动结束时间：</td>
+                <td width="80%" >
+                    <div style="float:left;"><input onClick="WdatePicker()" type="text" name="end_release_time"  value="{$list.end_release_time}" size="50"/></div>
+                </td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">是否上架：</td>
+                <td width="80%" >
+                    <div style="float:left;">
+                        <input type="radio" name="is_on_sale" <if condition="($list['is_on_sale'] eq '1')">checked</if> value="1" id="status" />上架  &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="is_on_sale" <if condition="($list['is_on_sale'] eq '0')">checked</if> value="0" id="status" />不上架
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">商品库存：</td>
+                <td width="80%" >
+                    <div style="float:left;"><input type="text" name="goods_stock" id="goods_stock" value="{$list.goods_stock}" size="50"/></div>
+                </td>
+            </tr>
+            <!-- <tr>
+                 <td width="10%" height="30" align="right" class="left_txt2">商品图片：</td>
+                 &lt;!&ndash;<td width="80%" ><input type="text" name="goods_img" id="goods_img" value="{$list.goods_img}" size="50"/></td>&ndash;&gt;
+ 
+             </tr>-->
+            <tr>
+                <td height="10" align="right" class="left_txt2">主图：</td>
+                <td colspan="2">
+                    <div id="one" style="float:left;display:block">
+                        <if condition="$list['goods_img'] neq NULL">
+                            <a href='javascript:;' onclick="del_image({$list.goods_id}, 1)"><img src="{$list.goods_img}"  width="50px" height="50px"/>删除</a>
+                            <else/>
+
+                            <input type="file" name="file[]" id="file1"/>&nbsp;
+
+
+                        </if>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td height="10" align="right" class="left_txt2">缩略图：</td>
+                <td colspan="2">
+                    <div id="one" style="float:left;display:block">
+                        <foreach name='list_thumb'  item='img' >
+                            <a href='javascript:;'  onclick="del_image({$img.id}, 0)"><img src="{$img.goods_thumb}"  width="50px" height="50px"/>删除</a>
+                        </foreach>
+                    </div>
+
+                </td>
+            </tr>
+            <!--<tr>
+                <td width="10%" height="30" align="right" class="left_txt2">产品缩略图：</td>
+                <td width="80%" >
+                <div class="add_img"><input type="file"  name="product_images[]"/><a href="javascript:void(0)" class="add_product_img">添加</a></div>
+                </td>
+            </tr>-->
+            <foreach name="arr_color"  key='key' item="vo">
+                <if condition="$key eq 0">
+                    <tr>
+                        <td width="10%" height="30" align="right" class="left_txt2">颜色：</td>
+                        <td width="80%" ><div style="float:left;"><input type="text" class="input-100" name="color[]" value="{$vo}" /></div><span onclick="addtr(this)">+</span></td>
+                    </tr>
+                    <else/>
+                    <tr><td align="right" width="10%" height="30" class="left_txt2">颜色：</td><td width="80%"><div style="float:left;"><input type="text" name="color[]" class="input-100" value="{$vo}"></div><span style="margin-right:10px" onclick="addtr(this)">+</span><span onclick="removetr(this)">-</span></td></tr>
+                </if>
+
+            </foreach>
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2">商品描述：</td>
+                <td width="80%" ><textarea name="goods_desc" class="textarea" cols="70" rows="5" > {$list.goods_desc}</textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="addoperation">
+                        <input type="submit" class="buttonsave" value="保存" name="sub_authority" />
+                        &nbsp;
+                        <input type="reset" class="buttoncancel" value="取消" onclick="javascript:history.go( - 1);" name="B12" />
+                    </div>
+                </td> 
+            </tr>
+
+        </table>
+        <div>&nbsp;</div>
+    </div>
+</form>
+<script>
+            /* 查询商家  */
+            $(function(){
+            $("#search").on("keyup", function(){
+            var keywords = $(this).val();
+                    var keyword_two = $('#keyword_two').val();
+                    if (keywords != "")
+            {
+            $.ajax({
+            type: 'POST',
+                    dataType: 'json',
+                    async:false,
+                    url: '__APP__/adminuser/get_shop?keywords_two=' + keyword_two,
+                    data:{'keywords':keywords},
+                    success:function(data){
+                    str = '<ul>';
+                            for (i = 0; i < data.length; i++) {
+                    str += '<li kid=' + data[i].id + ' sname=' + data[i].name + '><a href="javascript:;" id=' + data[i].id + '">';
+                            str += '商铺名： '
+                            str += data[i].name;
+                            str += "&nbsp&nbsp&nbsp&nbsp&nbsp";
+                            str += '地址：'
+                            str += data[i].addr;
+                            str += '</a></li>';
+                    }
+                    str += '</ul>';
+                            $(".search_tips").html(str);
+                            $(".search_tips ul li").click(function () {
+                    var _shop_list = '';
+                            var key_id = $(this).text();
+                            var all_id = '';
+                            $(this).attr('kid');
+                            //alert($(this).attr('kid'));
+                            //$('#shop_id').val($(this).attr('kid'));
+                            //$('#search').val($(this).text());
+                            all_id = $('#shop_all').val();
+                            if (all_id){
+                    all_id = all_id + $(this).attr('kid') + '/';
+                            $('#shop_all').val(all_id);
+                    } else{
+                    all_id = $(this).attr('kid') + '/';
+                            $('#shop_all').val(all_id);
+                    }
+                    _shop_list = '<div id="all_shop"><input type="hidden" name="arr_shop_id[]" value="' + $(this).attr('kid') + '">' + $(this).attr('sname') + '&nbsp;<a href="javascript:void(0)" class="del_shop">删除</a>&nbsp;</div>';
+                            $("#insert_shop_list").append(_shop_list);
+                            $(".search_tips").css('display', 'none');
+                    });
+                            $(".del_shop").live('click', function(){
+                    $(this).parent().remove();
+                    })
+
+
+                            $(".search_tips").show();
+                            //$('.other_search').hide();
+
+                    }
+
+
+
+
+            });
+            }
+
+            });
+                    /* $('#search_tips').live('click',function(){
+                     alert($(this).find('a:last').val());
+                     
+                     }) */
+
+                    $(".del_shop").click(function(){
+            $(this).parent().remove();
+            })
+
+
+                    $(".add_product_img").click(function(){
+            $(this).parent().after('<div class="add_img"><input type="file" name="product_images[]"/><a href="javascript:void(0)" class="del_product_img">删除</a></div>');
+            })
+
+                    $(".add_color").click(function(){
+            $(this).parent().after('<div class="add_product_color"><input type="text" style="width: 80px;" name="product_color[]"/><a href="javascript:void(0)" class="del_color">删除</a></div>');
+            })
+
+                    $(".del_color").live('click', function(){
+            $(this).parent().remove();
+            })
+
+
+                    $(".del_product_img").live('click', function(){
+            $(this).parent().remove();
+            })
+
+                    $(".del_color").live('click', function(){
+            $(this).parent().remove();
+            })
+
+
+            })
+</script>
+<script>
+            function del_image(id, cont){
+            var val = '';
+                    var con = '';
+                    val = id;
+                    con = cont;
+                    $.ajax({
+                    url: '__URL__/dele_images',
+                            type: 'get',
+                            dataType: 'json',
+                            async: false,
+                            data: '&val=' + val + '&con=' + cont,
+                            success: function(data) {
+                            if (data == 1){
+                            //$(this).parents('#label').remove();
+                            document.location.reload();
+                            } else{
+                            alert('删除失败');
+                            }
+
+                            }
+                    });
+            }
+</script>
+<script>
+
+    function change_check(){
+    $.ajax({
+    url: '__URL__/ajax_change_checked',
+            type: 'get',
+            dataType: 'json',
+            async: false,
+            data: 'goods_id=127',
+            success:function(data){
+            for (var i = 0; i < data.length; i++) {
+            $("input[name='attr[]']").each(function(){
+            if ($(this).val() == data[i].goods_attr_id){
+            $(this).attr("checked", true);
+            }
+            });
+            }
+            }
+    });
+    }
+    function addtr(o) {
+    var html = '<tr><td align="right" width="10%" height="30" class="left_txt2">颜色：</td><td width="80%"><div style="float:left;"><input type="text" name="color[]" class="input-100"></div><span style="margin-right:10px" onclick="addtr(this)">+</span><span onclick="removetr(this)">-</span></td></tr>';
+            $(o).parent().parent().after(html);
+    }
+    function removetr(o) {
+    $(o).parent().parent().remove();
+    }
+    setTimeout("change_check()", 500);
+</script>

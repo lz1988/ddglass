@@ -1,0 +1,280 @@
+<link href="__ROOT__/Public/Admin/css/list.css" rel="stylesheet" type="text/css" />
+<script src="__ROOT__/Public/Admin/js/jquery-1.6.js" type="text/javascript"></script>
+
+<script type="text/javascript">  
+var jstype="{$jstype}"; 
+var check_url="__APP__/Common/checkusername/";
+   /* 
+说明：ajax文件上传 begin
+*/
+var ajaxFileUpload = function(opts){
+return new ajaxFileUpload.prototype.init(opts);
+};
+ajaxFileUpload.prototype = {
+init:function(opts){
+    var set = this.extend({
+        url:'__APP__/Common/upload/User/u/',//路径+模块名+图片保存文件夹名字+方法名+图片首字母+大小+
+        id:'fileId',
+        callback:function(){}
+    },opts || {});
+    var _this = this;
+    var id = +new Date();
+    var form = this.createForm(id),frame = this.createIframe(id,set.url);
+    var oldFile = document.getElementById(set.id)
+    var newFile = oldFile.cloneNode(true);
+    var fileId = 'ajaxFileUploadFile'+id;
+    oldFile.setAttribute('id',fileId);
+    oldFile.parentNode.insertBefore(newFile,oldFile);
+    form.appendChild(oldFile);//注意浏览器安全问题，要将原文件域放到创建的form里提交
+    form.setAttribute('target',frame.id);//将form的target设置为iframe,这样提交后返回的内容就在iframe里
+    form.setAttribute('action',set.url);
+    setTimeout(function(){
+        form.submit();
+        if(frame.attachEvent){
+            frame.attachEvent('onload',function(){_this.uploadCallback(id,set.callback);});
+        }else{
+            frame.onload = function(){_this.uploadCallback(id,set.callback);}
+        }
+    },100);
+},
+/*
+    创建iframe，ie7和6比较蛋疼，得像下面那样创建，否则会跳转
+*/
+createIframe:function(id,url){
+    var frameId = 'ajaxFileUploadFrame'+id,iFrame;
+    var IE = /msie ((\d+\.)+\d+)/i.test(navigator.userAgent) ? (document.documentMode ||  RegExp['\x241']) : false,
+    url = url || 'javascript:false';
+    if(IE && IE < 8){
+        iFrame = document.createElement('<iframe id="' + frameId + '" name="' + frameId + '" />');
+        iFrame.src = url;
+    }else{
+        iFrame = document.createElement('iframe');
+        this.attr(iFrame,{
+            'id':frameId,
+            'name':frameId,
+            'src':url
+        });
+    };
+    iFrame.style.cssText = 'position:absolute; top:-9999px; left:-9999px';
+    return document.body.appendChild(iFrame);
+},
+/*
+    创建form
+*/
+createForm:function(id){
+    var formId = 'ajaxFileUploadForm'+id;
+    var form = document.createElement('form');
+    this.attr(form,{
+        'action':'',
+        'method':'POST',
+        'name':formId,
+        'id':formId,
+        'enctype':'multipart/form-data',
+        'encoding':'multipart/form-data'
+    });
+    form.style.cssText = 'position:absolute; top:-9999px; left:-9999px';
+    return document.body.appendChild(form);  
+},
+/*
+    获取iframe内容，执行回调函数，并移除生成的iframe和form
+*/
+uploadCallback:function(id,callback){
+    var frame = document.getElementById('ajaxFileUploadFrame'+id),form = document.getElementById('ajaxFileUploadForm'+id);data = {};
+    var db = document.body;
+    try{
+        if(frame.contentWindow){
+            data.responseText = frame.contentWindow.document.body ? frame.contentWindow.document.body.innerHTML : null;
+            data.responseXML = frame.contentWindow.document.XMLDocument ? frame.contentWindow.document.XMLDocument : frame.contentWindow.document;
+        }else{
+            data.responseText = frame.contentDocument.document.body ? frame.contentDocument.document.body.innerHTML : null;
+            data.responseXML = frame.contentDocument.document.XMLDocument ? frame.contentDocument.document.XMLDocument : frame.contentDocument.document;
+        }
+    }catch(e){};
+    callback && callback.call(data);
+    setTimeout(function(){
+        db.removeChild(frame);
+        db.removeChild(form);
+    },100);
+},
+attr:function(el,attrs){
+    for(var prop in attrs) el.setAttribute(prop,attrs[prop]);
+    return el;
+},
+extend:function(target,source){
+    for(var prop in source) target[prop] = source[prop];
+    return target;
+}
+};
+ajaxFileUpload.prototype.init.prototype = ajaxFileUpload.prototype;
+/* 
+说明：ajax文件上传 end
+*/
+
+function upsmall_icon(imgName){
+	 $("#updiv1show").show();
+     $("#updiv1hid").hide(); 
+};
+
+function hideProportion(){
+	$("#proportion").hide();
+	//$("#proportion,#qd").hide();
+	if($("#user_group").attr("data") == 1){
+		$("#qd").show();
+	}
+	if($("#user_group").attr("data") == 3){
+		$("#proportion").show();
+	}
+};
+
+$(function(){
+	$('#user_group').change(function(){
+		if($(this).val() == 1){
+			//$("#qd").show();
+			$("#proportion").hide();
+		}
+		else if($(this).val() == 3){
+			//$("#qd").hide();
+			$("#proportion").show();
+		}
+		else{
+			//$("#").hide();
+			//$("#proportion,#qd").hide();
+			$("#proportion").hide();
+		}
+	})	
+});
+
+function getSelectEditValue(){
+		var $select = $('select[data]');
+		if( $select.length > 0){
+			$select.each(function(){
+				$(this).val( $(this).attr('data') );
+			})
+		}//if
+	};
+window.onload = function(){ 
+	hideProportion();
+	getSelectEditValue();
+} 
+
+
+function get_city(pid,id){
+	if(id!=4){
+		$.ajax({
+		type:"POST",
+		url: "{:U('Common/is_pid_get_city')}",
+		data: "pid="+pid,beforeSend: function(){
+		},
+		success: function(msg){
+			var obj=eval(msg);
+			var html='<option value="0">--请选择--</option>';
+			for(var j=id;j<4;j++){
+				$('#city_list'+j).html(html);
+			}
+			for(var i=0;i<obj.length;i++){
+				html=html+'<option value="'+obj[i].cid+'">'+obj[i].cname+'</option>';
+			}
+			$('#city_list'+id).html(html);
+			id=id-1;
+			for(var p=id;p<4;p++){
+				if(p>id){
+					$('#address_'+p).html('');
+				}else{
+					$('#address_'+id).html($('#city_list'+id+' option:selected').text()+' ');
+				}
+			}
+		}});
+	}else{
+	    $('#address_'+3).html($('#city_list'+3+' option:selected').text());
+	}
+	
+}
+function get_region(pid,id2){
+		$.ajax({
+		type:"POST",
+		url: "{:U('Common/is_pid_get_region')}",
+		data: "pid="+pid,beforeSend: function(){
+		},
+		success: function(msg){
+			var obj=eval(msg);
+			$('#region_id').val(0);
+			if((obj=='' || obj==null) && id2==3){
+				$('#region_list3').hide();
+				$('#region_id').val(pid);
+			}else{
+				if(id2==4){
+					$('#region_id').val(pid);
+				}
+				$('#region_list3').show();
+			}
+			var html='<option value="0">--请选择--</option>';
+			for(var j=id2;j<4;j++){
+				$('#region_list'+j).html(html);
+			}
+			for(var i=0;i<obj.length;i++){
+				html=html+'<option value="'+obj[i].id+'">'+obj[i].name+'</option>';
+			}
+			$('#region_list'+id2).html(html);
+		}});
+}
+
+</script> 
+<script src="__ROOT__/Public/Admin/js/user/user_add.js" type="text/javascript"></script> 
+<div class="currentposition">
+    <div>{$cur_menu} > {$cur_title}</div>
+</div>
+<div class="addclass">
+<div class="addtopheight">&nbsp;</div>
+<table width="100%" class="addsearchClass" id="tableClass" border="0" cellpadding="0" cellspacing="0">   
+<form name="form1" id="form1" method="POST" action=""> 
+   <input type="hidden" name="user_id" value="{$info['user_id']}" />
+    <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">设计师名称：</td>
+       <td width="80%" >{$info.username}</td>
+   </tr>
+    
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">联系电话：</td>
+       <td width="80%" ><div style="float:left;">{$info.tel}</td>
+   </tr>
+   
+   <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">审核状态：</td>
+       <td width="80%" > 
+          <input type="radio" name="status" value="1" <if condition="$info['status'] eq 1">checked </if>/>通过
+          <input type="radio" name="status" value="2" <if condition="$info['status'] eq 2">checked </if>/>不通过&nbsp;&nbsp;&nbsp;&nbsp;
+       </td>
+   </tr>
+   
+   <tr>
+       <td colspan="2">
+          <div class="addoperation">
+          <input type="submit" class="buttonsave" value="保存" name="sub_authority" />
+          &nbsp;
+          <input type="reset" class="buttoncancel" value="取消" onclick="javascript:history.go(-1);" name="B12" />
+          </div>
+       </td> 
+   </tr>
+</form>
+</table>
+<div>&nbsp;</div>
+</div>
+<script>
+var btn = document.getElementById('buttonupload');
+btn.onclick = function(){
+	if($("#small").val()==""){
+		alert("你没有选择要上传的文件");
+		return;
+	}
+    ajaxFileUpload({
+        id:'small',
+        callback:function(){
+                var src = this.responseText;  
+                $("#upimage1").attr("src","{$userimgurl}"+src); 
+                $("#updiv1show").hide();
+                $("#head_icon").val(src);
+                $("#updiv1hid").show(); 
+        }
+    });    
+} 
+</script>
