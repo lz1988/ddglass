@@ -1,0 +1,70 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Timeline</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <style>  .menu > a {
+        font-size: 24px;
+        color: black;
+        border: 1px;
+        background: red;
+        display: block;
+    }
+
+    .menu {
+        text-align: left;
+    }
+
+    .gray {
+        background-color: gray;
+        color: black;
+    }
+
+    .red {
+        background-color: red;
+        color: black;
+    }
+
+    .green {
+        background-color: green;
+        color: black;
+    }
+    </style>
+</head>
+<body>
+<div class="menu">
+    <a href="/index.php/customer/latest">最近浏览</a>&nbsp;
+    <a href="/index.php/customer/index?reselect=1">重选房源</a>&nbsp;
+    <a href="/index.php/customer/attachments_add?cid={$flow.cid}&fid={$flow.id}&fnid={$flow.cnid}">上传图片</a> &nbsp;
+    <a href="/index.php/customer/orderdesigner?cid={$fangjian.id}">预约设计师</a>
+</div>
+<div class="timeline animated">
+    <volist name="flownodes" id="vo">
+        <div class="panel-body <eq  name='vo.status' value='0'>gray</eq> <eq  name='vo.status' value='1'>green</eq><eq  name='vo.status' value='2'>red</eq>">
+            <h2>
+                <a href="/index.php/customer/flownode?cid={$vo.cid}&fid={$vo.fid}&fnid={$vo.id}">
+                    {$vo.title}
+                    <small>{$vo.begintime} - {$vo.endtime}</small>
+                </a>
+            </h2>
+
+            <p>
+                {$vo.content}
+            </p>
+        </div>
+
+    </volist>
+
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+

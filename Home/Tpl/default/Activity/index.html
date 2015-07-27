@@ -1,0 +1,13 @@
+    <div class="content">
+        <include file="Public:slide"/>
+        <div class="active_warp">
+            <ul>
+                <foreach name="list" item="arr">
+                <li>
+                    <div class="list p"><a href="/activity/activity_list/act_time/{$arr.0}"></a></div>
+                    <div class="month"><p>{$arr.1}<span></span></p></div>
+                </li>
+                </foreach>
+            </ul>
+        </div>
+    </div>

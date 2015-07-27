@@ -1,0 +1,281 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+        <title>商家详情 </title>
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/animate.css" />
+        <link rel="stylesheet" href="__ROOT__/Public/Home/css/font-awesome.min.css" />
+        <script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
+    </head>
+    <body>
+        <section class="mian_det">
+            <div class="picarea">
+                <ul class="pic">
+                    <if condition="data_images neq ''">
+                        <li><img src="/{$data_images[0][images_url]}"/></li>
+                    </if>
+                </ul>
+                <p class="font_bg"></p>
+                <p class="shopname">
+                    {$shop_detail.name}
+                    <span class="fr">1/10</span>
+                </p>
+            </div>
+            <div style="position: relative">
+               <!-- <ul class="tags">
+
+                    <volist name="service_data" id="vo">
+                        <li><i></i>{$vo.service_name}</li>
+                    </volist>
+                </ul>-->
+
+                <div class="shop_intro">
+                    <p class="title">店铺简介：<span class="fr">评分：9.8分</span></p>
+                    <p class="info">
+                      <if condition="$shop_detail.remark neq ''">{$shop_detail.remark}<else/> 暂无信息</if>
+                    </p>
+                    <!--<span class="more"><i class="fa fa-angle-down"></i></span>-->
+                </div>
+                <a class="comm" href="__URL__/comment_list/id/{$shop_detail.id}">{$comment_count}条</a>
+
+                <!--<div class="comment">
+                    <a href="__URL__/comment_list/id/{$shop_detail.id}">
+                        <div>
+                            &lt;!&ndash;<span>评分:</span>&ndash;&gt;
+                            <if condition="($level lt 1)">
+                                <img  src="__PUBLIC__/Home/images/006.png" width="80"/>
+                                <elseif condition="($level lt 2.0)"/>
+                                <img  src="__PUBLIC__/Home/images/001.png" width="80"/>
+                                <elseif condition="($level lt 3.0)"/>
+                                <img  src="__PUBLIC__/Home/images/002.png" width="80"/>
+                                <elseif condition="($level lt 4.0)"/>
+                                <img  src="__PUBLIC__/Home/images/003.png" width="80"/>
+                                <elseif condition="($level lt 5.0)"/>
+                                <img  src="__PUBLIC__/Home/images/004.png" width="80"/>
+                                <elseif condition="($level egt 5.0)"/>
+                                <img  src="__PUBLIC__/Home/images/005.png" width="80"/>
+                            </if>&nbsp;
+
+                            <span>服务：{$shop_detail[service_score]*2}</span>&nbsp;
+                            <span>验光：{$shop_detail[opt_score]*2}</span>&nbsp;
+                            <span>产品：{$shop_detail[goods_score]*2}</span>
+
+                        </div>
+                        <span class="comm">{$comment_count}条</span>
+                    </a>
+                </div>-->
+                <div class="addr">
+                    <div>
+                        <a href='__URL__/map?lon={$shop_detail.lon}&lat={$shop_detail.lat}' ><i class="fa  fa-map-marker fa-stack-1x"></i><span>{$shop_detail.addr}</span></a>
+                    </div>
+                    <div>
+                        <a  class="tel"  href="tel:{$shop_detail.phone}"><i class="fa fa-phone fa-2x fa-stack-1x"></i><span>{$shop_detail.phone}</span></a>
+                    </div>
+                </div>
+
+                <div class="det_opt_out">
+
+                    <volist name="optometrist_detail" id="vo">
+                    <div class="det_opt clearfix">
+                        <dl class="fl clearfix">
+                            <dt class="fl">
+                                <img src="{$vo.images_url}" alt="验光师照片"/>
+                            </dt>
+                            <dd class="fl">
+                                <div>
+                                    {$vo.name}&nbsp;&nbsp;&nbsp;{$vo.job}
+                                </div>
+                                <div>
+                                    <img class="level" src="__PUBLIC__/Home/images/005.png"/>
+                                </div>
+                            </dd>
+                        </dl>
+                        <div class="msg fr">
+                            <p>
+                                <span>验光</span>
+                                ￥{$vo.service_price}
+                            </p>
+                            <a class="detail" href="__URL__/optometrist_detail/id/{$vo.id}">查看并预约</a>
+                        </div>
+                    </div>
+                    </volist>
+                   <!-- <div class="det_opt clearfix">
+                        <dl class="fl clearfix">
+                            <dt class="fl">
+                                <img src="__PUBLIC__/Home/images/getheadimg.jpg" alt="验光师照片"/>
+                            </dt>
+                            <dd class="fl">
+                                <div>
+                                    张山&nbsp;&nbsp;&nbsp;高级验光师
+                                </div>
+                                <div>
+                                    <img class="level" src="__PUBLIC__/Home/images/005.png"/>
+                                </div>
+                            </dd>
+                        </dl>
+                        <div class="msg fr">
+                            <p>
+                                <span>验光</span>
+                                ￥50
+                            </p>
+                            <a class="detail" href="">查看并预约</a>
+                        </div>
+                    </div>-->
+                </div>
+
+                <div class="discount">
+                    <p>优惠信息</p>
+                    <ul>
+                        <li>1.56蔡斯顿防蓝光加硬镜片低至200元/副</li>
+                        <li>1.60豪雅防蓝光加硬镜片低至300元/副</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <div class="imgArea">
+            <ul class="imgs">
+               <!-- <li>
+                    <div><img src="__PUBLIC__/Home/images/gift1.jpg"/></div>
+                </li>
+                <li>
+                    <div><img src="__PUBLIC__/Home/images/gift2.jpg"/></div>
+                </li>
+                <li>
+                    <div>
+                        <img src="__PUBLIC__/Home/images/gift3.jpg"/>
+                    </div>
+                </li>-->
+                <volist name="data_images" id="vo">
+                    <li>
+                        <div><img src="/{$vo.images_url}"/></div>
+                    </li>
+                </volist>
+            </ul>
+            <span>1/2</span>
+        </div>
+
+        <footer class="f_index f_det" style="display: none">
+            <!--<ul>
+                <li><a href=""><i></i><span>拍照</span></a></li>
+                <li><a href=""><i></i><span>点评</span></a></li>
+                <li><a href=""><i></i><span>纠错</span></a></li>
+            </ul>-->
+            <a href="__URL__/comment/id/{$shop_detail.id}">参与评论</a>
+        </footer>
+    </body>
+    <script src="__PUBLIC__/Home/js/main.js"></script>
+    <script src="__PUBLIC__/Home/js/zepto.js"></script>
+    <script src="__PUBLIC__/Home/js/zeptoTouch.js"></script>
+    <script>
+        var $Ulimgs = $('.imgArea .imgs'),
+                $Li = $('.imgArea .imgs li'), //获取每个图片对象的父级容器
+                imgHeight = 0, //初始化声明单个图片的高度为0
+                imgWidth = 0,
+                imgLength = $Li.length, //所有图片的数量
+                num = 0;
+
+        //图片展示区显示图片总数量
+        $('.picarea .shopname span').html('1/'+imgLength);
+
+        //初始化设置装图片容器的总宽度和单个图片的自适应宽度； shit!!!
+        $Ulimgs.css('width', imgLength * 100 + '%');
+        $Li.css({
+            'width': 100 / imgLength + '%'
+        });
+
+        //初始化设置显示的图片总数量与当前是第1张
+        $('.imgArea span').text(1 + '/' + imgLength);
+
+        //阻止浏览器默认事件
+        function preventDefaults() {
+            var xx,yy,XX,YY,swipeX,swipeY ;
+            document.addEventListener('touchstart',function(event){
+                xx = event.targetTouches[0].screenX ;
+                yy = event.targetTouches[0].screenY ;
+                swipeX = true;
+                swipeY = true ;
+            })
+            document.addEventListener('touchmove',function(event){
+                XX = event.targetTouches[0].screenX ;
+                YY = event.targetTouches[0].screenY ;
+                if(swipeX && Math.abs(XX-xx)-Math.abs(YY-yy)>0)  //左右滑动
+                {
+                    event.stopPropagation();//阻止冒泡
+                    event.preventDefault();//阻止浏览器默认事件
+                    swipeY = false ;
+                    //左右滑动
+                }
+                else if(swipeY && Math.abs(XX-xx)-Math.abs(YY-yy)<0){  //上下滑动
+                    swipeX = false ;
+                    //上下滑动，使用浏览器默认的上下滑动
+                }
+            })
+        }
+        preventDefaults();
+
+        //左滑
+        $Ulimgs.on('swipeLeft', function() {
+            //preventDefaults();
+            if (num < imgLength-1) {
+                num++;
+                //阻止冒泡
+                document.addEventListener('webkitAnimationEnd', function () {
+                    $Ulimgs.removeClass('animated bounceInRight');
+                    document.removeEventListener('webkitAnimationEnd');
+                }, false);
+                $Ulimgs.css('left', -num * 100 + '%').addClass('animated bounceInRight');
+                $('.imgArea span').text(num + 1 + '/' + imgLength); //图片总数量与当前是第几张
+            }
+        });
+        //右滑
+        $Ulimgs.on('swipeRight', function() {
+            //preventDefaults();
+            if (num > 0) {
+                num--;
+                //阻止冒泡
+                document.addEventListener('webkitAnimationEnd',function(){
+                    $Ulimgs.removeClass('animated bounceInLeft');
+                    document.removeEventListener('webkitAnimationEnd');
+                },false);
+                $(this).css('left', -num * 100 + '%').addClass('animated bounceInLeft');
+                $('.imgArea span').text(num + 1 + '/' + imgLength); //图片总数量与当前是第几张
+            }
+        });
+
+        //点击店铺图片出现大图与隐藏
+        $('.picarea').on('tap', function() {
+            $('.imgArea').show().addClass('animated fadeIn');
+        });
+        $('.imgArea').on('tap', function() {
+            $('.imgArea').hide().removeClass('animated fadeIn');
+        });
+
+        //店铺简介
+        $('.shop_intro').toggle(function(){
+            $(this).find('.title').addClass('title2');
+            $(this).find('.info').slideDown();
+        },function(){
+            $(this).find('.title').removeClass('title2');
+            $(this).find('.info').slideUp();
+        });
+
+        //商家介绍
+        $('.shop_intro .more').toggle(function(){
+            $(this).children('i').addClass('fa-rotate-180');
+            $('.shop_intro .info').css('white-space','normal');
+        },function(){
+            $(this).children('i').removeClass('fa-rotate-180');
+            $('.shop_intro .info').css('white-space','nowrap');
+        });
+
+        //优惠信息
+        $('.discount p').toggle(function(){
+           $(this).addClass('cur').siblings('ul').slideDown();
+        },function(){
+            $(this).removeClass('cur').siblings('ul').slideUp();
+        });
+    </script>
+</html>

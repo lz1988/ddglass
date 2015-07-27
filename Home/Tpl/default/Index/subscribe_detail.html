@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>验光预约</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/style.css" />
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/font-awesome.min.css" />
+    <style>
+        .opt_list .detail{
+            border-bottom: 0;
+        }
+        .mian_det{
+            margin-bottom: 10px;
+        }
+        .order_tips{
+            padding: 10px;
+            background: #fff;
+            border-top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="opt_list common_w">
+    <ul>
+        <li>
+            <dl class="detail" >
+                <dt>
+                    <img src="{$detail.images_url}" alt="验光师照片"/>
+                </dt>
+                <dd>
+                    <p>{$detail.name}</p>
+                    <p>{$detail.job}</p>
+                    <p>验光费：￥{$detail.price}</p>
+                    <p class="yzm">验证码：{$detail.secret_key}</p>
+                </dd>
+            </dl>
+        </li>
+    </ul>
+    <div class="mian_det">
+        <div class="addr">
+            <div style="border-top: 0;">
+                <a href='__URL__/map?lon={$detail.lon}&lat={$detail.lat}' ><i class="fa  fa-map-marker fa-stack-1x"></i><span>{$detail.addr}</span></a>
+            </div>
+            <div>
+                <a  class="tel"  href="tel:{$detail.phone}">
+                    <i class="fa fa-phone fa-2x fa-stack-1x"></i><span>{$detail.phone} <em class="fr" style="padding-right: 5px;">拨打</em></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="order_tips">
+        <span>注：</span>
+        <p>您已支付成功，但还需要致电门店验光师约定好验光时间，验光前提供验证码表明预约身份！</p>
+    </div>
+</div>
+</body>
+</html>

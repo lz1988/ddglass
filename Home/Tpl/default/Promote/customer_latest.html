@@ -1,0 +1,53 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bootbusiness | Short description about company">
+    <meta name="author" content="Your name">
+    <title>装修日记</title>
+    <!-- Bootstrap -->
+    <link href="/Home/Tpl/default/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap responsive -->
+    <link href="/Home/Tpl/default/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <!-- Font awesome - iconic font with IE7 support -->
+    <link href="/Home/Tpl/default/css/font-awesome.css" rel="stylesheet">
+    <link href="/Home/Tpl/default/css/font-awesome-ie7.css" rel="stylesheet">
+    <!-- Bootbusiness theme -->
+    <link href="/Home/Tpl/default/css/boot-business.css" rel="stylesheet">
+    <style>
+        ul li {
+            font-size: 24px;
+            color: black;
+            display: block;
+            margin: 10px;
+            border: 1px;
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <ul>
+        <li><a href="/index.php/customer/index?reselect=1">重选房源</a></li>
+        <volist name="historydata" id="vo">
+            <li>
+                <a href="/index.php/customer/housecenter?id={$vo.houseid}"> {$vo.address}</a>
+            </li>
+        </volist>
+    </ul>
+</div>
+<script type="text/javascript" src="/Home/Tpl/default/js/jquery.min.js"></script>
+<script type="text/javascript" src="/Home/Tpl/default/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/Home/Tpl/default/js/boot-business.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+

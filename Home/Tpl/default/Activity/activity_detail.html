@@ -1,0 +1,20 @@
+    <div class="content">
+        <div class="detail_warp">
+            <h1>{$list.title}</h1>
+            <p>{$list.create_time|date="Y-m-d",###}</p>
+            <p>
+            <if condition="$is_apple eq 1">
+            <a href="/Activity/activity_apply/id/{$Think.get.id}" class="button" style="display: block;">我要报名<img src="__PUBLIC__/Home/images/a_bg.png"></a>
+            <elseif condition="$is_apple eq 3" />
+           <!-- <a class="button" style="display: block;background:#d8d8d8;">已报名</a>-->
+            <elseif condition="$is_apple eq 2" />
+           <!-- <a class="button" style="display: block;background:#d8d8d8;">活动已过期</a>-->
+            </if>
+            </p>
+            <div class="d_box">
+                {$list.content}
+            </div>
+            
+        </div>
+        
+    </div>

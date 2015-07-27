@@ -1,0 +1,23 @@
+<article class="page_content clearfix">
+<if condition="$orders_list">
+<foreach name="orders_list" item="list">
+    <div class="order-box">
+        <div>订单编号:{$list.orders_no}      &nbsp;&nbsp;&nbsp;&nbsp;{$list.create_time|date="Y/m/d H:i:s",###}</div>
+        <div class="order-msg">
+            <img src="{$list.icon}">
+            <div class="order-msg">
+                <p class="title">{$list.item_name}</p>                
+                <p class="order-num">共{$list.item_num}件商品<!--|¥{$list.buy_price}--></p>
+                <p class="price">实付：<span>¥{$list.amount}</span><!--<a href="/user/orders_detail/orders_id/{$list.orders_id}">查看订单</a>--></p>
+            </div>
+        </div>
+    </div>
+</foreach>
+<else />
+	<div class="cart_null" style="background:none;">
+        <div class="n_msg">
+            <p>还没有订单数据</p>
+        </div>
+    </div>
+</if>
+</article>

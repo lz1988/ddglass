@@ -1,0 +1,42 @@
+<!DOCTYPE  html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html{width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+        #allmap{height:100%;width:100%;}
+
+    </style>
+
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=I5Szl96uWEjM7K7js6p3D0DI"></script>
+    <title>城市名定位</title>
+</head>
+<body>
+
+    <div id="allmap"></div>
+
+    <input id="longitude" type="hidden" value="{$lon}" style="width:1px; margin-right:1px;" />
+    <input id="latitude" type="hidden" value="{$lat}" style="width:1px; margin-right:1px;" />
+
+
+
+</body>
+</html>
+<script type="text/javascript">
+    // 百度地图API功能
+
+    var lon = document.getElementById("longitude").value;
+    var lat = document.getElementById("latitude").value;
+
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(lon, lat), 20);
+    map.enableScrollWheelZoom(true);
+    if (document.getElementById("longitude").value != "" && document.getElementById("latitude").value != "") {
+        map.clearOverlays();
+        var new_point = new BMap.Point(document.getElementById("longitude").value, document.getElementById("latitude").value);
+        var marker = new BMap.Marker(new_point);  // 创建标注
+        map.addOverlay(marker);              // 将标注添加到地图中
+        map.panTo(new_point);
+    }
+    // 222用经纬度设置地图中心点
+</script>

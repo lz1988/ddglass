@@ -1,0 +1,118 @@
+<article class="page_content clearfix">
+    <div class="order_warp">
+        <h3>留个电话吧!</h3>
+        <p>客服会与您确认预约信息</p>        
+        <div class="write_phone">
+            <div id="shouji1" class="phone_item w_phone">
+                <span></span><!-- <span class="ck_done"></span> 彩色图标-->
+                <input type="text" name="" onkeydown="check_input()" onkeyup="check_input()" id="phone" placeholder="请输入手机号码" class="i_text">
+                <input type="button" id="times" onclick="click_send()" value="验证" class="i_bttn">
+                <!-- <input type="button" value="验证完成" class="i_bttn txt_done"> 红色按钮-->
+            </div>
+            <div class="phone_item w_yzm">
+                <span></span><!-- <span class="ck_done"></span> 彩色图标-->
+                <input type="text" id="code" onkeydown="check_input()" name="" placeholder="收到的短信验证码" class="i_text">
+            </div>
+        </div>
+        
+        
+        <div class="go_next"><a href="#">下一步</a></div>
+        <!-- <div class="go_next"><a href="#" class="sure">下一步</a></div> -->
+        <p class="msg">向您宣誓：誓死保卫手机号，绝不透露。</p>
+
+    </div>
+</article>
+<script type="text/javascript">
+var s = 60, t;
+function times(){
+ s--;
+ $('#times').val(s);
+t = setTimeout('times()', 1000);
+if ( s <= 0 ){
+ s = 60;
+ $('#times').val('验证');
+ $(".i_bttn").addClass(" txt_done");
+ clearTimeout(t);
+}
+}
+ 
+function click_send(){
+	if($('#times').attr('class')!='i_bttn'){
+		var phone=$('#phone').val();
+		$('#times').attr('class','i_bttn');
+		$.ajax({
+			url: "{:U('user/send')}",
+			type: "post",
+			dataType: "json",
+			data: "phone="+phone,
+			success: function(data) {
+				//alert(data.info);
+				$('#tsinfo').html(data.info);
+				$('.msg_layer').show();
+				if(data.info=='发送失败'){
+					return false;
+				}
+				times();
+				//document.location="/user/validation";
+			},
+			cache: false,
+		    timeout: 5000,
+			error: function() {
+			    alert("错误");
+			}
+		});
+		
+	}
+}
+
+function check_input(){
+	var phone=$('#phone').val();
+	var code=$('#code').val();
+	if(phone!=''){
+		var myreg =/^(13[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/;
+        if(myreg.test(phone)){
+        	$("#shouji1 span").addClass("ck_done");
+        	$(".i_bttn").addClass(" txt_done");
+        }else{
+		    $(".phone_item span").removeClass("ck_done");
+		    $(".i_bttn").removeClass("txt_done"); 
+		}		
+	}
+	if(code!=''){
+		$(".w_yzm span").addClass("ck_done"); 
+	}
+	
+	if(phone!='' && code!=''){
+		$(".go_next a").addClass("sure"); 
+	}
+}
+
+$('.go_next').click(function (){
+	var phone=$('#phone').val();
+	var code=$('#code').val();
+	 
+	if(phone=='' || code==''){
+		alert('请填写完整的信息');return false;
+	}
+	$.ajax({
+		url: "{:U('user/validation')}",
+		type: "post",
+		dataType: "json",
+		data: "phone="+phone+"&code="+code,
+		success: function(data) {
+			if(data.status==1){
+				document.location="/user/sub_orders";
+			}else{
+				alert(data.info);
+			}
+		},
+		cache: false,
+	    timeout: 5000,
+		error: function() {
+		    alert("错误");
+		}
+	});
+});
+
+check_input();
+</script>

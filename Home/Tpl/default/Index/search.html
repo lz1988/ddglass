@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+        <title>搜索</title>
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/style.css" />    	
+    </head>
+    <body>
+        	<header class="head h_search">
+			<a class="back" href="javascript:history.back(-1)"></a>			
+			<input id="search" type="text" />
+                        <span onclick="search()">搜索</span>					
+		</header>
+        <section class="main_search">
+            <div class="search_tips">
+                <!--<ul>
+                        <li><a href="">眼镜架</a></li>
+                        <li><a href="">眼镜架</a></li>
+                        <li><a href="">眼镜架</a></li>
+                        <li><a href="">眼镜架</a></li>
+                </ul>-->
+            </div>
+            <div class="other_search">
+                <div class="hot">
+                    <h4>热门搜索：</h4>
+                    <ul>
+                        <li><a href="__URL__/index/index.php?name=眼镜">免费验光</a></li>
+                        <li><a href="">李白太阳镜</a></li>
+                        <li><a href="">李白眼镜架</a></li>
+                        <li><a href="">李白眼镜</a></li>
+                        <li><a href="">东明眼镜</a></li>
+                        <li><a href="">免费洗眼镜</a></li>
+                    </ul>
+                </div>
+                <div class="history">
+                    <ul>
+                        <li><a href="">眼镜架</a></li>
+                        <li><a href="">太阳镜</a></li>
+                        <li><a href="">搜索历史</a></li>
+                        <li><a href="">搜索历史</a></li>
+                        <li><a href="">搜索历史</a></li>
+                        <li><a href="">搜索历史</a></li>
+                    </ul>
+                    <p>
+                        <span>
+                            <i></i>
+                            <span>清除历史记录</span>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </body>
+    <script src="__PUBLIC__/Home/js/jquery-1.9.1.min.js"></script>
+    <script>
+        $("#search").on("keyup", function() {
+            var keyword = $(this).val();
+            if (keyword != '')
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '__URL__/searchAjax/',
+                    data: {'keywords': keyword},
+                    success: function(data) {
+                        var data_arr = eval("(" + data + ")");
+                        datalength = data_arr.length;
+                        if (datalength > 0) {
+                            str = '<ul>';
+                            for (i = 0; i < datalength; i++) {
+                                str += '<li kid=' + i + '><a href="__URL__/shop_detail/id/' + data_arr[i].id + '">';
+                                str += data_arr[i].name;
+                                str += '</a></li>';
+                            }
+                            str += '</ul>';
+                            $(".search_tips").html(str);
+
+                            $(".search_tips ul li").click(function() {
+                                var key_id = $(this).html();
+                                $(".search_tips").css('display', 'none');
+                            });
+
+                            $(".search_tips").show();
+                            $('.other_search').hide();
+                        }
+                    }
+                });
+            }
+        });
+
+        document.onclick = function() {
+            $(".search_tips").css('display', 'none');
+            $('.other_search').show();
+        };
+        
+        function hotSearch(){
+            var keyword= $("#search").val();
+            if (keyword != ''){
+                $.ajax({
+                    type: 'POST',
+                    url: '__URL__/searchAjax/',
+                    data: {'keywords': keyword},
+                    success:function(data){
+                        alert(data);
+                    }
+                });
+            }
+            
+        }
+        $(".other_search>li>span").click(function(){
+            
+        });
+        
+
+    </script>
+</html>

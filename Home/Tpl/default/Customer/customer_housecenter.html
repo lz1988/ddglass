@@ -1,0 +1,105 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>艺筑-装修路线图</title>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<head>
+
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" media="all" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" media="all"
+          rel="stylesheet">
+    <link href="/Home/Tpl/default/css/timeline.css" media="all" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.1/modernizr.min.js"></script>
+
+    <style>
+        .unfinished {
+            filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+            -webkit-filter: grayscale(100%);
+        }
+
+        .menu > a {
+            font-size: 24px;
+            color: black;
+            border: 1px;
+            background: red;
+            display: block;
+        }
+
+        .menu {
+            text-align: left;
+        }
+
+        .gray {
+            background-color: gray;
+            color: black;
+        }
+
+        .red {
+            background-color: red;
+            color: black;
+        }
+
+        .green {
+            background-color: green;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+<!--<div class="housedetail">-->
+<!--{$fangjian.id}-->
+<!--{$fangjian.xiaoqu}-->
+<!--{$fangjian.qi}-->
+<!--{$fangjian.dong}-->
+<!--{$fangjian.lou}-->
+<!--{$fangjian.fangjian}-->
+<!--</div>-->
+<div class="menu">
+    <a href="/index.php/customer/latest">最近浏览</a>&nbsp;
+    <a href="/index.php/customer/index?reselect=1&cid={$fangjian.id}">重选房源</a>&nbsp;
+    <a href="/index.php/customer/attachments_add?cid={$flow.cid}&fid={$flow.id}&fnid={$flow.cnid}">上传图片</a> &nbsp;
+    <a href="/index.php/customer/orderdesigner?cid={$fangjian.id}">预约设计师</a>
+</div>
+<div class="timeline animated">
+    <volist name="flownodes" id="vo">
+        <div class="timeline-row ">
+            <div class="timeline-time">
+                <small>{$vo.begintime} - {$vo.endtime}</small>
+            </div>
+            <div class="timeline-icon">
+                <div class="bg-primary">
+                    <i class="fa fa-pencil" style=" background-image:url('{$vo.iconurl}')"></i>
+                </div>
+            </div>
+            <div class="panel timeline-content">
+                <div class="panel-body <eq  name='vo.status' value='0'>gray</eq> <eq  name='vo.status' value='1'>green</eq><eq  name='vo.status' value='2'>red</eq>">
+                    <h2>
+                        <a href="/index.php/customer/flownode?cid={$vo.cid}&fid={$vo.fid}&fnid={$vo.id}">
+                            {$vo.title}</a>
+                    </h2>
+
+                    <p>
+                        {$vo.content}
+                    </p>
+                </div>
+            </div>
+            </a>
+        </div>
+    </volist>
+
+</div>
+<script src="/Home/Tpl/default/js/jquery.min.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="/Home/Tpl/default/js/timeline.js"></script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/font-awesome.min.css" />
+    <style>
+        img{width: 80%;}
+    </style>
+</head>
+<body>
+    <section class="article_det">
+        <div class="article_det_tit">
+            <h3>{$rs.title}</h3>
+            <div class="clearfix">
+                <time class="fl">{$rs.create_time|date="Y-m-d",###}</time>
+                <span id="like" detail-id={$rs.id}  class="fr collect"><i class="fa fa-star fa-lg"></i><span class="counts">收藏</span></span>
+            </div>
+        </div>
+        <div class="article_det_con">
+            <p>{$rs.content}</p>
+        </div>
+    </section>
+ <input type='hidden' id='exist' data-exist="{$res}">
+</body>
+<script type="text/javascript" src="__ROOT__/Public/Home/js/zepto.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Home/js/zeptoTouch.js"></script>
+<script>
+    //收藏
+    var counts=$('.collect').children('.counts'),
+        num=counts.text();
+    var data_exist='';
+	   data_exist=$('#exist').attr('data-exist');
+	   if(data_exist==1){
+		   $('#like').addClass('cur');
+		   counts.text('已收藏')
+	   }
+    $('.collect').on('tap',function(){
+       $(this).toggleClass('cur');
+        if($(this).hasClass('cur')){
+        	
+        	counts.text('收藏')
+            
+        	
+        		var detail='';
+        		detail=$(this).attr('detail-id');
+        		//alert(datail);
+        		$.ajax({
+        			url:'__URL__/save_article',
+        			type: 'get',
+        			dataType:'json',
+        			async: false,
+        			data:'&id='+detail,
+        			success:function(data){
+        				if(data==1){
+        					alert('收藏成功');
+        					
+        				}else{
+        					alert('false')
+        				}
+        			}
+        		
+        		});
+        		
+        	
+        	
+            //num++;
+            if(num=="收藏"){
+            counts.text('已收藏');
+            }
+        }else{
+        	counts.text('收藏');
+        	var detail='';
+        	detail=$(this).attr('detail-id');
+    		//alert(datail);
+    		$.ajax({
+    			url:'__URL__/dele_article',
+    			type: 'get',
+    			dataType:'json',
+    			async: false,
+    			data:'&id='+detail,
+    			success:function(data){
+    				if(data==1){
+    					alert('取消收藏');
+    					
+    				}else{
+    					alert('false')
+    				}
+    			}
+    		
+    		});
+           // num--;
+            if(num=="已收藏"){
+            	counts.text('收藏');
+            }
+            //counts.text(num);
+        }
+    });
+</script>
+</html>
+<script>   
+/* $('#like').live("click",function(){
+	var detail='';
+	detail=$(this).attr('detail-id');
+	//alert(datail);
+	$.ajax({
+		url:'__URL__/save_article',
+		type: 'get',
+		dataType:'json',
+		async: false,
+		data:'&id='+detail,
+		success:function(data){
+			if(data==1){
+				alert('保存成功');
+				
+			}else{
+				alert('false')
+			}
+		}
+	
+	});
+	
+}) */
+</script> 
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+ <script language="javascript" type="text/javascript">
+						var s_content = '{$rs.content}';
+						s_content=s_content.substr(0,50);
+                        wx.config({
+                            debug: false, //这里是开启测试，如果设置为true，则打开每个步骤，都会有提示，是否成功或者失败
+                            appId: '{$signPackage[appId]}',
+                            timestamp: '{$signPackage[timestamp]}', //这个一定要与上面的php代码里的一样。
+                            nonceStr: '{$signPackage[nonceStr]}', //这个一定要与上面的php代码里的一样。
+                            signature: '{$signPackage[signature]}',
+                            te: '{$signPackage[str]}',
+                            jsApiList: [
+                                // 所有要调用的 API 都要加到这个列表中
+                                'checkJsApi',
+                                'onMenuShareTimeline',
+                                'onMenuShareAppMessage',
+                            ]
+                        });
+
+                        wx.error(function(res) {
+                            //alert(res.errMsg);
+                        });
+
+
+                        wx.ready(function() {
+                            wx.onMenuShareTimeline({
+                                title: "{$rs.title}", // 分享标题
+                                link: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6665fe982e03a365&redirect_uri=http://dd.eyeku.com/index.php/article/article_detail/id/{$rs.id}&response_type=code&scope=snsapi_base&state=1#wechat_redirect", // 分享链接
+                                imgUrl: "http://dd.eyeku.com/Public/Home/images/OFS.jpg", // 分享图标
+                                desc: s_content,
+                                success: function() {
+                                    alert('分享成功');
+                                    window.location.reload();
+                                    // 用户确认分享后执行的回调函数
+                                },
+                                cancel: function() {
+                                    // 用户取消分享后执行的回调函数
+                                }
+                            });
+
+                            wx.onMenuShareAppMessage({
+                                title: "{$rs.title}", // 分享标题
+                                desc: s_content, // 分享描述
+                                link: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6665fe982e03a365&redirect_uri=http://dd.eyeku.com/index.php/article/article_detail/id/{$rs.id}&response_type=code&scope=snsapi_base&state=1#wechat_redirect", // 分享链接
+                                imgUrl: "http://dd.eyeku.com/Public/Home/images/OFS.jpg", // 分享图标
+                                type: '', // 分享类型,music、video或link，不填默认为link
+                                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                                success: function() {
+                                    // 用户确认分享后执行的回调函数
+                                    alert('分享成功');
+                                    window.location.reload();
+                                },
+                                cancel: function() {
+                                    // 用户取消分享后执行的回调函数
+                                }
+                            });
+
+                        });
+    </script>

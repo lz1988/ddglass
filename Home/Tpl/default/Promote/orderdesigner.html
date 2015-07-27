@@ -1,0 +1,97 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bootbusiness | Short description about company">
+    <meta name="author" content="Your name">
+    <title>装修日记</title>
+    <!-- Bootstrap -->
+    <link href="/Home/Tpl/default/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap responsive -->
+    <link href="/Home/Tpl/default/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <!-- Font awesome - iconic font with IE7 support -->
+    <link href="/Home/Tpl/default/css/font-awesome.css" rel="stylesheet">
+    <link href="/Home/Tpl/default/css/font-awesome-ie7.css" rel="stylesheet">
+    <!-- Bootbusiness theme -->
+    <link href="/Home/Tpl/default/css/boot-business.css" rel="stylesheet">
+    <script type="text/javascript">
+        function fleshverify() {
+            var timenow = new Date().getTime();
+            $('#verifyImg').attr('src', '__APP__/Public/verify6/' + timenow);
+        }
+    </script>
+</head>
+<body>
+<form action="/index.php/customer/sendorder">
+    <article class="page_content clearfix">
+        <div class="order_warp">
+            <h1>提交预约</h1>
+            <input type="hidden" id="cid" name="cid" value="{$cid}"/>
+            <input type="hidden" id="openid" name="openid" value="{$openid}"/>
+            房间号：{$house['freeaddress']}
+            <div class="write_info block">
+                <div class="write_add w_name">
+                    <div class="left_icon" id="addcurl1">
+                        <span>约见地址</span>
+                    </div>
+                    <div class="right_layer">
+                        <div class="r_input">
+                            <input id="address" style="width: 100%;" name="address" type="text"
+                                   value="{$house['freeaddress']}"
+                                   onBlur="if (this.value == '') {this.value = 'XX市XX区xx小区x期x栋x单元x房间';}">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="write_add ">
+                    <div class="left_icon" id="addcurl1">
+                        <span>电话</span>
+                    </div>
+                    <div class="right_layer">
+                        <div class="r_input">
+                            <input id="tel" style="width: 100%;" name="tel" type="text"
+                                   value="请填写电话号码"
+                                   onBlur="if (this.value == '') {this.value = '请填写电话号码';}">
+                        </div>
+                    </div>
+                </div>
+                <div class="write_add ">
+                    <div class="left_icon" id="addcurl1">
+                        <span>验证码</span>
+                    </div>
+                    <div class="right_layer">
+                        <div class="r_input">
+                            <input id="telcode" style="width: 100%;" name="telcode" type="text"
+                                   value="验证码"
+                                   onBlur="if (this.value == '') {this.value = '验证码';}">
+                            <img SRC="__APP__/Public/verify6/" id="verifyImg" onClick="fleshverify()"
+                                 BORDER="0" / >
+                            <a href="#" onClick="fleshverify()">换一张</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="go_next"
+                 style="width: 100%; border: 0px;text-align: center; height: 30px; vertical-align: middle;">
+                <input id="btnsubmit" type="submit"
+                       style="width:80%;height:25px;border:0px; background-color:red; "
+                       value="提交"/></div>
+        </div>
+    </article>
+</form>
+
+
+<script type="text/javascript" src="/Home/Tpl/default/js/jquery.min.js"></script>
+<script type="text/javascript" src="/Home/Tpl/default/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/Home/Tpl/default/js/boot-business.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+

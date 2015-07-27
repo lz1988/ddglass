@@ -1,0 +1,260 @@
+<style>
+    #mcover {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        z-index: 20000;
+    }
+    #mcover img {
+        position: fixed;
+        right: 18px;
+        top: 5px;
+        width: 260px!important;
+        height: 180px!important;
+        z-index: 20001;
+    }
+    .text {
+        margin: 15px 0;
+        font-size: 14px;
+        word-wrap: break-word;
+        color: #727272;
+    }
+    #mess_share {
+        margin: 15px 0;
+        display: block;
+    }
+    #share_1 {
+        float: left;
+        width: 49%;
+        display: block;
+    }
+    #share_2 {
+        float: right;
+        width: 49%;
+        display: block;
+    }
+    .clr {
+        display: block;
+        clear: both;
+        height: 0;
+        overflow: hidden;
+    }
+    .button2 {
+        font-size: 16px;
+        padding: 8px 0;
+        border: 1px solid #adadab;
+        color: #000000;
+        background-color: #e8e8e8;
+        background-image: linear-gradient(to top, #dbdbdb, #f4f4f4);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.45), inset 0 1px 1px #efefef;
+        text-shadow: 0.5px 0.5px 1px #fff;
+        text-align: center;
+        border-radius: 3px;
+        width: 100%;
+    }
+    #mess_share img {
+        width: 22px!important;
+        height: 22px!important;
+        vertical-align: top;
+        border: 0;
+    }
+</style>
+<script type="text/javascript">
+    function button1(){
+        $("#mcover").css("display","block")    // 分享给好友按钮触动函数
+    }
+    function button2(){
+        $("#mcover").css("display","block")  // 分享给好友圈按钮触动函数
+    }
+    function weChat(){
+        $("#mcover").css("display","none");  // 点击弹出层，弹出层消失
+    }
+
+    /*$
+     (function(){
+     setTimeout(function () {
+     $("#mcover").show();}, 6000);   // 6000时毫秒是弹出层
+     setTimeout(function () {
+     $("#mcover").hide(); }, 8000);    //8000毫秒是隐藏层
+     })
+     */
+</script>
+<div id="mcover" onclick="weChat()" style="display:none;">
+    <img src="__PUBLIC__/Home/images/0.png" />
+</div>
+
+<div class="text" id="content">
+    {$openid}
+    <div id="mess_share">
+        <div id="share_1">
+            <button class="button2" onclick="button1()">
+                <img src="__PUBLIC__/Home/images/s1.png" width="64" height="64" />
+                发送给朋友
+            </button>
+        </div>
+        <div id="share_2">
+            <button class="button2" onclick="button2()">
+                <img src="__PUBLIC__/Home/images/s2.png" width="64" height="64" />
+                分享到朋友圈1
+            </button>
+        </div>
+        <div class="clr"></div>
+    </div>
+</div>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script language="javascript" type="text/javascript">
+    wx.config({
+        debug: true,//这里是开启测试，如果设置为true，则打开每个步骤，都会有提示，是否成功或者失败
+        appId: 'wx6665fe982e03a365',
+        timestamp: '14999923234',//这个一定要与上面的php代码里的一样。
+        nonceStr: '14999923234',//这个一定要与上面的php代码里的一样。
+        signature: '{$jssdk}',
+        jsApiList: [
+            // 所有要调用的 API 都要加到这个列表中
+            'checkJsApi',
+            //'onMenuShareTimeline',
+            //'onMenuShareAppMessage',
+            //'onMenuShareQQ',
+            //'onMenuShareWeibo',
+            'openLocation',
+            'getLocation',
+        ]
+    });
+
+    wx.error(function (res) {
+        alert(res.errMsg);
+    });
+
+   /* function getopen() {
+        alert('this is open');
+        wx.openLocation({
+            latitude: 23.099994,
+            longitude: 113.324520,
+            name: 'TIT 创意园',
+            address: '广州市海珠区新港中路 397 号',
+            scale: 14,
+            infoUrl: 'http://weixin.qq.com'
+        });
+    }*/
+
+
+    wx.ready(function () {
+
+        wx.onMenuShareTimeline({
+            title: "加油卡为我助威", // 分享标题
+            link: "http://dd.eyeku.com/activity/show_share_activity/openid/{$openid}", // 分享链接
+            imgUrl: "http://dd.eyeku.com/Public/Home/images/getheadimg.jpg", // 分享图标
+            desc : "推荐---为我加油",
+            success: function () {
+                alert('执行ok')
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+       /* wx.openLocation({
+            latitude: 23.099994,
+            longitude: 113.324520,
+            name: 'TIT 创意园',
+            address: '广州市海珠区新港中路 397 号',
+            scale: 14,
+            infoUrl: 'http://weixin.qq.com'
+        });*/
+
+        wx.getLocation({
+            success: function (res) {
+                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                var speed = res.speed; // 速度，以米/每秒计
+                var accuracy = res.accuracy; // 位置精度
+                //gps.push({'lat':latitude, 'lng':longtitude});
+                //alert('lat:'+latitude+'lng:'+longtitude+'');
+                alert('success---55555555555');
+            },
+            fail:function(){
+                //gps.push('error')
+                alert('error-44444444444444');
+
+            }
+        });
+
+
+
+        /* wx.getLocation({
+         success: function (res) {
+         var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+         var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+         var speed = res.speed; // 速度，以米/每秒计
+         var accuracy = res.accuracy; // 位置精度
+         alert('ok')
+         }
+
+         });*/
+
+        /*function getLocation() {
+         wx.getLocation({
+         success: function (res) {
+         var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+         var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+         var speed = res.speed; // 速度，以米/每秒计
+         var accuracy = res.accuracy; // 位置精度
+         //gps.push({'lat':latitude, 'lng':longtitude});
+         alert('xx');
+         },
+         fail:function(){
+         //gps.push('error')
+         }
+         });
+         }
+         setInterval("getLocation()", 1500);*/
+
+
+        /*wx.onMenuShareAppMessage({
+         title: "<?=$act['act_name']?>", // 分享标题
+         desc: "<?=substr($act['act_stime'],0,10)?><?=$act['act_place']?>", // 分享描述
+         link: "http://www.brandhd.com/v/events/view/<?=$act['act_id']?>", // 分享链接
+         imgUrl: "http://www.brandhd.com<?=$act['act_poster_small']?>", // 分享图标
+         type: '', // 分享类型,music、video或link，不填默认为link
+         dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+         success: function () {
+         // 用户确认分享后执行的回调函数
+         },
+         cancel: function () {
+         // 用户取消分享后执行的回调函数
+         }
+         });
+         wx.onMenuShareQQ({
+         title: "<?=$act['act_name']?>", // 分享标题
+         desc: "<?=substr($act['act_stime'],0,10)?>\n<?=$act['act_place']?>", // 分享描述
+         link: "http://www.brandhd.com/v/events/view/<?=$act['act_id']?>", // 分享链接
+         imgUrl: "http://www.brandhd.com<?=$act['act_poster_small']?>", // 分享图标
+         success: function () {
+         // 用户确认分享后执行的回调函数
+         },
+         cancel: function () {
+         // 用户取消分享后执行的回调函数
+         }
+         });
+         wx.onMenuShareWeibo({
+         title: "<?=$act['act_name']?>", // 分享标题
+         desc: "<?=substr($act['act_stime'],0,10)?>\n<?=$act['act_place']?>", // 分享描述
+         link: "http://www.brandhd.com/v/events/view/<?=$act['act_id']?>", // 分享链接
+         imgUrl: "http://www.brandhd.com<?=$act['act_poster_small']?>", // 分享图标
+         success: function () {
+         // 用户确认分享后执行的回调函数
+         },
+         cancel: function () {
+         // 用户取消分享后执行的回调函数
+         }
+         });*/
+    });
+</script>
+</body>
+</html>
+

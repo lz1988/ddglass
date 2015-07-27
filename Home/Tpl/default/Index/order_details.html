@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>订单详情</title>
+		<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/dd2.css"/>
+		<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Hom/css/font-awesome.min.css"/>
+	</head>
+	<body>
+		<div class="order_comfirm common_w order_detail">
+			<div class="order_info">
+				<p>
+					订单编号：{$order_details[0].order_sn}
+					<span>
+                        <if condition="$order_details[0].pay_status neq '1'">
+                        <a href="__URL__/order_quxiao/goods_sn/{$order_details[0].order_sn}">取消 &nbsp;</a><a href="__URL__/go_pay/order_sn/{$order_details[0].order_sn}" class="go_buy">去付款</a>
+                        <else/>
+                        <if condition="$order_details[0][shipping_status] neq '1'">
+                            <a href="javascript:void(0);" class="go_buy">待发货</a>
+                            <else/>
+                            <a href="javascript:void(0);" class="go_buy">已发货</a>
+                        </if>
+                    </if>
+                    </span>
+				</p>
+                <p>下单时间：{$order_details[0].fstcreate}</p>
+				<div class="u_info">
+					<span class="icon"><i class="fa fa-map-marker"></i></span>
+					<div>
+						<p class="clearfix">
+							收货人：{$order_details[0].consignee}
+							<span class="fr">{$order_details[0].mobile}</span>
+						</p>
+						<p>
+							<span>收货地址：</span>
+							<span>{$order_details[0].address}</span>
+						</p>
+					</div>
+				</div>
+			</div>
+
+            <notempty name="$order_details[0].tracking_no">
+			<div class="order_trace">
+				<p>
+					{$order_details[0].logistics}
+					<span>运单编号：</span>{$order_details[0].tracking_no}
+				</p>
+                <foreach name="kuailist[data]" item="kuailistdata">
+				<p>{$kuailistdata[location]}，{$kuailistdata[context]} </p>
+				<p><time>{$kuailistdata[time]}</time></p>
+                </foreach>
+			</div>
+            </notempty>
+
+			<dl class="g_info">
+				<dt>
+					<img src="{$order_details[0].goods_img}" />
+				</dt>
+				<dd>
+					<p class="name">
+						{$order_details[0].goods_name}
+						<p class="counts">
+							x<span>{$order_details[0].goods_count}</span>
+						</p>
+					</p>
+					<p class="price">
+						￥<span>{$order_details[0].danjia}</span>
+					</p>
+				</dd>
+			</dl>
+			<!--<div class="lensInfo">
+				<div class="clearfix">
+					舒目1.56非球面防蓝光镜片
+					<p class="price fr">
+						￥<span>999</span>
+					</p>
+				</div>
+				<p>右眼：度数-2.00  散光：-2.00 轴位：92   总瞳距：62</p>
+				<p>左眼：度数-1.50  散光：-1.50 轴位：175</p>
+			</div>-->
+			<div class="msg">
+				<span class="label">卖家留言：</span>
+				<span class="message">{$order_details[0].remark}</span>
+			</div>			
+			<div class="money">
+				总金额：
+				<span>
+					<i>￥</i><span class="total_money">{$order_details[0].goods_price}</span>
+				</span>
+			</div>
+			<!--<div class="discount">
+				<a href="javascript:;">优惠：DD配镜中秋50元礼品优惠券</a>
+			</div>-->
+			<div class="money_list">
+				<p>
+					￥<span>{$order_details[0].goods_price}</span>
+					+
+					￥<span>{$order_details[0].fee_price}</span>运费
+					<!---
+					￥<span>50.00</span>优惠-->
+				</p>
+				<p>实付：￥{$order_details[0][goods_price]+$order_details[0][fee_price]}</p>
+			</div>
+		</div>
+	</body>
+</html>

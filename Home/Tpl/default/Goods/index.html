@@ -1,0 +1,310 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/dd2.css"/>
+        <link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/animate.css"/>
+    </head>
+    <body>
+        <header class="buy_h common_w">
+            <a href="">
+                <i class="fa fa-history"></i>
+                <a href="__URL__/history">查看历史精品</a>
+            </a>
+        </header>
+        <div class="buy_imgs common_w">
+            <ul class="clearfix">
+                <li>
+                    <img src="{$list.goods_img}"/>
+                </li>
+            </ul>
+            <!--ol存放小圆点-->
+           <!-- <ol></ol>-->
+        </div>
+        <section class="buy_con common_w">
+            <div class="g_name">
+                <div class="name">
+                    <p>{$list.goods_name}</p>
+                    <p>
+                        <span>免</span>免运费&nbsp;&nbsp;
+                        <span>换</span>7天退换
+                    </p>
+                </div>
+                <div class="price">
+                    <p>￥<span>{$list.shop_price}</span></p>
+                    <p>￥<del>{$list.market_price}</del></p>
+                </div>
+            </div>
+
+            <div class="g_color">
+                <span>颜色：</span>
+                <ul class="colors">
+                    <volist name="colorList" id="colorList">
+                        <if condition="$colorList neq ''"><li id='jack' data-id='1'><a href="javascript:;">{$colorList}</a></li></if>
+                    </volist>
+                </ul>
+            </div>
+
+            <div class="g_counts clearfix">
+                <span>数量：</span>
+                <div class="counts_box clearfix">
+                    <span class="reduce_btn">-</span>
+                    <span class="counts">1</span>
+                    <span class="add_btn">+</span>
+                </div>
+            </div>
+
+           <!-- <div class="g_lens">
+                <p class="title">选择镜片</p>
+                <ul>
+                    <li>
+                        <span class="radio">
+                            <input type="radio" name="radios"/>
+                        </span>
+                        <div class="desc">
+                            <p class="clearfix">
+                                舒目1.56非球面防蓝光镜片
+                                <span class="fr">¥ 0.00</span>
+                            </p>
+                            <p class="tips">适合光度范围0至-400度</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="radio">
+                            <input type="radio"  name="radios"/>
+                        </span>
+                        <div class="desc">
+                            <p class="clearfix">
+                                舒目1.56非球面防蓝光镜片
+                                <span class="fr">¥ 0.00</span>
+                            </p>
+                            <p class="tips">适合光度范围0至-400度</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="radio">
+                            <input type="radio"  name="radios"/>
+                        </span>
+                        <div class="desc">
+                            <p class="clearfix">
+                                舒目1.56非球面防蓝光镜片
+                                <span class="fr">¥ 0.00</span>
+                            </p>
+                            <p class="tips">适合光度范围0至-400度</p>
+                        </div>
+                    </li>
+                </ul>
+                <p class='yanGuang'>填写验光单</p>
+            </div>-->
+
+            <div class="g_show">
+                <p class="title">商品详情</p>
+                <div class="imgs">
+                    {$list.goods_desc}
+                    <img src="__ROOT__/Public/Home/images/det01.jpg" alt="商品展示信息" />
+                    <img src="__ROOT__/Public/Home/images/det02.jpg" alt="商品展示信息" />
+                    <img src="__ROOT__/Public/Home/images/det03.jpg" alt="商品展示信息" />
+                    <img src="__ROOT__/Public/Home/images/det04.jpg" alt="商品展示信息" />
+                </div>
+            </div>
+        </section>
+        <footer class="buy_footer">
+            <!--            <a href="__URL__/shoplist/id/{$list.goods_id}" onclick="nearShop()">附近门店</a>-->
+            <a  onclick="nearShop()">附近门店</a>
+            <a  onclick="buy()">我要购买</a>
+        </footer>
+        <div class="eyesInfo_box">
+            <div class="eyesInfo">
+                <p class="tips clearfix">
+                    “-”表示近视，“+”表示远视
+                    <span class="fr">×</span>
+                </p>
+                <div class="infos clearfix">
+                    <div>
+                        <span></span>
+                        <span>右眼（R）</span>
+                        <span>左眼（L）</span>
+                    </div>
+                    <div>
+                        <span>度数（Sph）</span>
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                        </select>
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span>瞳距（Pd）</span>
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="infos clearfix">
+                    <div>
+                        <span class="label_bg">有散光</span>
+                        <span>右眼（R）</span>
+                        <span>左眼（L）</span>
+                    </div>
+                    <div>
+                        <span>散光（Cyl）</span>
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                        </select>
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span>轴位（Axis）</span>
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                        </select>
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                        </select>
+                    </div>
+                </div>
+                <input class="btns" type="button" value="确定"/>
+            </div>
+        </div>
+        <input type="hidden" id="colorInp"/>
+    </body>
+    <script src="__ROOT__/Public/Home/js/zepto.js"></script>
+    <script src="__ROOT__/Public/Home/js/zeptoTouch.js"></script>
+
+    <script>
+                $(function() {
+                    //商品图片
+                    var $imgs_ul = $('.buy_imgs ul'),
+                            $imgs_li = $imgs_ul.find('li'),
+                            imgLength = $imgs_li.length,
+                            circle = $('.buy_imgs ol'),
+                            num = 0,
+                            imgHeight=$imgs_li.find('img').eq(0).height();
+
+                    $('.buy_imgs').css('height',imgHeight);
+                    //初始化设置装图片容器的总宽度和单个图片的自适应宽度
+                    $imgs_ul.css('width', imgLength * 100 + '%');
+                    $imgs_li.css('width', 100 / imgLength + '%');
+
+                    //追加小圆点
+                    for (var i = 0; i < imgLength; i++) {
+                        circle.append('<li></li>')
+                    }
+
+                    //给第一个圆点设置当前显示颜色
+                    circle.children('li').eq(0).addClass('cur');
+
+                    //左滑
+                    $imgs_ul.on('swipeLeft', function() {
+                        if (num >= imgLength - 1) {
+                            num = 0;
+                        } else {
+                            num++;
+                        }
+                        $(this).css('left', -num * 100 + '%');
+                        circle.children('li').eq(num).addClass('cur').siblings().removeClass('cur');
+                    });
+
+                    //右滑
+                    $imgs_ul.on('swipeRight', function() {
+                        if (num <= 0) {
+                            num = imgLength - 1;
+                        } else {
+                            num--;
+                        }
+                        $(this).css('left', -num * 100 + '%');
+                        circle.children('li').eq(num).addClass('cur').siblings().removeClass('cur');
+                    });
+
+                    //选择颜色
+                    var colornum = '',
+                            $colorval = $('#colorInp');
+
+                    $('.colors li').on('tap', function() {
+                        $(this).toggleClass('cur');
+                        if ($(this).hasClass('cur')) { //选中颜色
+                            $(this).siblings().removeClass('cur');
+                            colornum = $(this).attr('data-id');
+                            $colorval.val(colornum);
+                        } else { //取消选择
+                            colornum = '';
+                            $colorval.val(colornum);
+                        }
+                    });
+
+                    var $counts = parseInt($('.counts').html());
+                    //数量增加操作
+                    $(".add_btn").on('tap', function() {
+                        $counts++;
+                        $('.counts').html($counts);
+                    })
+                    //数量减少操作
+                    $(".reduce_btn").on('tap', function() {
+                        if ($counts <= 1) {
+                            $counts = 1
+                            $('.counts').html($counts);
+                        } else {
+                            $counts--;
+                            $('.counts').html($counts);
+                        }
+                    });
+
+                    //显示隐藏镜片信息
+                    $('.g_lens .yanGuang').on('tap',function(){
+                        $('.eyesInfo_box').show().addClass('animated fadeIn');
+                    })
+                    $('.eyesInfo .tips .fr').on('tap',function(){
+                        $('.eyesInfo_box').hide().removeClass('animated fadeIn');
+                    })
+                });
+                var buy = function() {
+                    var goods_id = "{$list.goods_id}";
+                    var goods_number = $("span[class='counts']").text(); //总数量
+                    var goods_price = "{$list.shop_price}" //商品单价
+                    var goods_name = "{$list.goods_name}"; //商品名称
+                    var market_price = "{$list.market_price}";
+                    var goods_attr = $("li[class='cur']").children('a').text();//属性
+
+                    /*weiyuhuang 改*/
+                   /* var goods_attr=$('#jack').hasClass('cur');*/
+                    var fee_price = "{$list.fee_price}";//属性
+                    if (goods_number < 0 || goods_number > 100) {
+                        alert("购买数量不能大于100");
+                        return false;
+                    }
+                    if (goods_attr) {
+                        $.ajax({
+                            url: "__URL__/order",
+                            data: {goods_id: goods_id, goods_number: goods_number, fee_price: fee_price, goods_price: goods_price, goods_name: goods_name, market_price: market_price, goods_attr: goods_attr},
+                            dataType: 'json',
+                            type: 'get',
+                            success: function(str) {
+                                window.location.href = "__URL__/order_comfirm";
+                            }
+                        });
+                    } else {
+                        alert("请选择颜色");
+                    }
+                }
+                function nearShop() {
+                    var lat = localStorage.lat;
+                    var lon = localStorage.lon;
+                    var id = "{$list.goods_id}";
+                    var url = "__URL__/shoplist?id=" + id + "&lat=" + lat + "&lon" + lon;
+                    window.location.href = url;
+                }
+    </script>
+</html>

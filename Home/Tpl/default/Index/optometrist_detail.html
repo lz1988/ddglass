@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>验光师详情</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/style.css" />
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/font-awesome.min.css" />
+</head>
+<body>
+<header class="opt_imgArea common_w">
+    <div class="img">
+        <div style="background-image: url('{$data.images_url}')"></div>
+        <p>{$data.name}</p>
+        <p>{$data.job}</p>
+    </div>
+    <div class="price">
+        验光费：<span class="money">￥<span>{$data.service_price}</span></span>
+    </div>
+</header>
+<section class="opt_main common_w">
+    <div class="opt_level">
+        <span class="clearfix" href="">
+            <span class="fl">评分：{$data.op_score}分</span>
+            <img class="fl" id="p_score" src="" alt=""/>
+            <span class="fr"><a href="__URL__/op_comment_list/id/{$data.id}">{$count}条评论</a></span>
+        </span>
+    </div>
+
+    <div class="opt_addr">
+        <div class="icon">
+            <i class="fa fa-map-marker"></i>
+        </div>
+        <p class="addr">
+            <a href="__URL__/map?lon={$data.lon}&lat={$data.lat}">{$data.addr}</a>
+        </p>
+    </div>
+
+    <div class="opt_intro">
+        <p class="title">验光师专长</p>
+        <p>
+           {$data.skill}
+        </p>
+    </div>
+    <div class="opt_det">
+        <p class="txt">验光师图文介绍</p>
+        <!--<img src="__PUBLIC__/Home/images/getheadimg.jpg" alt=""/>-->
+        <div class="details">{$data.content}</div>
+    </div>
+</section>
+<a class="opt_appointment" href="__URL__/subscribe/id/{$data.id}">预约验光</a>
+<script src="__PUBLIC__/Home/js/zepto.js"></script>
+<script src="__PUBLIC__/Home/js/zeptoTouch.js"></script>
+<script language="JavaScript">
+    $(function(){
+        if (parseInt('{$data.op_score}').toFixed(1) == "0.0") {
+            $("#p_score").attr("src","__PUBLIC__/Home/images/000.png");
+        }
+        if (parseInt('{$data.op_score}').toFixed(1) == "1.0") {
+            $("#p_score").attr("src","__PUBLIC__/Home/images/001.png");
+        }
+        if (parseInt('{$data.op_score}').toFixed(1) == "2.0") {
+            $("#p_score").attr("src","__PUBLIC__/Home/images/002.png");
+        }
+        if (parseInt('{$data.op_score}').toFixed(1) == "3.0") {
+            $("#p_score").attr("src","__PUBLIC__/Home/images/003.png");
+        }
+        if (parseInt('{$data.op_score}').toFixed(1) == "4.0") {
+            $("#p_score").attr("src","__PUBLIC__/Home/images/004.png");
+        }
+        if (parseInt('{$data.op_score}').toFixed(1) == "5.0") {
+            $("#p_score").attr("src","__PUBLIC__/Home/images/005.png");
+        }
+
+        //点击验光师图文详情
+       /* $('.opt_det .txt').on('tap',function(){
+            if($(this).hasClass('cur')){
+                $(this).removeClass('cur');
+                $(this).siblings('.details').slideUp();
+            }else{
+                $(this).addClass('cur');
+                $(this).siblings('.details').slideDown();
+            }
+        })*/
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+    <div class="content">
+        <article>
+           <!--scroll-->
+            <div class="scroll">
+                <ul class="bxslider">
+                  <foreach name="ad_list" item="ad">
+                  <li><img src="{:C('NEWIMGURL')}{$ad.icon}"  title="{$ad.title}" width="100%" height="179" /></li>
+                  </foreach>
+                </ul>
+            </div> 
+          <!--scroll-->
+        </article>
+        <div class="active_warp">
+            <ul>
+                <foreach name="brand_list" item="list">
+                <li <php>if($key%2==1){echo 'class="cur"';}</php> >
+                    <div class="list p"><a href="/index/detail/id/{$list.id}"><img src="{:C('NEWIMGURL')}{$list.icon}"></a></div>
+                    <div class="li_content">
+                    	<p>{$list.title}</p>
+                        <p class="year">{$list.create_time|date="Y-m-d",###}</p>
+                    </div>
+                </li>
+                </foreach>
+                <div class="page_f">
+                	<a href="/index/{:ACTION_NAME}/p/{$p-1}"><img src="__PUBLIC__/Home/images/prev.png" /></a>
+                    <a href="/index/{:ACTION_NAME}/p/{$p+1}"><img src="__PUBLIC__/Home/images/next.png" /></a>
+                    <a href="/"><img src="__PUBLIC__/Home/images/home.png" /></a>
+                    <a href="/index/{:ACTION_NAME}/p/{$p}"><img src="__PUBLIC__/Home/images/sha.png" /></a>
+                </div>                
+            </ul>
+        </div>
+    </div>
+<script src="__PUBLIC__/Home/js/jquery.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Home/js/jquery.bxslider.min.js"></script>
+<script>
+$(function(){	
+		$('.bxslider').bxSlider({
+	  auto: true,
+	  captions: true
+});
+});
+</script>

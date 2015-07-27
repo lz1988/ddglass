@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>我的信息</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/style.css" />
+        <link rel="stylesheet" href="__ROOT__/Public/Home/css/font-awesome.min.css" />
+		<script src="__PUBLIC__/Home/js/jquery-1.9.1.min.js"></script>
+        <script language="javascript">
+            function getaddr() {
+                WeixinJSBridge.invoke('editAddress', {
+                    debug: true,
+                    "appId": "{$Parameters[appid]}", //公众号名称，由商户传入
+                    "timeStamp": "{$Parameters[timestamp]}", //时间戳 这里随意使用了一个值
+                    "nonceStr": "{$Parameters[noncestr]}", //随机串
+                    "signType": "SHA1", //微信签名方式:sha1
+                    "addrSign": "{$addrSign}", //微信签名
+                    "scope": "jsapi_address"
+                }, function(res) {
+                    if (res.err_msg == 'edit_address:ok') {
+                        //window.location.href = "__URL__/index/myInfo";
+                        //document.getElementById("showAddress").innerHTML="收件人："+res.userName+"  联系电话："+res.telNumber+"  收货地址："+res.proviceFirstStageName+res.addressCitySecondStageName+res.addressCountiesThirdStageName+res.addressDetailInfo+"  邮编："+res.addressPostalCode;
+                        /*document.getElementById("showAddress").innerHTML = '<span class="icon"><i class="fa fa-map-marker"></i></span>' +
+                        '<div>' +
+                        '<p class="clearfix">' +
+                        '收货人：<input type="hidden" name="userName" value="' + res.userName + '">' + res.userName +
+                        '<span class="fr"><input type="hidden" name="telNumber" value="' + res.telNumber + '">' + res.telNumber + '</span>' +
+                        '</p>' +
+                        '<p>' +
+                        '<span>收货地址：</span>' +
+                        '<span><input type="hidden" name="address" value="' + res.proviceFirstStageName + res.addressCitySecondStageName + res.addressCountiesThirdStageName + res.addressDetailInfo + '">' + res.proviceFirstStageName + res.addressCitySecondStageName + res.addressCountiesThirdStageName + res.addressDetailInfo + '</span>' +
+                        '</p>' +
+                        '<p>邮编：<input type="hidden" name="code" value="' + res.addressPostalCode + '">' + res.addressPostalCode + '<p>' +
+                        '<a href="javascript:getaddr();" class="modify">修改</a>' +
+                        '</div>'*/
+                    }
+                    else {
+                        //alert("获取地址失败，请重新点击");
+                    }
+                });
+            }
+
+        </script>
+		
+	</head>
+	<body>
+		<!--<header class="head h_comm">
+			<span>我的</span>
+		</header>-->
+		<section class="main_myinfo">
+			<dl class="picinfo">
+				<dt>
+					<img src="{$infodata.headimgurl}"/>
+				</dt>
+				<dd>{$infodata.username}</dd>
+			</dl>
+			<ul class="infobar">
+                <li class="appointment"><a  data-id="{$rs_count}"  href="javascript:;">我的预约</a></li>
+				<li><a href="__URL__/order_list">我的订单</a></li>
+			</ul>
+			<ol class="baseinfo">
+                <!--<li class="name"><a href="">姓名<span>机智的少年</span></a></li>-->
+				<li class="sex"><a href="">
+                   <!-- <i class="fa fa-mars fa-rotate-30"></i>
+                    <i class="fa fa-venus"></i>-->
+                    性别<span> <if condition="$infodata.sex eq '1'">男<else/>女</if></span></a>
+                </li>
+				<li class="phone"><a href="__APP__/user/update_mobile">手机<span>{$infodata.tel}</span></a></li>
+				<!--<li><a href="">邮箱<span>{$infodata.email}</span></a></li>-->
+				<!--<li><a href="">常居地<span>{$infodata.city_name}</span></a></li>-->
+				<li class="addr"><a href="javascript:getaddr();">收货地址<!--<span>广东省深圳市广东省深圳市广东省深圳市省深圳市省深圳市</span>--></a></li>
+				<li class="data"><a href="__URL__/add_user_vision_info">验光资料</a></li>
+			</ol>
+		</section>
+
+        <div class="myinfo_appointment">
+            <div>
+                您还没有预约验光师，<br/>
+                赶紧去预约吧！
+                <a class="btn" href="javascript:;">确定</a>
+            </div>
+        </div>
+
+	</body>
+    <script src="__PUBLIC__/Home/js/zepto.js"></script>
+    <script src="__PUBLIC__/Home/js/zeptoTouch.js"></script>
+    <script>
+        var appointment=$('.infobar .appointment a');
+        //初始化判断，设置a的链接url;
+        if(appointment.attr('data-id')=='0'){
+            appointment.attr('href','javascript:;');
+        }else{
+            appointment.attr('href','__APP__/index/subscribe_list');
+        }
+        //若没有预约验光师，则显示提示
+        appointment.on('tap',function(){
+            if($(this).attr('data-id')=='0'){
+                $('.myinfo_appointment').show();
+            }
+        })
+        //确定关闭提示
+        $('.myinfo_appointment .btn').on('tap',function(){
+            $('.myinfo_appointment').hide();
+        })
+    </script>
+</html>

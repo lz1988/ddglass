@@ -1,0 +1,31 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>艺筑-最近浏览</title>
+    <link href="__PUBLIC__/Home/css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<!--<div class="header">
+    <h1>艺筑装饰-最近浏览</h1>
+    <a href="#" class="btn_left"></a>
+    <a href="#" class="btn_right"></a>
+</div>--><!--页眉 结束-->
+<div class="center">
+    <div class="top-btn-box">
+        <a href="/index.php/customer/index?reselect=1" class="btn1">&lt;重选房间</a>
+        <a href="#" class="btn2"></a>
+    </div>
+    <ul class="address">
+        <volist name="historydata" id="vo">
+            <li>
+                <a href="/index.php/customer/housecenter?id={$vo.houseid}"> {$vo.newaddress}</a>
+            </li>
+        </volist>
+    </ul>
+</div><!--中心 结束-->
+</body>
+</html>

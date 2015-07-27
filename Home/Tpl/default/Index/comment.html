@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8">
+        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+        <title>评价</title>
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/style.css" />
+        <script type="text/javascript" src="__PUBLIC__/Home/js/jquery.min.js"></script>
+        <script src="__PUBLIC__/Home/js/jquery-1.9.1.min.js"></script>
+        <style>
+            html,body, .main_comm{
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+       <!-- <header class="head h_comm">
+            <a class="back" href="javascript:history.back(-1)"></a>			
+            <span>{$List.name}</span>
+        </header>-->
+
+        <section class="main_comm">
+            <div class="score" >
+                <span>店铺评分：</span>
+                <span class="star" id="all">
+                    <a class="star1" href="javascript:;"></a>
+                    <a class="star2" href="javascript:;"></a>
+                    <a class="star3" href="javascript:;"></a>
+                    <a class="star4" href="javascript:;"></a>
+                    <a class="star5" href="javascript:;"></a>
+                </span>
+            </div>
+
+           <!-- <div class="score ">
+                <span>服务评分：</span>
+                <span class="star"  id="server">
+                    <a class="star1" href="javascript:;"></a>
+                    <a class="star2" href="javascript:;"></a>
+                    <a class="star3" href="javascript:;"></a>
+                    <a class="star4" href="javascript:;"></a>
+                    <a class="star5" href="javascript:;"></a>
+                </span>
+            </div>-->
+
+            <div class="score">
+                <span>验光评分：</span>
+                <span class="star" id="yanguang">
+                    <a class="star1" href="javascript:;"></a>
+                    <a class="star2" href="javascript:;"></a>
+                    <a class="star3" href="javascript:;"></a>
+                    <a class="star4" href="javascript:;"></a>
+                    <a class="star5" href="javascript:;"></a>
+                </span>
+            </div>
+
+           <!-- <div class="score">
+                <span>产品评分：</span>
+                <span class="star" id="product">
+                    <a class="star1" href="javascript:;"></a>
+                    <a class="star2" href="javascript:;"></a>
+                    <a class="star3" href="javascript:;"></a>
+                    <a class="star4" href="javascript:;"></a>
+                    <a class="star5" href="javascript:;"></a>
+                </span>
+            </div>-->
+
+            <div class="comm">
+                <textarea id="sharComment" name="sharComment" placeholder="亲，您对该验光师的服务满意吗？能给小伙伴分享一下您的感受吗？(60个汉字以内)"></textarea>
+            </div>
+            <input type="hidden" value="{$shopid}" name="shopid"/>
+        </section>
+        <footer class="f_index f_det">
+            <a class="publish">发表评论</a>
+        </footer>
+    </body>
+    <script type="text/javascript" language="javascrtipt">
+        $(document).ready(function() {
+            $(".publish").click(function() {
+                var sharComment = $("#sharComment").val();
+                var sharid = $("input[name='shopid']").val();
+                //获取总体评分
+                var sorc = 0;
+                $("span[id='all']>a").each(function() {
+                    var moveSore = $(this).attr("class");
+                    switch (moveSore) {
+                        case "star1 active":
+                            sorc = 1;
+                            break;
+                        case  "star2 active":
+                            sorc = 2;
+                            break;
+                        case  "star3 active":
+                            sorc = 3;
+                            break;
+                        case  "star4 active":
+                            sorc = 4;
+                            break;
+                        case  "star5 active":
+                            sorc = 5;
+                            break;
+                    }
+                });
+
+                var serversorc = 0;
+                $("span[id='server']>a").each(function() {
+                    var moveSore = $(this).attr("class");
+                    switch (moveSore) {
+                        case "star1 active":
+                            serversorc = 1;
+                            break;
+                        case  "star2 active":
+                            serversorc = 2;
+                            break;
+                        case  "star3 active":
+                            serversorc = 3;
+                            break;
+                        case  "star4 active":
+                            serversorc = 4;
+                            break;
+                        case  "star5 active":
+                            serversorc = 5;
+                            break;
+                    }
+                });
+
+
+                var yanguangsorc = 0;
+                $("span[id='yanguang']>a").each(function() {
+                    var moveSore = $(this).attr("class");
+                    switch (moveSore) {
+                        case "star1 active":
+                            yanguangsorc = 1;
+                            break;
+                        case  "star2 active":
+                            yanguangsorc = 2;
+                            break;
+                        case  "star3 active":
+                            yanguangsorc = 3;
+                            break;
+                        case  "star4 active":
+                            yanguangsorc = 4;
+                            break;
+                        case  "star5 active":
+                            yanguangsorc = 5;
+                            break;
+                    }
+                });
+
+
+
+                var productsorc = 0;
+                $("span[id='product']>a").each(function() {
+                    var moveSore = $(this).attr("class");
+                    switch (moveSore) {
+                        case "star1 active":
+                            productsorc = 1;
+                            break;
+                        case  "star2 active":
+                            productsorc = 2;
+                            break;
+                        case  "star3 active":
+                            productsorc = 3;
+                            break;
+                        case  "star4 active":
+                            productsorc = 4;
+                            break;
+                        case  "star5 active":
+                            productsorc = 5;
+                            break;
+                    }
+                });
+
+
+
+                if (sharComment === "") {
+                    alert("发表内容不能为空");
+                    return false;
+                }
+                //后台写入书数据
+                $.ajax({
+                    type: "post",
+                    url: '__URL__/shar/',
+                    data: {sharComment: sharComment, shopid: sharid, allsorc: sorc, serversorc: serversorc, yanguangsorc: yanguangsorc, productsorc: productsorc},
+                    success: function(data) {
+                        alert("发表成功");
+                        window.location.href = "__URL__/shop_detail/id/"+sharid;
+                    },
+                    error: function(data) {
+                        alert("发表失败");
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="__PUBLIC__/Home/js/main.js"></script>
+</html>
+

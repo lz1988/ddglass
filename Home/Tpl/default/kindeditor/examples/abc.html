@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>kind</title>
+	<script src="../kindeditor-min.js"></script>
+</head>
+<body>
+	<textarea name="" id="tid" cols="100" rows="10"></textarea>	
+</body>
+<script>
+KindEditor.ready(function(K) {
+    editor = K.create('#tid',{
+    	resizeType : 1,
+    	allowPreviewEmoticons : false
+    });
+})
+</script>
+</html>

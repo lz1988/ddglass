@@ -1,0 +1,684 @@
+{__NOLAYOUT__}
+        <html>
+<meta charset="utf-8"/>
+        <title>艺筑-上传图片</title>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <head>
+<script src="/Public/js/jquery-1.8.2.js" type="text/javascript"></script>
+<script type="text/javascript" src="/Public/js/jquery.form.js"></script>
+
+<style>
+.text {
+    font-family: "微软雅黑 Regular", "微软雅黑";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.ax_check {
+    color: #333333;
+    font-family: "Arial Normal", "Arial";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: left;
+    margin-right: 10px;
+    height: 30px;
+}
+
+.imgtu {
+    width: 100%;
+    height: 242px;
+    margin-right: 0.5px;
+    text-align: center;
+    font-family: "微软雅黑 Regular", "微软雅黑";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    float: left;
+    background-color: #E4E4E4;
+    border: 1px solid #E4E4E4;
+}
+
+.imgtu_title {
+    font-family: "微软雅黑 Regular", "微软雅黑";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    height: 30px;
+    left: 20px;
+    position: relative;
+    top: 20px;
+    width: 80px;
+    float: left;
+    background: #FFFFFF;
+}
+
+.imgtu_title1 {
+    font-family: "微软雅黑 Regular", "微软雅黑";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    height: 30px;
+    left: 20px;
+    position: relative;
+    top: 20px;
+    width: 80px;
+    float: left;
+    background: #E4E4E4;
+}
+
+.imgtu_con {
+    width: 100%;
+    height: 190px;
+    margin-top: 50px;
+    text-align: center;
+    font-family: "微软雅黑 Regular", "微软雅黑";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    position: relative;
+    background-color: #FFFFFF;
+    border-left: 1px solid #E4E4E4;
+}
+
+.imgtu_con_li {
+    width: 120px;
+    height: 150px;
+    padding-left: 15px;
+    text-align: center;
+    font-family: "微软雅黑 Regular", "微软雅黑";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    position: relative;
+    background-color: #FFFFFF;
+    float: left;
+}
+
+.imgtu_con_li_top {
+    width: 102px;
+    height: 102px;
+    top: 20px;
+    position: relative;
+    border: 1px solid #E4E4E4;
+}
+
+.imgtu_con_li_bottom {
+    width: 102px;
+    height: 50px;
+    margin-top: 30px;
+    text-align: center;
+    position: relative;
+}
+
+.btn {
+    position: relative;
+    overflow: hidden;
+    margin-right: 4px;
+    display: inline-block;
+    *display: inline;
+    padding: 4px 10px 4px;
+    font-size: 14px;
+    line-height: 18px;
+    *line-height: 20px;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: #5bb75b;
+    border: 1px solid #cccccc;
+    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border-bottom-color: #b3b3b3;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.btn input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    border: solid transparent;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+}
+
+/*弹窗*/
+.r_bg {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 67;
+    display: none;
+}
+
+.relation_box {
+    width: 600px;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 10%;
+    box-shadow: 0px 0px 15px #ddd
+}
+
+.relation_box .widget {
+    width: 600px;
+    height: auto;
+    background: #f2f2f2
+}
+
+.relation_box .widget-foot {
+    border: none;
+}
+
+.relation_box td span {
+    color: #ff0000
+}
+
+.relation_box table.table-bordered {
+    border-top: 1px solid #ddd
+}
+
+.s_top {
+    margin-top: 10px;
+}
+
+.relation_box .widget {
+    margin: 0 0;
+}
+
+.relation_box .form-group {
+    float: left;
+}
+
+.relation_box .col-lg-4 {
+    width: 80px;
+    padding-right: 0;
+    padding-top: 5px;
+}
+
+.relation_box .col-lg-8 {
+    width: 150px;
+}
+
+/*属性*/
+.attrblock {
+    list-style-type: none;
+    color: #333333;
+    width: 100%;
+}
+
+.attrblock li {
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    float: left;
+}
+
+.attrblock li label {
+    padding: 0;
+    margin: 0;
+}
+
+.attrblock li .cbox {
+    width: 25px;
+    height: 40px;
+    float: left;
+}
+
+.attrblock li .cbox input {
+    margin: 0 0;
+}
+
+.attrblock li .gcolor {
+    width: 15px;
+    height: 15px;
+    float: left;
+    padding: 5px 0;
+}
+
+.attrblock li .itext {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    width: 60px;
+    float: left
+}
+.t-input{
+    width:80%;
+    height:36px;
+    border: 1px solid #ccc;;
+}
+
+.addSub {
+    height: 55px;
+    width: 55px!important;
+    overflow: hidden;
+    line-height: 55px;
+    font-size: 30px;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    text-align: center;
+    display: inline-block;
+    border: 1px dashed #2D9EF7;
+    color: #ccc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.disnone, .hide {
+    display: none;
+}
+.AddUpImg img {
+    width: 55px;
+    height: 55px;
+}
+.IconMain {
+    background: url(__PUBLIC__/Home/images/Main.png?img=1.0.6) no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    width: 25px;
+    height: 25px;
+    background-size: 25px auto;
+}
+.AddUpImg {
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+.AddIClose {
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+    background-color: rgba(254,82,0,.8);
+    border: 1px solid #fff;
+    position: absolute;
+    top: -5px;
+    text-align: center;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    background-size: 40px auto;
+    background-position: 2px -292px;
+}
+
+.mask {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255,255,255,.35);
+    position: fixed;
+    z-index: 9;
+    top: 0;
+}
+
+.loading {
+    width: 3px;
+    height: 3px;
+    border-radius: 100%;
+    box-shadow: 0 -10px 0 1px currentColor,10px 0px currentColor,0 10px currentColor,-10px 0 currentColor,-7px -7px 0 .5px currentColor,7px -7px 0 1.5px currentColor,7px 7px currentColor,-7px 7px currentColor;
+    -webkit-animation: loading 1s step-start infinite;
+    animation: loading 1s step-start infinite;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+</style>
+<link href="/Public/Admin/css/list.css" rel="stylesheet" type="text/css"/>
+<!--<link rel="stylesheet" href="/Public/Admin/kindeditor/themes/default/default.css"/>
+<link rel="stylesheet" href="/Public/Admin/kindeditor/plugins/code/prettify.css"/>
+<script charset="utf-8" src="/Public/Admin/kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="/Public/Admin/kindeditor/lang/zh_CN.js"></script>
+<script charset="utf-8" src="/Public/Admin/kindeditor/plugins/code/prettify.js"></script>
+<script src="/Public/Admin/js/formvalidator/formValidator-4.1.1.js" type="text/javascript"
+        charset="UTF-8"></script>-->
+<!--
+<script src="/Public/Admin/js/message/message_add.js" type="text/javascript" charset="UTF-8"></script>
+-->
+<script type="text/javascript">
+    /* KindEditor.ready(function (K) {
+     var editor1 = K.create('textarea[name="detail"]', {
+     cssPath: '/Public/Admin/kindeditor/plugins/code/prettify.css',
+     uploadJson: '/Public/Admin/kindeditor/php/upload_json.php',
+     fileManagerJson: '/Public/Admin/kindeditor/php/file_manager_json.php',
+     allowFileManager: true,
+     afterBlur: function () {
+     this.sync();
+     K.ctrl(document, 13, function () {
+     K('form[name=myform]')[0].submit();
+     });
+     K.ctrl(this.edit.doc, 13, function () {
+     K('form[name=myform]')[0].submit();
+     });
+     }
+     });
+     prettyPrint();
+     });*/
+</script>
+
+<script type="text/javascript">
+    //上传图片
+    function img_upload(fileupload, showimgid, form) {
+        var showimg = $('#' + showimgid);
+        if ($("#" + form).length <= 0) {
+            $("#" + fileupload).wrap('<form id="' + form + '" action="/index.php/customer/upload" method="post" enctype="multipart/form-data"></form>');
+        }
+
+        $("#" + fileupload).unbind().change(function () {
+
+            $('#' + form).ajaxSubmit({
+                dataType: 'json',
+                success: function (data) {
+                    var img = "/Uploads/Attachments/" + data.pic;
+                    if (fileupload == "fileupload0") {
+                        showimg.html("<img src='" + img + "' style='width:620px;'>");
+                    } else if (fileupload.indexOf("colorupload") >= 0) {
+                        showimg.html("<img src='" + img + "' style='width:30px;height:30px;'>");
+                    } else {
+                        showimg.html("<img src='" + img + "' style='width:100px;height:100px;'>");
+                    }
+
+                    $("#" + fileupload + "_pic").val(img);
+                },
+                error: function (xhr) {
+                    showimg.html("上传失败");
+                }
+            });
+        });
+    }
+
+    // 载入图片
+    function loadpic(id, pic, mode) {
+        //alert(fileupload+showimg);
+        var showimg = $('#showimg' + id);
+        if (mode == 1) {
+            showimg.html("<img src='" + pic + "' style='max-width:620px;'>");
+        } else if (mode == 2) {
+            showimg.html("<img src='" + pic + "' style='width:100px;height:100px;'>");
+        }
+        $("#fileupload" + id + "_pic").val(pic);
+
+    }
+
+
+</script>
+</head>
+        <body>
+<form name="upload" id="upload" method="POST" onsubmit="return check_from()" action=""enctype="multipart/form-data">
+    <div class="currentposition">
+        <div>{$cur_menu} > 上传图片</div>
+    </div>
+    <div style="margin-top:18px;">
+            <span style="float:left">
+                <input type="reset" class="buttoncancel" value="取消" onclick="javascript:history.go(-1);"name="B12"/>
+            </span>
+        <span style="float: right;"><input type="submit" class="buttonsave" value="发送" name="sub_authority"/></span></div>
+
+    <div class="">
+        <div class="addtopheight">&nbsp;</div>
+
+        <input type="hidden" name="id" value="{$arr.id}"/>
+        <input type="hidden" name="cid" value="{$arr.cid}"/>
+        <input type="hidden" name="fid" value="{$arr.fid}"/>
+        <input type="hidden" name="fnid" value="{$arr.fnid}"/>
+
+        <table width="100%" class="addsearchClass" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <!-- <td height="10" align="right" class="left_txt2">标题：</td>-->
+                <td>
+                    <input type="text" name="title" class="t-input" placeholder="这一刻的想法……" value="{$arr.title}"/>
+                </td>
+            </tr>
+
+            <!--<tr>
+                <td height="10" align="right" class="left_txt2">状态：</td>
+                <td>
+                    <input type="radio" name="type_id" checked value="0"/>文字&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="type_id"
+                    <eq name="arr.type_id" value="1">checked</eq>
+                    value="1" />图文
+                </td>
+            </tr>-->
+
+            <tr>
+                <!-- <td width="10%" height="30" align="right" class="left_txt2">缩略图：</td>-->
+                <td width="80%">
+                    <div class="form-group">
+                        <div class="col-lg-6">
+                            <div class="">
+                                <!--<div class="imgtu_title" id="tupian1" style="cursor:pointer;">本地图片</div>-->
+                                <div class="" id="tupian_con1">
+                                    <div class="">
+                                        <!-- <div class="imgtu_con_li_top">
+                                             <div id="showimg1">
+                                                 <eq name="arr.type_id" value="1"><img src='{$arr.images}'
+                                                                                       style='width:100px;height:100px;'/>
+                                                 </eq>
+                                             </div>
+                                         </div>-->
+                                        <div class="mask" style="visibility: hidden;"><i class="loading"></i></div>
+                                        <div style="margin-top:10px;">
+                                            <dl class="">
+                                                <!--<dt>图片上传：</dt>-->
+                                                <dd class="AddImg">
+                                                    <span id="AddUpImgW"></span>
+                                                    <label for="File0" class="addSub upImgLabel"> + </label>
+                                                    <div id="AddFileW">
+                                                        <input id="File0" accept="image/jpg,image/jpeg,image/png,image/gif" runat="server" name="img0" value="" class="disnone uploadImg" type="file">
+                                                    </div>
+                                                </dd>
+                                             </dl>
+                                        </div>
+
+                                        <!-- <div class="imgtu_con_li_bottom">
+                                             <div class="btn">
+                                                 <span>添加图片</span>
+                                                 <input id="fileupload1" type="file" name="mypic"
+                                                        onclick="img_upload('fileupload1','showimg1','form1')"/>
+                                             </div>
+                                         </div>
+                                         <input type="hidden" name="images" value="{$arr.images}" id="fileupload1_pic">-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- <tr>
+                 <td height="10" align="right" class="left_txt2"><span class="must">*</span>内容：</td>
+                 <td>
+                     <textarea class="ref_tex" id="content" name="content" onblur="setnum(this.value)"
+                               onkeydown="setnum(this.value)">{$arr.content}</textarea>       <span
+                         class="bxcon_lists_right">
+
+           <span id="setnum"></span>
+        </span>
+                 </td>
+             </tr>-->
+
+            <tr>
+                <td colspan="2">
+                    <div class="addoperation">
+                        <!--<input type="submit" class="buttonsave" value="发送" name="sub_authority"/>-->
+                        &nbsp;
+                        <!-- <input type="reset" class="buttoncancel" value="取消" onclick="javascript:history.go(-1);"
+                                name="B12"/>-->
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div>&nbsp;</div>
+    </div>
+</form>
+<script type="text/javascript">
+    function setnum(val) {
+        var num = 600 - val.length;
+        if (num <= 0) {
+            val = val.substring(0, 600);
+            $('#send_content').val(val);
+        }
+        $('#setnum').html('还可以输入' + num + '字');
+    }
+</script>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    wx.config({
+        debug: false,
+        appId: 'wxf8b4f85f3a794e77',
+        timestamp: 1420774989,
+        nonceStr: '2nDgiWM7gCxhL8v0',
+        signature: '1f8a6552c1c99991fc8bb4e2a818fe54b2ce7687',
+        jsApiList: [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onRecordEnd',
+            'playVoice',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard'
+        ]
+    });
+</script>
+<script src="http://demo.open.weixin.qq.com/jssdk/js/api-6.1.js?ts=1420774989"></script>
+<script>
+    var UploadNum = 0;  //发布页上传图片的file记录
+    CommentJSON = {}; //全局变量使用
+    CommentJSON.UpLoadArr = []; //记录已经上传的图片URl
+    //选择上传图片时触发事件
+    $(".AddImg").on("change",".uploadImg",function()
+    {
+
+        //先判断上传的图片大小 限制在150K
+        var file = this.files[0];
+        if ( file.size > 3* 1024*1024 ){
+            //alert_show('图片过大，请上传体积为3M以下的图片');
+            alert('图片过大，请上传体积为3M以下的图片');
+            return false;
+        }
+
+        //创建FormData对象
+        var data = new FormData();
+        //为FormData对象添加数据
+        //
+        $.each($('#File0')[0].files, function(i, file) {
+            data.append('img0', file);
+            //data.append('who', Init.Who);
+        });
+
+        $.ajax({
+            url:"/customer/image_upload",
+            type:'POST',
+            data:data,
+            cache: false,
+            dataType: 'json',
+            contentType: false,    //不可缺
+            processData: false,    //不可缺
+            beforeSend:function() {
+                PullLoad(1);
+            },
+            success: function(data,status){
+                //alert(data.data);
+                AddUploadAJAX(data);
+            },
+            complete:function() {
+                PullLoad(2);
+            }
+        });
+
+    });
+
+    //上传时 删除图片
+    $(".AddImg").on("click",".AddIClose",function(){
+        var This = $(this),
+                Top  = This.closest('.AddUpImg'),
+                Num = Top.attr('Num');
+        delete CommentJSON.UpLoadArr[Num];
+        Top.remove();
+    });
+
+    //图片上传到服务器
+    function AddUploadAJAX(data,status){
+        if ( data.status == 1 ){
+
+            var ImgUrl = data.data.src,
+
+                    _FileN = $("#File"+UploadNum);
+
+            var _AddUpImgW = $("#AddUpImgW"),
+                    _AddFileW   = $("#AddFileW"),
+                    _upImgLabel = $(".upImgLabel");
+
+            _AddUpImgW.append('<span Num="'+UploadNum+'" class="AddUpImg"><img src="'+ImgUrl+'" class=""/><input type="hidden" name="images[]" value="'+ImgUrl+'"/><i class="IconMain AddIClose"></i></span>');
+            CommentJSON.UpLoadArr.push(ImgUrl);
+            UploadNum++;
+        }else{
+            //alert_show('上传失败');
+            alert('上传失败');
+        }
+    }
+
+    //弹出加载动画层
+    function PullLoad(Type){
+        var ele_mask = document.querySelector(".mask");
+        switch (Type){
+            case 1:
+                ele_mask.style.visibility = "visible";
+                break;
+            case 2:
+                ele_mask.style.visibility = "hidden";
+        }
+    }
+
+    $(function(){
+        $("form").submit(function(){
+            var uploadimg = $(".uploadImg").val();
+            if (uploadimg.length == 0){
+                alert('请上传图片');
+                return false;
+            }
+        })
+    })
+
+</script>
+</body></html>

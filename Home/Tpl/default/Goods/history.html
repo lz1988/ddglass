@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+        <title>历史推荐</title>
+        <link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/dd2.css"/>
+    </head>
+    <body>
+        <section class="common_w">
+            <ul class="history_con">
+                      <foreach name="list" item="list">
+                <li>
+                    <p class="time">
+                        <time>{$list.start_release_time}</time>
+                      
+                    </p>
+                    <dl>
+                        <dt>
+                        <img src="{$list.goods_img}" alt="" />
+                        </dt>
+                        <dd>
+                            <p><a href="__URL__/index/goods_id/{$list.goods_id}">{$list.goods_name}</a></p>
+                            <p class="price">￥<span>{$list.shop_price}</span></p>
+                        </dd>
+                    </dl>
+                </li>
+                </foreach>
+            </ul>
+        </section>
+    </body>
+</html>

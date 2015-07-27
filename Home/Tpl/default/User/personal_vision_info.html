@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>收货地址 </title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/style.css" />
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/font-awesome.min.css" />
+    <script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<div class="address">
+    <h3 class="edit_addr">
+        <a href="__URL__/add_user_vision_info">+添加视力档案</a>
+    </h3>
+  
+    <div class="addr_infos">
+    <foreach name="res_vision" item="vo" >
+        <div class="addr_detail">
+            <div class="baseinfo">
+                <p class="bold">
+                    <span>{$vo.vision_title}</span> &nbsp; &nbsp;
+                    <span>性别：<if condition="$vo['sex'] eq '0' ">男<else/>女</if></span> &nbsp;
+                    
+                     <span>脸宽：{$vo.face}</span>
+                </p>
+                <ol class="detail_list">
+                    <li>
+                        <span>度数(Sph)</span>
+                        <span>左眼：{$vo.sph_l}</span>
+                        <span>右眼：{$vo.sph_r}</span>
+                    </li>
+                    <li>
+                        <span>总瞳距(PD)</span>
+                        <span>{$vo.pd}</span>
+                    </li>
+                    <li>
+                        <span>散光(Cyl)</span>
+                        <span>左眼：{$vo.cy_l}</span>
+                        <span>右眼：{$vo.cy_r}</span>
+                    </li>
+                    <li>
+                        <span>轴位(Axis)</span>
+                        <span>左眼：{$vo.axis_l}</span>
+                        <span>右眼：{$vo.axis_r}</span>
+                    </li>
+                </ol>
+            </div>
+            <div class="addr_btn">
+                        <!--<span class="tbl_cell">
+                            <a href=""><i class="fa fa-check-square-o"></i>送到这里去</a>
+                        </span>-->
+                        <span class="tbl_cell text_align">
+                            <a href="__URL__/add_user_vision_info?id={$vo.id}"><i class="fa fa-file-text-o"></i>修改</a>
+                            <a href="__URL__/delete_vision?id={$vo.id}"><i class="fa fa-trash-o"></i>删除</a>
+                        </span>
+            </div>
+        </div>
+      </foreach>
+         <!-- <div class="addr_detail">
+            <div class="baseinfo">
+                <p class="bold">
+                    <span>您的视力参数</span> &nbsp; &nbsp;
+                    <span>性别：男</span> &nbsp;
+                    <span>脸宽：120</span>
+                </p>
+                <ol class="detail_list">
+                    <li>
+                        <span>度数(Sph)</span>
+                        <span>左眼：120</span>
+                        <span>右眼：120</span>
+                    </li>
+                    <li>
+                        <span>总瞳距(PD)</span>
+                        <span>120</span>
+                    </li>
+                    <li>
+                        <span>散光(Cyl)</span>
+                        <span>左眼：120</span>
+                        <span>右眼：120</span>
+                    </li>
+                    <li>
+                        <span>轴位(Axis)</span>
+                        <span>左眼：120</span>
+                        <span>右眼：120</span>
+                    </li>
+                </ol>
+            </div> 
+            <div class="addr_btn">
+                <span class="tbl_cell">
+                    <a href=""><i class="fa fa-check-square-o"></i>送到这里去</a>
+                </span>
+                        <span class="tbl_cell text_align">
+                            <a href=""><i class="fa fa-file-text-o"></i>修改</a>
+                            <a href=""><i class="fa fa-trash-o"></i>删除</a>
+                        </span>
+            </div>
+        </div> -->
+
+    </div>
+</div> 
+</body>
+</html>

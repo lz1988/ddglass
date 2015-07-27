@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>订单详情</title>
+		<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/dd2.css"/>
+		<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Hom/css/font-awesome.min.css"/>
+	</head>
+	<body>
+		<div class="order_comfirm common_w order_detail">
+			<div class="order_info">
+				<p>
+					订单编号：{$order_details[0].order_sn}
+					<span>已完成</span>
+				</p>
+				<div class="u_info">
+					<span class="icon"><i class="fa fa-map-marker"></i></span>
+					<div>
+						<p class="clearfix">
+							收货人：{$order_details[0].consignee}
+							<span class="fr">{$order_details[0].mobile}</span>
+						</p>
+						<p>
+							<span>收货地址：</span>
+							<span>{$order_details[0].address}</span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="order_trace">
+				<p>
+					申通快递
+					<span>运单编号：</span>5487541015411
+				</p>
+				<p>深圳市|签收|深圳市【深圳南山区南头A站】，小虎签 已签收 </p>
+				<p><time>2015-03-05  11:35:45</time></p>
+				<p><a href="">查看详细信息</a></p>
+			</div>
+			<dl class="g_info">
+				<dt>
+					<img src="images/getheadimg.jpg" alt="" />
+				</dt>
+				<dd>
+					<p class="name">
+						{$order_details[0].goods_name}
+						<p class="counts">
+							x<span>{$order_details[0].goods_count}</span>
+						</p>
+					</p>
+					<p class="price">
+						￥<span>{$order_details[0].goods_danjia}</span>
+					</p>
+				</dd>
+			</dl>
+			<div class="msg">
+				<span class="label">卖家留言：</span>
+				<span class="message">无</span>
+			</div>			
+			<div class="money">
+				总金额：
+				<span>
+					<i>￥</i><span class="total_money">{$order_details[0].goods_price}</span>
+				</span>
+			</div>
+			<div class="discount">
+				<a href="javascript:;">优惠：DD配镜中秋50元礼品优惠券</a>
+			</div>
+			<div class="money_list">
+				<p>
+					￥<span>{$order_details[0].goods_price}</span>
+					+
+					￥<span>{$order_details[0].fee_price}</span>运费
+					-
+					￥<span>50.00</span>优惠
+				</p>
+				<p>实付：￥124</p>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<article class="page_content clearfix">    
+   <div class="user_wrapper">
+        <div class="u_bg"><img src="__ROOT__/Home/Tpl/default/images/img3.jpg"></div>
+        <p>用户：{$Think.session.username}</p>
+   </div>   
+   <ul class="all-user-list">
+   		<li><a href="/user/my_subscribe">我的预约</a></li>
+        <li><a href="/user/my_orders">我的订单</a></li>
+        
+        <li><a href="/user/validation_orders">我的验光单</a></li>
+        <li><a href="/user/collection">我的收藏</a></li>
+        
+        <!--<li><a href="/item/item_list">退出登陆</a></li>           --> 
+    </ul>
+</article>  
+<footer class="footer_nav">
+<ul class="app-nav">
+        <li><a href="/" class="lottery">首页</a></li>
+        <li>
+            <a href="/item/item_list" class="recharge">产品</a>
+            <div class="bootm_menu">
+                <a href="/item/item_list">眼镜架</a>
+                <a href="/item/item_list">眼镜片</a>
+                <a href="/item/item_list">太阳镜</a>
+            </div>
+        </li>
+        <li><a href="/item/cart" class="shopping-cart">试戴车({$sub_conut})</a></li>
+        <li><a href="/user/index" class="my">我的</a></li>
+</ul>
+</footer>

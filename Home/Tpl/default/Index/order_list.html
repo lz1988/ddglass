@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+        <title>我的订单</title>
+        <link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/dd2.css?v=2015"/>
+    </head>
+    <body>
+        <section class="common_w">
+            <ul class="history_con order_list">
+
+                <empty name="orderList">您好，您暂无订单哦！！！
+                    <else/>
+                <foreach name="orderList" item="orderList">
+                    <li>
+                        <p class="time">
+                            <span>订单编号：{$orderList.order_sn}</time>
+                                <a href="__URL__/order_details/goods_sn/{$orderList.order_sn}">详情</a>
+                        </p>
+                        <p class="time">下单时间：{$orderList.fstcreate}</p>
+                        <dl>
+                            <dt>
+                            <img src="{$orderList.goods_img}" alt="" />
+                            </dt>
+                            <dd>
+                                <a href="__URL__/order_details/goods_sn/{$orderList.order_sn}"><p>{$orderList.goods_name}</p> </a>
+                                <p class="price">
+                                    ￥<span>{$orderList.danjia}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    数量：<span>{$orderList.goods_count}</span>
+                                </p>
+                            </dd>
+                        </dl>
+                        <div class="money">
+                           <!-- <span>金额：
+                                <span>￥<span class="total_money">{$orderList.goods_price}</span></span>
+                            </span>
+                             <span>运费：
+                                <span>￥<span class="total_money">{$orderList.fee_price}</span></span>
+                            </span>-->
+                            <span>总金额：
+                                <span>￥<span class="total_money">{$orderList[goods_price]+$orderList[fee_price]}</span></span>
+                            </span>
+                            <if condition="$orderList[pay_status] eq '0'">
+                                <a href="__URL__/order_quxiao/goods_sn/{$orderList.order_sn}">取消</a><a href="__URL__/go_pay/order_sn/{$orderList.order_sn}" class="go_buy">去付款</a>
+                            <else/>
+                                <if condition="$orderList[shipping_status] neq '1'">
+                                    <a href="javascript:void(0);" class="go_buy">待发货</a>
+                                <else/>
+                                    <a href="javascript:void(0);" class="go_buy">已发货</a>
+                                </if>
+                            </if>
+
+                        </div>
+
+                    </li>
+                </foreach>
+                </empty>
+            </ul>
+        </section>
+    </body>
+</html>

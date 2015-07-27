@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>预约验光师</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/style.css" />
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/font-awesome.min.css" />
+    <style>
+        html,body,.opt_order{
+            height: 100%;
+            min-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="opt_order common_w">
+        <h3 class="title">
+            您的信息
+        </h3>
+
+        <form action="">
+            <div class="orderMsg">
+                姓名：
+                <input type="text"/>
+            </div>
+            <div class="orderMsg msgSex">
+                性别：
+                <span class="cur"><i class="fa fa-mars"></i>男</span>
+                <span><i class="fa fa-venus"></i>女</span>
+            </div>
+            <div class="orderMsg msgPhone">
+                手机：
+                <input id="phone" type="tel"/>
+                <input type="button" class="yzm_btn" value="发送验证码"/>
+            </div>
+            <div class="orderMsg">
+                验证码：
+                <input class="yzm_txt" type="text"/>
+            </div>
+        </form>
+        <h3 class="title">
+            验光费用
+        </h3>
+        <div class="order_price">
+            <p class="price">￥30.00</p>
+            <p>支付成功后，你将获得验光师联系方式，<br/>
+                和一串验证码，致电给验光师约好时间，<br/>
+                到门店提供验证码验证身份即可。</p>
+        </div>
+        <a class="wechat_pay" href="">微信支付</a>
+    </div>
+</body>
+<script src="__PUBLIC__/Home/js/zepto.js"></script>
+<script src="__PUBLIC__/Home/js/zeptoTouch.js"></script>
+<script>
+    //性别
+    $('.msgSex span').on('tap',function(){
+        $(this).addClass('cur').siblings().removeClass('cur');
+    });
+
+    //发送验证码
+    var i = 60;
+    function dnumbers(){
+        $('.yzm_btn').val(i);
+        i--;
+        if(i==0){
+            $('.yzm_btn').val('发送验证码')
+            $(".yzm_btn").attr('disabled','');
+        }else{
+            setTimeout(dnumbers,1000);
+        }
+    }
+    $(".yzm_btn").on('tap',function(){
+        if($('#phone').val()){
+            $.get("请求页面",{"参数":$("#phone").val()},function(data){
+                if(data=='xxxxxxxxxxxxx'){
+                    alert('手机号码已存在!');
+                }else if(data=='ssssssssss'){
+                    alert('发送成功!');
+                    $(".yzm_btn").attr('disabled','disabled');
+                    i=60;
+                    dnumbers();
+                }else if(data == 'bbbbbbbbbbbb'){
+                    alert('发送失败!');
+                }
+            });
+        }
+    });
+
+</script>
+</html>

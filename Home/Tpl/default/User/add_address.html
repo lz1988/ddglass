@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+        <title>收货地址 </title>
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/style.css" />
+        <link rel="stylesheet" href="__ROOT__/Public/Home/css/font-awesome.min.css" />
+        <script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
+    </head>
+    <body>
+        <div class="address">
+            <h3 class="edit_addr">
+                <a href="__URL__/address/">+添加收货地址</a>
+            </h3>
+            <foreach name="rs" item="vo">
+            <div class="addr_infos">
+                <div class="addr_detail">
+                    <div class="baseinfo">
+                        <p>
+                            <span>{$vo.username}</span> &nbsp;
+                            <span>{$vo.tel}</span>
+                        </p>
+                        <p>{$vo.address}</p>
+                    </div>
+                    <div class="addr_btn">
+                        <span class="tbl_cell">
+                        <if condition="$rs_user['default_address'] eq $vo['id']">
+                            <a  onclick="javascript:fetch_ajax({$vo.id});"><i style="color: red" class="fa fa-check-square-o"></i>默认地址</a>
+                        <else/>
+                            <a onclick="javascript:fetch_ajax({$vo.id});"><i class="fa fa-check-square-o"></i>默认地址</a>
+                        </if>
+                        </span>
+                        <span class="tbl_cell text_align">
+                            <a href="__URL__/address?id={$vo.id}"><i class="fa fa-file-text-o"></i>修改</a>
+                            <a href="__URL__/dele_address?id={$vo.id}"><i class="fa fa-trash-o"></i>删除</a>
+                        </span>
+                    </div>
+                </div>
+              </foreach>
+               <!--  <div class="addr_detail">
+                    <div class="baseinfo">
+                        <p>
+                            <span>张山</span> &nbsp;
+                            <span>1590000088</span>
+                        </p>
+                        <p>详细地址详细地址详细地址详细地址详细地址详细地址详细地址详细地址详细地址</p>
+                    </div>
+                    <div class="addr_btn">
+                        <span class="tbl_cell">
+                            <a href=""><i class="fa fa-check-square-o"></i>送到这里去</a>
+                        </span>
+                        <span class="tbl_cell text_align">
+                            <a href=""><i class="fa fa-file-text-o"></i>修改</a>
+                            <a href=""><i class="fa fa-trash-o"></i>删除</a>
+                        </span>
+                    </div>
+                </div> -->
+
+             <!--    <div class="addr_detail">
+                    <div class="baseinfo">
+                        <p>
+                            <span>张山</span> &nbsp;
+                            <span>1590000088</span>
+                        </p>
+                        <p>详细地址详细地址详细地址详细地址详细地址详细地址详细地址详细地址详细地址</p>
+                    </div>
+                    <div class="addr_btn">
+                        <span class="tbl_cell">
+                            <a href=""><i class="fa fa-check-square-o"></i>送到这里去</a>
+                        </span>
+                        <span class="tbl_cell text_align">
+                            <a href=""><i class="fa fa-file-text-o"></i>修改</a>
+                            <a href=""><i class="fa fa-trash-o"></i>删除</a>
+                        </span>
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
+    </body>
+</html>
+<script type="text/javascript">
+function fetch_ajax(cid){
+    $.get("__URL__/defalut_address", {cid:cid}, function (data) {
+    if (data ==1) {
+    window.location.reload();
+    } else {
+    //alert("！");
+    }
+    });
+}
+ 
+ 
+
+</script>

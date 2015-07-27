@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>艺筑装饰-推广二维码</title>
+<link href="__ROOT__/Public/Home/css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="center">
+ 
+   <div class="erweima">
+     <img src='{$qrcodeSrc}' width='150' height='150'/>
+   </div>
+   <p class="er-title">我的推广二维码</p>
+   
+   <div class="share-box">
+     <a href="#" class="wx-btn"><img src="__ROOT__/Public/Home/images/wxUi.jpg"></a>
+     <a href="#" class="qq-btn"><img src="__ROOT__/Public/Home/images/qqui.jpg"></a>
+   </div>
+   <div style="clear:both"></div>
+   
+	<div class="kehu">
+         <h2>我的粉丝</h2>
+           <div class="user-pannel">
+               <ul class="user-list">
+                 <volist name="fans_list" id="r">
+				 <if condition='$r.username neq ""'>
+					<li>{$r.username}</li>
+				 </if>
+				</volist>
+              </ul>
+           </div>
+      </div>
+	  <br>
+	  <div class="kehu">
+         <h2>我的客户</h2>
+           <div class="user-pannel">
+               <ul class="user-list">
+                 <volist name="fangjian_list" id="r">
+					<li>{$r}</li>
+				</volist>
+              </ul>
+           </div>
+      </div>
+     
+</div><!--中心 结束-->
+</body>
+</html>
+
+
+
+

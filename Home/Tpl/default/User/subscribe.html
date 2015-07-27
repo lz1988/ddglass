@@ -1,0 +1,319 @@
+<article class="page_content clearfix">
+    <div class="order_warp">
+        <h1>艺筑装修预约</h1>
+        <ul class="nacv_list clearfix">
+            <li class="cur">
+                <span>为自己预约</span>                
+            </li>
+            <li>
+                <span>为他人预约</span>               
+            </li>            
+        </ul>
+        <!-- 为自己预约内容 -->
+        <div class="write_info block">
+            <div id="username" class="write_add w_name" style="display:none">
+                <div class="left_icon">                    
+                    <span></span> 
+                    <!-- <span class="l_cur"></span> 彩色图标 -->
+                </div>
+                <div class="right_layer">
+                    <div class="r_input">
+                        <input type="text" name="username" id="user_name" name="" placeholder="姓名">
+                        <input type="hidden" name="usernameid" id="usernameid" value="0" />
+                    </div>                  
+                </div>
+            </div>
+            
+            <div class="write_add">
+                <div class="left_icon" id="addcurl1">
+                    <!-- <span class="l_cur"></span> 彩色图标 -->
+                    <span></span>
+                </div>
+                <div class="right_layer">
+                    <div class="r_input">
+                        <div class="select_add" id="address">选择地区</div>
+                        <span>暂限杭州地区</span>
+                    </div>
+                    <div class="r_input">
+                        <input type="text" name="address" onkeydown="check_input()" onkeyup="check_input()" id="address2" placeholder="地址">
+                    </div>
+                </div>
+            </div>
+            <div class="write_add w_time">
+                <div class="left_icon" id="addcurl2">                    
+                     <span></span>
+                    <!--<span class="l_cur"></span>-->
+                </div>
+                <div class="right_layer">
+                    <div class="r_input">
+                        <div class="select_add" id="time">时间</div>                        
+                    </div>                    
+                </div>
+            </div>
+            <div class="go_next"><a href="javascript:void(0)">下一步</a></div>
+
+        </div>
+</article> 
+
+ <!--预约弹出窗 -->
+<div class="fix_select_box" id="add_box">
+    <div class="s_main">
+        <h3>请选择预约的区域</h3>
+        <div class="clearfix">
+            <div class="select_box">
+                <input id="myselect" type="text" name="city_name" class="city_name" value="请选择" readonly="readonly">
+                <ul class="select_ul" id="city_list1">
+                    <foreach name="city_list1" item="list1">
+                         <li onclick="get_city({$list1.cid},2)" city_id="{$list1.cid}">{$list1.cname}</li>
+                    </foreach>
+                </ul>
+            </div>
+            <div class="select_box">
+                <input id="myselect" type="text" value="请选择" readonly="readonly">
+                <ul class="select_ul" id="city_list2">           
+                </ul>
+            </div>
+            <div class="select_box">
+                <input id="myselect" type="text" value="请选择" readonly="readonly">
+                <ul class="select_ul" id="city_list3">
+                </ul>
+            </div>
+        </div>
+        <div class="sub_opre">
+            <a href="#" class="cancel">取消</a><a href="#" onclick="" class="submit">确定</a>
+        </div>
+    </div>
+</div>
+<div class="fix_select_box" id="time_box">
+    <div class="s_main">
+        <h3>请选择预约的时间</h3>
+        <div class="clearfix">
+            <div class="select_box">
+                <php>$time=time();</php>
+                <input id="myselect" type="text" value="明天" readonly="readonly">
+                <input type="hidden" name="sub_time" value="<php>echo date('Y-m-d',$time+24*3600)</php>" id="sub_time1" />
+                <ul class="select_ul">
+                    <li date="<php>echo date('Y-m-d',$time+24*3600)</php>">明天</li>    
+                    <li date="<php>echo date('Y-m-d',$time+48*3600)</php>">后天</li>
+                    <li date="<php>echo date('Y-m-d',$time+72*3600)</php>"><php>echo intval(date('m',$time+72*3600)).'月'.intval(date('d',$time+72*3600)).'日';</php></li>
+                    <li date="<php>echo date('Y-m-d',$time+96*3600)</php>"><php>echo intval(date('m',$time+96*3600)).'月'.intval(date('d',$time+96*3600)).'日';</php></li>                
+                </ul>
+            </div>
+           
+            <div class="select_box s_box2">
+                <input id="myselect" type="text" value="09:00-09:30" readonly="readonly">
+                <input type="hidden" name="sub_time2" value="09:00-09:30" id="sub_time2" />
+                <ul class="select_ul">
+                    <li date="09:00-09:30">09:00-09:30</li>
+                    <li date="09:30-10:00">09:30-10:00</li>
+                    <li date="10:00-10:30">10:00-10:30</li>
+                    <li date="11:00-11:30">11:00-11:30</li>
+                    <li date="12:00-12:30">12:00-12:30</li>
+                    <li date="13:00-13:30">13:00-13:30</li>
+                    <li date="14:00-14:30">14:00-14:30</li>
+                    <li date="14:30-15:00">14:30-15:00</li>
+                    <li date="15:00-15:30">15:00-15:30</li>
+                    <li date="15:30-16:00">15:30-16:00</li>
+                    <li date="16:00-16:30">16:00-16:30</li>
+                    <li date="16:30-17:00">16:30-17:00</li>
+                    <li date="17:30-18:00">17:30-18:00</li>
+                    <li date="18:00-18:30">18:00-18:30</li>
+                    <li date="18:30-19:00">18:30-19:00</li>
+                    <li date="19:00-19:30">19:00-19:30</li>
+                    <li date="19:30-20:00">19:30-20:00</li>
+                    <li date="20:30-21:00">20:30-21:00</li>
+                    <li date="21:00-21:30">21:00-21:30</li>
+                    <li date="21:30-22:00">21:30-22:00</li>
+                </ul>
+            </div>
+        </div>
+        <div class="sub_opre">
+            <a href="#" class="cancel">取消</a><a href="#" onclick="check_input2()" class="submit">确定</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+function check_input(){
+	var user_name=$('#user_name').val();
+	var usernameid=$('#usernameid').val();
+	if(usernameid==1){
+		if(user_name==''){
+			//alert('请填写预约姓名');
+		}
+	}
+	var city_name=$('#address').text();
+	var address=$('#address2').val();
+	if(city_name!='选择地区' && address!=''){
+		//$(".left_icon span").addClass("l_cur"); 
+		$("#addcurl1 span").addClass("l_cur");
+		return false;
+	}
+	
+	var sub_time1=$('#sub_time1').val();
+	var sub_time2=$('#sub_time2').val();
+	var  sub_time=sub_time1+' '+sub_time2;
+	var time_text=$('#time').text();
+	if(city_name!='选择地区' && address!='' && sub_time1!='' && sub_time2!='' && time_text!='时间'){
+		$(".go_next a").addClass("sure"); 
+		return true;
+	}else{
+		$(".go_next a").removeClass("sure"); 
+		return false;
+	}
+	
+}
+
+function check_input2(){
+	var user_name=$('#user_name').val();
+	var usernameid=$('#usernameid').val();
+	var city_name=$('#address').text();
+	var address=$('#address2').val();
+	if(city_name!='选择地区' && address!=''){
+		$("#addcurl1 span").addClass("l_cur");
+	}
+	
+	var sub_time1=$('#sub_time1').val();
+	var sub_time2=$('#sub_time2').val();
+	var  sub_time=sub_time1+' '+sub_time2;
+	var time_text=$('#time').text();
+	if(city_name!='选择地区' && address!='' && sub_time1!='' && sub_time2!=''){
+		$(".go_next a").addClass("sure"); 
+	}else{
+		$(".go_next a").removeClass("sure"); 
+	}
+}
+
+$(document).ready(function(){
+    $("#address").click(function(){
+        $("#add_box").show() 
+    })
+    $("#time").click(function(){
+        $("#time_box").show() 
+    })
+
+    //模拟select效果
+    $(".select_box input").click(function(){
+        var thisinput=$(this);
+        var thisul=$(this).parent().find("ul");
+        if(thisul.css("display")=="none"){
+            if(thisul.height()>200){thisul.css({height:"110"+"px","overflow-y":"scroll" })};
+            thisul.fadeIn("100");          
+            thisul.hover(function(){},function(){thisul.fadeOut("100");})
+            thisul.find("li").click(function(){
+                thisinput.val($(this).text());
+                thisinput.next().val($(this).attr('date'));
+                thisul.fadeOut("100");})
+            }
+        else{
+            thisul.fadeOut("fast");
+            }
+    })
+
+    $("#add_box .submit").click(function(){
+        var endinfo="";
+        $("#add_box .select_box input:text").each(function(i){                
+            endinfo=endinfo+$(this).val();                           
+        })  
+        $(".fix_select_box").hide(); 
+        $("#address").text(endinfo);           
+    })
+    $("#time_box .submit").click(function(){
+        var endinfo="";
+        $("#time_box .select_box input:text").each(function(i){                
+            endinfo=endinfo+$(this).val();                
+        })  
+        $(".fix_select_box").hide(); 
+        $("#time").text(endinfo);
+		$("#addcurl2 span").addClass("l_cur");
+        //$("#sub_time").val(endinfo2);
+    })
+    $(".cancel").click(function(){       
+        $(".fix_select_box").hide()                        
+               
+    })
+});
+$(function(){   
+    $(".nacv_list li").click(function() {
+        $(this).addClass("cur");
+        $(this).siblings().removeClass("cur");
+        if($('#username').is(':hidden')){
+        	$('#username').show();
+        	$('#usernameid').val(1);
+        }else{
+        	$('#username').hide();
+        	$('#usernameid').val(0);
+        }
+//        var $dangqian = $(".write_info").eq($(".nacv_list li").index(this));
+//        $dangqian.addClass("block");
+//        $dangqian.siblings().removeClass("block");
+  });
+});
+
+function get_city(pid,id){
+	if(id!=4){
+		$.ajax({
+		type:"POST",
+		url: "{:U('Public/is_pid_get_city')}",
+		data: "pid="+pid,beforeSend: function(){
+		},
+		success: function(msg){
+			var obj=eval(msg);
+			var html='';
+			for(var j=id;j<4;j++){
+				$('#city_list'+j).html(html);
+			}
+			var numid=id+1;
+			for(var i=0;i<obj.length;i++){
+				html=html+'<li onclick="get_city('+obj[i].cid+','+numid+')" city_id="'+obj[i].cid+'">'+obj[i].cname+'</li>';
+			}
+			$('#city_list'+id).html(html);
+			 
+		}});
+	}else{
+	    $('#address_'+3).html($('#city_list'+3+' option:selected').text());
+	}
+	
+}
+
+$('.go_next').click(function (){
+	var user_name=$('#user_name').val();
+	var usernameid=$('#usernameid').val();
+	if(usernameid==1){
+		if(user_name==''){
+			$('#tsinfo').html('请填写预约姓名');
+			$('.msg_layer').show();
+			return false;
+		}
+	}
+	var city_name=$('#address').text();
+	var address=$('#address2').val();
+	var sub_time1=$('#sub_time1').val();
+	var sub_time2=$('#sub_time2').val();
+	var  sub_time=sub_time1+' '+sub_time2;
+	var time_text=$('#time').text();
+	if(city_name=='选择地区' || address=='' || sub_time1=='' || sub_time2=='' || time_text=='时间'){
+		$('#tsinfo').html('请填写完整的信息');
+		$('.msg_layer').show();
+		return false;
+	}
+	$.ajax({
+		url: "{:U('user/subscribe')}",
+		type: "post",
+		dataType: "json",
+		data: "user_name="+user_name+"&usernameid="+usernameid+"&city_name="+city_name+"&address="+address+"&sub_time="+sub_time,
+		success: function(data) {
+			//alert(data.info);
+			if({$is_val}==true){
+				document.location="/user/sub_orders";
+			}else{
+				document.location="/user/validation";
+			}
+		},
+		cache: false,
+	    timeout: 5000,
+		error: function() {
+		    alert("错误");
+		}
+	});
+});
+</script>

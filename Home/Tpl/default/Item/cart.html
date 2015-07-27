@@ -1,0 +1,64 @@
+<article class="page_content clearfix">
+    <if condition="$cart_list">
+    <div class="d_list_main clearfix">
+        <foreach name="cart_list" item="list">
+        <div class="good_list">
+            <div class="g_main">
+                <div class="img_warp">
+                    <a href="/item/detail/item_id/{$list.item_id}"><img src="{$list.icon}"></a>
+                </div>
+                <p>新款李维斯近视眼镜超轻时</p>
+                <div class="g_price"><span>￥{$list.item_price} </span><em>￥{$list.ori_price}</em></div>
+                <span class="close" item_id="{$list.item_id}"></span>
+            </div>
+        </div>
+        </foreach>
+             
+    </div>
+    <div class="select_go">
+        还可添加<span id="num"><php>echo 10-count($cart_list);</php></span>件产品<a href="/item/item_list">去挑产品</a>
+    </div>
+    <else />
+    <div class="cart_null">
+        <div class="n_msg">
+            <p>还没有添加试戴产品</p>
+            <p><a href="/item/item_list">去挑产品</a></p>
+        </div>
+    </div>
+    </if>
+    
+</article>  
+<footer class="footer_nav">
+<script type="text/javascript">
+$(function(){
+    $(".g_main span.close").click(function(){
+    	var _this=this;
+    	var item_id=$(_this).attr('item_id');
+	    $.ajax({
+			url: "{:U('item/del_cart')}",
+			type: "post",
+			dataType: "json",
+			data: "item_id="+item_id,
+			success: function(data) {
+				if(data.status==1){
+					 $(_this).parent().parent(".good_list").remove()
+					 var num=parseInt($('#num').text());
+					 if(num<10){
+					 	num=num+1
+					 }else{
+					 	num=10;
+					 }
+					 $('#num').html(num);
+				}
+			},
+			cache: false,
+		    timeout: 5000,
+			error: function() {
+			    alert("错误");
+			}
+		});
+    })
+})
+    
+    
+</script>

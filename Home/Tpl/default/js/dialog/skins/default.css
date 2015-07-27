@@ -1,0 +1,55 @@
+@charset "utf-8";
+/*
+ * artDialog skin
+ * http://code.google.com/p/artdialog/
+ * (c) 2009-2011 TangBin, http://www.planeArt.cn
+ *
+ * This is licensed under the GNU LGPL, version 2.1 or later.
+ * For details, see: http://creativecommons.org/licenses/LGPL/2.1/
+ */
+
+/* common start */
+body { _margin:0; _height:100%; /*IE6 BUG*/ }
+.d-outer { text-align:left; }
+table.d-border, table.d-dialog { border:0; margin:0; border-collapse:collapse; width:auto; }
+.d-nw, .d-n, .d-ne, .d-w, .d-c, .d-e, .d-sw, .d-s, .d-se, .d-header, .d-tdIcon, .d-main, .d-footer { padding:0px; margin:0px; }
+.d-header, .d-buttons button { font: 12px/1.11 'Microsoft Yahei', Tahoma, Arial, Helvetica, STHeiti; _font-family:Tahoma,Arial,Helvetica,STHeiti; -o-font-family: Tahoma, Arial; }
+.d-title { overflow:hidden; text-overflow: ellipsis; }
+.d-state_noTitle .d-title { display:none; }
+.d-close { display:block; position:absolute; text-decoration:none; outline:none; _cursor:pointer; }
+.d-close:hover { text-decoration:none; }
+.d-main { text-align:center; min-width:9em; min-width:0\9/*IE8 BUG*/; }
+.d-content { display:inline-block; *zoom:1; *display:inline; text-align:left; border:none 0; }
+.d-content.d-state_full { display:block; width:100%; margin:0; padding:0!important; height:100%; }
+.d-loading { width:96px; height:32px; text-align:left; text-indent:-999em; overflow:hidden; background:url('icons/loading.gif') no-repeat center center; }
+.d-icon { vertical-align: middle; }
+.d-icon div { width:48px; height:48px; margin:10px 0 10px 10px; background-position: center center; background-repeat:no-repeat; }
+.d-buttons { padding:8px; text-align:right; white-space:nowrap; }
+.d-buttons button { padding-left: 15px; padding-right: 15px; background-color:#09C; background-image: url('../../images/button.png'); font-size: 12px; line-height: 23px; background-repeat: repeat-x; text-align: center; height: 25px; border: 1px solid #4288cd; margin-left: 10px; color: #fff; cursor: pointer }
+.d-buttons button:hover { background-position: 0px -30px !important; }
+.d-buttons button[disabled] { cursor:default; color:#666; background:#DDD; border: solid 1px #999; filter:alpha(opacity=50); opacity:.5; box-shadow:none; }
+/* common end */
+
+.d-dialog { width:100% !important}
+.d-inner { background:#FFF; border:1px solid #a5a5a5; padding-right:0px !important }
+.d-outer {}
+.d-border {  box-shadow: 0px 0px 5px #999 !important; }
+.d-nw, .d-ne, .d-sw, .d-se { width:0px; height:0px; }
+.d-nw, .d-n, .d-ne, .d-w, .d-e, .d-sw, .d-s, .d-se { }
+.d-state_drag .d-outer, .d-outer:active { box-shadow:none; }
+.d-titleBar { position:relative; height:100%; }
+.d-title { height: 30px; line-height: 30px; font-size: 14px; font-weight: bold; color: #333333; border-bottom: 1px solid #e7e7e7; border-top: 1px solid #ffffff; background: #f6f6f6;  padding-left: 10px; }
+.d-close { padding:0; top:5px; right:10px; width:20px; height:20px; line-height:20px; font-size:20px; color: #a9a9a9; text-align:center;}
+.d-close:hover {  color: #106bab; }
+.d-content { color:#666; padding:0px; margin:0px; }
+.d-state_focus .d-content { color:#000; }
+.d-buttons { background-color: #ffffff; border-top: solid 1px #e9e9e9; }
+.d-state_noTitle .d-border {box-shadow: 0px 0px 5px #999 !important; }
+.d-state_noTitle .d-nw, .d-state_noTitle .d-ne, .d-state_noTitle .d-sw, .d-state_noTitle .d-se { width:0px; height:0px; }
+.d-state_noTitle .d-inner { border:1px solid ##d6d6d6; font-size:14px; background-color: #fff; background-image: url('../../images/tipbg.jpg'); }
+.d-state_noTitle .d-outer { border:none 0; box-shadow:none; }
+.d-state_noTitle .d-nw, .d-state_noTitle .d-n, .d-state_noTitle .d-ne, .d-state_noTitle .d-w, .d-state_noTitle .d-e, .d-state_noTitle .d-sw, .d-state_noTitle .d-s, .d-state_noTitle .d-se {  }
+.d-state_noTitle .d-titleBar { bottom:0; _bottom:0; _margin-top:0; }
+.d-state_noTitle .d-close {  padding:0; top:5px; right:10px; width:20px; height:20px; line-height:20px; font-size:20px; color: #a9a9a9; text-align:center; }
+.d-state_noTitle .d-close:hover, .d-state_noTitle .d-close:active { text-decoration:none; color: #333333; }
+.d-state_noTitle .d-dialog { box-shadow: none; }

@@ -1,0 +1,722 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>艺筑-找我的房子</title>
+    <link href="__PUBLIC__/Home/css/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/Home/Tpl/default/js/jquery-1.8.2.js"></script>
+
+</head>
+
+<body>
+<form action="/index.php/customer/viewhouse">
+<!--<div class="header">
+    <h1>艺筑-找到我的房子</h1>
+    <a href="#" class="btn_left"></a>
+    <a href="#" class="btn_right"></a>
+</div>&lt;!&ndash;页眉 结束&ndash;&gt;-->
+<div class="center">
+    <div class="top-btn-box">
+        <a href="/index.php/customer/latest" class="btn1"><img src="__PUBLIC__/Home/images/ui1.jpg">最近浏览</a>
+        <a href="#" class="btn2"><img src="__PUBLIC__/Home/images/ui2.jpg">地图定位</a>
+    </div>
+    <div style="clear:both"></div>
+    <div class="city-box">
+        <select class="left-1" name="province_id" id="province_id">
+            <option value="">请选择省</option>
+            <foreach name="city_list1" item="li">
+                <option value="{$li.cid}" <if condition="$li.cid eq $default_data[province_id]"> selected </if> >{$li.cname}</option>
+            </foreach>
+        </select>
+        <select class="left-2" name="city_list2" id="city_list2">
+            <option value="">请选择市</option>
+            <!-- <option value="{$city_name.pid}">{$city_name.cname}</option>-->
+            <foreach name="city_list2" item="li">
+                <option value="{$li.cid}"<if condition="$li.cid eq $default_data[city_id]"> selected </if> >{$li.cname}</option>
+            </foreach>
+        </select>
+        <select class="left-3" name="city_id" id="city_list3" onchange="getxiaoqu();updateaddress();">
+            <option value="">请选择区县</option>
+            <foreach name="city_list3" item="li">
+                <option value="{$li.cid}" <if condition="$li.cid eq $default_data[distinct_id]"> selected </if> >{$li.cname}</option>
+            </foreach>
+        </select>
+    </div>
+    <div class="loupan-box">
+        <select class="left-3" id="xiaoqu" name="xiaoqu" onchange="getqi();updateaddress();">
+            <option value="">请选择小区</option>
+            <!--<option value="{$default_data.xiaoqu}">{$default_data.xiaoqu}</option>-->
+            <foreach name="xiaoqu_data" item="li">
+                <option value="{$li.xiaoqu}" <if condition="$li.xiaoqu eq $default_data[xiaoqu]"> selected </if> >
+                <if condition="$li.recommended_house eq '1'">[热]</if>{$li.xiaoqu}</option>
+            </foreach>
+        </select>
+    </div>
+    <div class="city-box">
+        <select class="left-1" id="qi" name="qi" onchange="getdong();updateaddress();">
+            <option value="">请选择期</option>
+            <!--<if condition="$default_data.qi eq ''">
+            <option value="">无期</option>
+                <else/>
+            <option value="{$default_data.qi}">{$default_data.qi}期</option>
+            </if>-->
+
+            <foreach name="qi_data" item="li">
+                <option value="{$li.qi}" <if condition="$li.qi eq $default_data[qi]"> selected </if> >
+                <if condition="$li.qi eq ''">无<else/>{$li.qi}期</if></option>
+            </foreach>
+        </select>
+        <select class="left-2" id="dong" name="dong" onchange="getdanyuan();updateaddress();">
+            <option value="">请选择栋</option>
+            <!--<if condition="$default_data.qi eq ''">
+                <option value="">无栋</option>
+                <else/>
+                <option value="{$default_data.dong}">{$default_data.dong}栋</option>
+            </if>-->
+            <foreach name="dong_data" item="li">
+                <option value="{$li.dong}" <if condition="$li.dong eq $default_data[dong]"> selected </if> >
+                {$li.dong}栋</option>
+            </foreach>
+        </select>
+        <select class="left-3" id="danyuan" name="danyuan" onchange="getfangjian();updateaddress();">
+            <option value="">请选择单元</option>
+            <!--<if condition="$default_data.lou eq ''">
+                <option value="">单元</option>
+                <else/>
+                <option value="{$default_data.lou}">{$default_data.lou}单元</option>
+            </if>-->
+
+            <foreach name="lou_data" item="li">
+                <option value="{$li.lou}" <if condition="$li.lou eq $default_data[lou]"> selected </if> >
+                {$li.lou}单元</option>
+            </foreach>
+        </select>
+    </div>
+    <div class="city-box">
+        <select class="left-1" id="fangjian" name="fangjian" onchange="updateaddress();">
+            <option value="">请选择房间</option>
+            <foreach name="fangjian_data" item="li">
+                <option value="{$li.fangjian}">
+                    {$li.fangjian}号</option>
+            </foreach>
+        </select>
+    </div>
+
+    <!--<input id="freeaddress" style="width: 100%;" name="freeaddress" type="text"
+           value="XX市XX区xx小区x期x栋x单元x房间"
+           onBlur="if (this.value == '') {this.value = 'XX市XX区xx小区x期x栋x单元x房间';}">-->
+
+   <!-- <a href="#" class="btn-submit">提交</a>-->
+
+    <input id="btnsubmit" type="submit" class="btn-submit"
+           disabled="disabled"
+           value="关注"/></div>
+
+    <div class="find-home">
+        <p>找不到您的房子？</p>
+        <a href="/index.php/customer/orderdesigner?cid={$data.id}" class="yuyue">预约设计师上门服务</a>
+    </div>
+    <if condition="$tuijian_data neq ''">
+    <div class="check-home">
+        <p>查看样板间</p>
+    </div>
+    <ul class="address-list">
+        <volist name="tuijian_data" id="vo">
+        <li><a href="/index.php/customer/housecenter?id={$vo.id}">{$vo.newname}</a></li>
+        </volist>
+    </ul>
+    </if>
+</div><!--中心 结束-->
+</form>
+<script type="text/javascript">
+//省变化事件
+function getshi() {
+    jQuery("#shi option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>市</option>").appendTo(jQuery("#shi"));
+    /*if (jQuery("#sheng").val() == 0) {
+     return;
+     }*/
+    jQuery("#qu option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>区</option>").appendTo(jQuery("#qu"));
+
+    jQuery("#xiaoqu option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>小区</option>").appendTo(jQuery("#xiaoqu"));
+
+    jQuery("#qi option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>期</option>").appendTo(jQuery("#qi"));
+
+    jQuery("#dong option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>栋</option>").appendTo(jQuery("#dong"));
+
+
+    jQuery("#danyuan option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>单元</option>").appendTo(jQuery("#danyuan"));
+
+    jQuery("#fangjian option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>房间</option>").appendTo(jQuery("#fangjian"));
+
+
+    $.ajax({
+        url: '/index.php/customer/getshi',
+        type: 'POST',
+        data: {sheng: jQuery("#sheng").val()},
+        dataType: 'json',
+        timeout: 5000,
+        error: function (e) {
+
+        },
+        success: function (result) {
+            if (result.status == 1) {
+
+            } else {
+                jQuery.each(result.data, function (idx, item) {
+                    jQuery("<option value=" + item.shi + ">" + item.shi + "</option>").appendTo(jQuery("#shi"));
+                });
+            }
+        }
+    });
+}
+//市变化事件
+function getqu() {
+    jQuery("#qu option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>区</option>").appendTo(jQuery("#qu"));
+    /*if (jQuery("#shi").val() == 0) {
+     return;
+     }*/
+
+    $.ajax({
+        url: '/index.php/customer/getqu',
+        type: 'POST',
+        data: {sheng: jQuery("#sheng").val(), shi: jQuery("#shi").val()},
+        dataType: 'json',
+        timeout: 5000,
+        error: function (e) {
+
+        },
+        success: function (result) {
+            if (result.status == 1) {
+            } else {
+                jQuery.each(result.data, function (idx, item) {
+                    jQuery("<option value=" + item.id + ">" + item.qu + "</option>").appendTo(jQuery("#qu"));
+                });
+            }
+        }
+    });
+}
+//区变化事件
+function getshangquan() {
+    jQuery("#shangquan option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+
+
+
+    /*jQuery("<option value=0>商圈</option>").appendTo(jQuery("#shangquan"));*/
+    /* if (jQuery("#qu").val() == 0) {
+     return;
+     }
+     */
+    $.ajax({
+        url: '/index.php/customer/getshangquan',
+        type: 'POST',
+        data: {qu: jQuery("#qu").val()},
+        dataType: 'json',
+        timeout: 5000,
+        error: function (e) {
+        },
+        success: function (result) {
+            if (result.status == 1) {
+
+            } else {
+                jQuery.each(result.data, function (idx, item) {
+                    jQuery("<option value=" + item.id + ">" + item.name + "</option>").appendTo(jQuery("#shangquan"));
+                });
+            }
+        }
+    });
+}
+//街道变化事件
+function getxiaoqu() {
+    jQuery("#xiaoqu option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>小区</option>").appendTo(jQuery("#xiaoqu"));
+
+    jQuery("#qi option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>期</option>").appendTo(jQuery("#qi"));
+
+    jQuery("#dong option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>栋</option>").appendTo(jQuery("#dong"));
+
+
+    jQuery("#danyuan option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>单元</option>").appendTo(jQuery("#danyuan"));
+
+    jQuery("#fangjian option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>房间</option>").appendTo(jQuery("#fangjian"));
+
+    if (jQuery("#city_list3").val() == 0) {
+        return;
+    }
+
+
+
+    /* if (jQuery("#shangquan").val() == 0) {
+     return;
+     }*/
+
+    $.ajax({
+        url: '/index.php/customer/getxiaoqu',
+        type: 'POST',
+        data: {city_id: $("#city_list3").val()},
+        dataType: 'json',
+        timeout: 5000,
+        error: function (e) {
+
+        },
+        success: function (result) {
+            if (result.status == 1) {
+
+            } else {
+                jQuery.each(result.data, function (idx, item) {
+                    jQuery("<option value=" + item.name + ">" + item.name + "</option>").appendTo(jQuery("#xiaoqu"));
+                });
+            }
+        }
+    });
+}
+
+
+//小区变化事件
+function getqi() {
+    jQuery("#qi option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>期</option>").appendTo(jQuery("#qi"));
+    /* if (jQuery("#xiaoqu").val() == 0) {
+     return;
+     }*/
+
+    //
+    jQuery("#dong option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>栋</option>").appendTo(jQuery("#dong"));
+
+
+    jQuery("#danyuan option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>单元</option>").appendTo(jQuery("#danyuan"));
+
+    jQuery("#fangjian option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>房间</option>").appendTo(jQuery("#fangjian"));
+
+
+    if (jQuery("#xiaoqu").val() == 0) {
+        return;
+    }
+
+    //alert(jQuery("#xiaoqu").val())
+    $.ajax({
+        url: '/index.php/customer/getqi',
+        type: 'POST',
+        data: {xiaoqu: jQuery("#xiaoqu").val()},
+        dataType: 'json',
+        timeout: 5000,
+        error: function (e) {
+
+        },
+        success: function (result) {
+            if (result.status == 1) {
+
+            } else {
+                jQuery.each(result.data, function (idx, item) {
+                    if (item.name)
+                        jQuery("<option value=" + item.name + ">" + item.name + "期</option>").appendTo(jQuery("#qi"));
+                    else
+                        jQuery("<option value=" + item.name + ">" + item.name + "无</option>").appendTo(jQuery("#qi"));
+                });
+            }
+        }
+    });
+}
+//期变化事件
+function getdong() {
+    jQuery("#dong option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>栋</option>").appendTo(jQuery("#dong"));
+    /* if (jQuery("#qi").val() == 0) {
+     return;
+     }*/
+    jQuery("#danyuan option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>单元</option>").appendTo(jQuery("#danyuan"));
+
+    jQuery("#fangjian option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>房间</option>").appendTo(jQuery("#fangjian"));
+
+
+
+    $.ajax({
+        url: '/index.php/customer/getdong',
+        type: 'POST',
+        data: {xiaoqu: jQuery("#xiaoqu").val(), qi: jQuery("#qi").val()},
+        dataType: 'json',
+        timeout: 5000,
+        error: function (e) {
+
+        },
+        success: function (result) {
+            if (result.status == 1) {
+
+            } else {
+                jQuery.each(result.data, function (idx, item) {
+                    jQuery("<option value=" + item.name + ">" + item.name + "栋</option>").appendTo(jQuery("#dong"));
+                });
+            }
+        }
+    });
+}
+//栋变化事件
+function getdanyuan() {
+    jQuery("#danyuan option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>单元</option>").appendTo(jQuery("#danyuan"));
+
+
+    jQuery("#fangjian option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>房间</option>").appendTo(jQuery("#fangjian"));
+    /* if (jQuery("#dong").val() == 0) {
+     return;
+     }*/
+    $.ajax({
+        url: '/index.php/customer/getdanyuan',
+        type: 'POST',
+        data: {xiaoqu: jQuery("#xiaoqu").val(), qi: jQuery("#qi").val(), dong: jQuery("#dong").val()},
+        dataType: 'json',
+        timeout: 5000,
+        error: function (e) {
+
+        },
+        success: function (result) {
+            if (result.status == 1) {
+
+            } else {
+                jQuery.each(result.data, function (idx, item) {
+                    jQuery("<option value=" + item.name + ">" + item.name + "单元</option>").appendTo(jQuery("#danyuan"));
+                });
+            }
+        }
+    });
+}
+//单元变化事件
+function getfangjian() {
+    jQuery("#fangjian option").each(function () {
+        jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+    });
+    jQuery("<option value=0>房间</option>").appendTo(jQuery("#fangjian"));
+    if (jQuery("#danyuan").val() == 0) {
+        return;
+    }
+    $.ajax({
+        url: '/index.php/customer/getfangjian',
+        type: 'POST',
+        data: {
+            xiaoqu: jQuery("#xiaoqu").val(),
+            qi: jQuery("#qi").val(),
+            dong: jQuery("#dong").val(),
+            danyuan: jQuery("#danyuan").val()
+        },
+        dataType: 'json',
+        timeout: 5000,
+        error: function (e) {
+
+        },
+        success: function (result) {
+            if (result.status == 1) {
+
+            } else {
+                jQuery.each(result.data, function (idx, item) {
+                    jQuery("<option value=" + item.name + ">" + item.name + "号</option>").appendTo(jQuery("#fangjian"));
+                });
+            }
+        }
+    });
+}
+//房间号变化事件
+function updateaddress() {
+    /* var address = ($("#sheng").val() == 0 ? "XX省" : $("#sheng").val())
+     + ($("#shi").val() == 0 ? "XX市" : $("#shi").val())
+     + ($("#qu").val() == 0 ? "XX区" : $("#qu").find("option:selected").text())
+     + ($("#xiaoqu").val() == 0 ? "XX小区" : $("#xiaoqu").val())
+     + ($("#qi").val() == 0 ? "XX期" : $("#qi").val() + "期")
+     + ($("#dong").val() == 0 ? "XX栋" : $("#dong").val() + "栋")
+     + ($("#danyuan").val() == 0 ? "XX单元" : $("#danyuan").val() + "单元")
+     + ($("#fangjian").val() == 0 ? "XX房间" : $("#fangjian").val() + "房间");
+     $("#freeaddress").val(address);
+     $("#freeaddress").text(address);
+     if ($("#fangjian").val() == 0) {
+     $("#btnsubmit").attr("disabled", "disabled");
+     }
+     else {
+     $("#btnsubmit").removeAttr("disabled");
+     }*/
+
+
+    var address = ($("#province_id").val() == 0 ? "XX省" : $("#province_id").find("option:selected").text())
+            + ($("#city_list2").val() == 0 ? "XX市" : $("#city_list2").find("option:selected").text())
+            + ($("#city_list3").val() == 0 ? "XX区" : $("#city_list3").find("option:selected").text())
+            + ($("#xiaoqu").val() == 0 ? "XX小区" : $("#xiaoqu").val())
+            + ($("#qi").val() == 0 ? "XX期" : $("#qi").val() + "期")
+            + ($("#dong").val() == 0 ? "XX栋" : $("#dong").val() + "栋")
+            + ($("#danyuan").val() == 0 ? "XX单元" : $("#danyuan").val() + "单元")
+            + ($("#fangjian").val() == 0 ? "XX房间" : $("#fangjian").val() + "房间");
+    $("#freeaddress").val(address);
+    $("#freeaddress").text(address);
+
+    if ($("#province_id").val() == 0 || $("#city_list2").val() == 0 || $("#city_list3").val() == 0 || $("#xiaoqu").val() == 0 || $("#dong").val() == 0 || $("#fangjian").val() == 0 )
+    {
+        $("#btnsubmit").attr("disabled", "disabled");
+    }
+    else {
+        $("#btnsubmit").removeAttr("disabled");
+    }
+}
+
+$(function(){
+
+    var address = ($("#province_id").val() == 0 ? "XX省" : $("#province_id").find("option:selected").text())
+            + ($("#city_list2").val() == 0 ? "XX市" : $("#city_list2").find("option:selected").text())
+            + ($("#city_list3").val() == 0 ? "XX区" : $("#city_list3").find("option:selected").text())
+            + ($("#xiaoqu").val() == 0 ? "XX小区" : $("#xiaoqu").val())
+            + ($("#qi").val() == 0 ? "XX期" : $("#qi").val() + "期")
+            + ($("#dong").val() == 0 ? "XX栋" : $("#dong").val() + "栋")
+            + ($("#danyuan").val() == 0 ? "XX单元" : $("#danyuan").val() + "单元")
+            + ($("#fangjian").val() == 0 ? "XX房间" : $("#fangjian").val() + "房间");
+    $("#freeaddress").val(address);
+    $("#freeaddress").text(address);
+    if ($("#province_id").val() == 0
+            || $("#city_list2").val() == 0
+            || $("#city_list3").val() == 0
+            || $("#xiaoqu").val() == 0
+            || $("#dong").val() == 0
+            || $("#fangjian").val() == 0
+            ) {
+        $("#btnsubmit").attr("disabled", "disabled");
+    }
+    else {
+        $("#btnsubmit").removeAttr("disabled");
+    }
+
+
+    $("select[name='province_id']").change(function(){
+
+        var id = 2;
+        var pid = $(this).val();
+        if (pid == "")
+        {
+            jQuery("#city_list2 option").each(function () {
+                jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+            });
+            jQuery("<option value=0>市</option>").appendTo(jQuery("#city_list2"));
+            /*if (jQuery("#sheng").val() == 0) {
+             return;
+             }*/
+            jQuery("#city_list3 option").each(function () {
+                jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+            });
+            jQuery("<option value=0>区</option>").appendTo(jQuery("#city_list3"));
+
+            jQuery("#xiaoqu option").each(function () {
+                jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+            });
+            jQuery("<option value=0>小区</option>").appendTo(jQuery("#xiaoqu"));
+
+            jQuery("#qi option").each(function () {
+                jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+            });
+            jQuery("<option value=0>期</option>").appendTo(jQuery("#qi"));
+
+            jQuery("#dong option").each(function () {
+                jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+            });
+            jQuery("<option value=0>栋</option>").appendTo(jQuery("#dong"));
+
+
+            jQuery("#danyuan option").each(function () {
+                jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+            });
+            jQuery("<option value=0>单元</option>").appendTo(jQuery("#danyuan"));
+
+            jQuery("#fangjian option").each(function () {
+                jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+            });
+            jQuery("<option value=0>房间</option>").appendTo(jQuery("#fangjian"));
+
+            updateaddress();
+
+            return false;
+        }
+
+        if(id!=4){
+            $.ajax({
+                type:"POST",
+                url: "{:U('Public/is_pid_get_city')}",
+                data: "pid="+pid,beforeSend: function(){
+                },
+                success: function(msg){
+                    var obj=eval(msg);
+                    var html='';
+                    for(var j=id;j<4;j++){
+                        $('#city_list'+j).html(html);
+                    }
+                    var numid=id+1;
+                    html ='<option value="">请选择</option>';
+                    for(var i=0;i<obj.length;i++){
+                        html=html+'<option  value="'+obj[i].cid+'">'+obj[i].cname+'</option>';
+                    }
+                    $('#city_list'+id).html(html);
+
+                }});
+        }
+        updateaddress();
+    })
+
+    $("select[name='city_list2']").change(function()
+    {
+
+        var id = 3;
+        var pid = $(this).val();
+
+        if(pid == "")
+        {
+            jQuery("#city_list3 option").each(function () {
+                jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+            });
+            jQuery("<option value=0>区</option>").appendTo(jQuery("#city_list3"));
+
+            jQuery("#xiaoqu option").each(function () {
+                jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+            });
+            jQuery("<option value=0>小区</option>").appendTo(jQuery("#xiaoqu"));
+
+            jQuery("#qi option").each(function () {
+                jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+            });
+            jQuery("<option value=0>期</option>").appendTo(jQuery("#qi"));
+
+            jQuery("#dong option").each(function () {
+                jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+            });
+            jQuery("<option value=0>栋</option>").appendTo(jQuery("#dong"));
+
+
+            jQuery("#danyuan option").each(function () {
+                jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+            });
+            jQuery("<option value=0>单元</option>").appendTo(jQuery("#danyuan"));
+
+            jQuery("#fangjian option").each(function () {
+                jQuery(this).remove();//删除目标下拉框中所有的下拉项目
+            });
+            jQuery("<option value=0>房间</option>").appendTo(jQuery("#fangjian"));
+
+            updateaddress();
+
+            return false;
+        }
+
+        if(id!=4){
+            $.ajax({
+                type:"POST",
+                url: "{:U('Public/is_pid_get_city')}",
+                data: "pid="+pid,beforeSend: function(){
+                },
+                success: function(msg){
+                    //alert(msg)
+                    var obj=eval(msg);
+                    var html='';
+                    for(var j=id;j<4;j++){
+                        $('#city_list'+j).html(html);
+                    }
+                    var numid=id+1;
+                    html ='<option value="">请选择</option>';
+                    for(var i=0;i<obj.length;i++){
+                        html=html+'<option  value="'+obj[i].cid+'" city_id="'+obj[i].cid+'">'+obj[i].cname+'</option>';
+                    }
+                    $('#city_list'+id).html(html);
+
+                }});
+        }
+        updateaddress();
+    })
+
+
+    /* //默认为长沙市
+     var id = 3;
+     var pid = 43010000;
+
+     if(id!=4){
+     $.ajax({
+     type:"POST",
+     url: "{:U('Public/is_pid_get_city')}",
+     data: "pid="+pid,beforeSend: function(){
+     },
+     success: function(msg){
+     //alert(msg)
+     var obj=eval(msg);
+     var html='';
+     for(var j=id;j<4;j++){
+     $('#city_list'+j).html(html);
+     }
+     var numid=id+1;
+     html ='<option value="">请选择</option>';
+     for(var i=0;i<obj.length;i++){
+     html=html+'<option  value="'+obj[i].cid+'" city_id="'+obj[i].cid+'">'+obj[i].cname+'</option>';
+     }
+     $('#city_list'+id).html(html);
+
+     }});
+     }
+     updateaddress();*/
+
+});
+</script>
+</body>
+</html>

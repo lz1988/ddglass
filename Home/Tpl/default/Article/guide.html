@@ -1,0 +1,337 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/font-awesome.min.css" />
+
+
+	</head>
+	<body>
+	
+		<header class="head  h_guide">
+			<div class="sortbtn"><i class="fa fa-bars fa-lg"></i>知识分类</div>
+			<div class="savebtn" data-title='1'><i class="fa fa-star fa-lg"></i>我的收藏</div>
+
+		</header>
+		<div class="main_guide">
+			<ul class="list_guide">
+			<!--<foreach name='res' item='article'>
+				<li class="clearfix">
+					<div class="list_l">
+						<h4><a href="article_detail.html?article_id={$article.id}">{$article.title}</a></h4>
+						<div>
+							<time>{$article.create_time}</time>
+							<span class="like"><i class="fa fa-star"></i>{$article.click_num}</span>
+						</div>
+					</div>
+					<div class="list_r">
+						<a href="article_detail.html"><img src="../images/ad_scroll_back.png" alt=""/></a>
+					</div>
+				</li>
+			</foreach>-->
+			</ul>
+		</div>
+
+		<!--左侧边栏-->
+		<article class="listBar_guide">
+			<ul id="guide_tit">
+				<li data-sort="1"><a href="javascript:;">配镜指南</a></li>
+				<li data-sort="2"><a href="javascript:;">潮流前线</a></li>
+				<!--<li data-sort="3"><a href="javascript:;">产品知识</a></li>-->
+				<li data-sort="4"><a href="javascript:;">护理知识</a></li>
+				<li data-sort="6"><a href="javascript:;">专业科普</a></li>
+				<li data-sort="7"><a href="javascript:;">关于镜架</a></li>
+				<li data-sort="8"><a href="javascript:;">关于镜片</a></li>
+				<li data-sort="9"><a href="javascript:;">阳光防护</a></li>
+				<li data-sort="10"><a href="javascript:;">隐形常识</a></li>
+			</ul>
+		</article>
+		<input type="hidden" id="sortStr"/>
+		<input type='hidden' id="title"/>
+	</body>
+	
+<script type="text/javascript" src="__ROOT__/Public/Home/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Home/js/zepto.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Home/js/zeptoTouch.js"></script>
+<script type="text/javascript">
+		//侧边栏显示效果
+		var $sortbtn=$('.h_guide .sortbtn'),
+			$listBar_guide=$('.listBar_guide'),
+			$listBar_con=$listBar_guide.children('ul');
+		$sortbtn.on('tap',function(){
+			$('.savebtn').removeClass('cur');
+			$listBar_guide.toggleClass('listBar_show');
+		});
+		$listBar_guide.on('tap',function(){
+			$('.savebtn').removeClass('cur');
+			$(this).removeClass('listBar_show');
+		})
+</script>
+<script type="text/javascript">
+    setTimeout(function(){
+
+       /* var location = window.location.href;
+        var zifuchuan= location+"";
+        var shuzu=zifuchuan.split('?');*/
+        var url = location.search;
+        if (url.indexOf('act') != -1) {
+            //act = 1;
+            var str = url.substr(1);
+            strs = str.split("=");
+            _act = strs[1];
+        }
+        if(url.indexOf('title') != -1){
+        	var str = url.substr(1);
+            strs = str.split("=");
+            _act = strs[1];
+        }
+        
+        _act = _act.substring(0,1);
+        //alert(_act);
+        var $index= _act; //对应跳转的tab索引
+        var oSpans=document.getElementById("guide_tit").getElementsByTagName("li");
+        oSpans[$index-1].className="cur";
+        //alert(_act);
+        /*var oDivs=$(".guide_con>section");
+        oDivs[$index-1].style.display="block";*/
+       
+    },100)
+</script>
+<script>
+	$(function(){
+
+		var p = 0,
+		    title='',
+		    sortStr='';
+        var url = location.search;
+
+        if (url.indexOf('act') != -1) {
+            //act = 1;
+            var str = url.substr(1);
+            strs = str.split("=");
+            sortStr = strs[1];
+           // alert(sortStr);
+            /* if(sortStr==11){
+            	//alert(sortStr);
+            	$('#title').val('1');
+            }  */
+           /*  alert(sortStr);
+            $('#title') */
+         }
+       if(url.indexOf('title') !=-1){
+        	$('#title').val('1');
+        } 
+
+
+
+		$('.listBar_guide li ').on('tap',function(){
+			if($(this).hasClass('cur')){
+				//$(this).removeClass('cur');
+				//sortStr='';
+				p=1;
+                //alert(111)
+				//myurl();
+			}
+			else{
+				$(this).addClass('cur').siblings().removeClass('cur');
+				//alert(sortStr);
+				sortStr=$(this).attr('data-sort');
+				console.log(sortStr);
+				$('#sortStr').val(sortStr);
+				p=1;
+                myurl();
+	          
+			};
+		});
+
+
+
+        $(".savebtn").click(function(){
+            //alert(sortStr)
+            //$(this).addClass('cur');
+            var url='__URL__/get_article_data';
+            var title = $(this).attr('data-title');
+            
+            //alert(title);
+            $('#title').val('1');
+            url +='?&act='+sortStr+'&title='+title;
+            toUrl(url);
+        })
+
+		function myurl(){
+			var url='__URL__/get_article_data';
+             
+			url +='?&act='+_act+'&sort='+sortStr+'&title='+title;
+			toUrl(url);
+		}
+
+		function toUrl(url) {
+			$.ajax({
+				url:url,
+				type: 'get',
+				dataType:'json',
+				async: false,
+				data:"&p=0",
+				success:function(data){
+					var html = '';
+                    if (data) {
+                        for (var i = 0; i < data.length; i++) {
+                        	  var htmls='';
+                              var pic='';
+                        	 if(data[i].save !=''){
+                                 htmls='<span class="like" detail-id="'+data[i].id+'"><i  class="fa fa-star">'+data[i].save+'</i></span>';
+                        	}else{
+                        		/*htmls='<span class="like" detail-id="'+data[i].id+'"><i  class="fa fa-star"></i></span>';*/
+                        	}
+                            if(data[i].icon !=''){
+                                pic=
+                                '<img src="/Uploads/New/'+data[i].icon
+                                +'" />';
+
+                            }
+
+                            html += '<li class="clearfix">' +
+                            '<div  class="list_l">' +
+                            '<h4>' +
+                            '<a href="__URL__/article_detail/id/' + data[i].id + '">' + data[i].title +
+                            '</a>' +
+                            '</h4>' +
+                            '<div>' +
+                            '<time>' + data[i].create_time + '</time>' +
+                            htmls+
+                            '</div>' +
+                            '</div>' +
+                            '<div class="list_r">'+
+                            '<a href="__URL__/article_detail/id/' + data[i].id + '">'+
+                               pic+
+                            '</a>'+
+                            '</div>'
+                            '</li>';
+                        }
+                    }
+					$('.list_guide').html(html);
+				}
+			});
+		};
+
+		mainfn(); //初始化执行
+		//向下滑动加载列表数据
+		function mainfn(){
+
+            if (url.indexOf('act') != -1) {
+                //act = 1;
+                var str = url.substr(1);
+                strs = str.split("=");
+                _act = strs[1];
+                /* if(_act==11){
+                	//alert(_act);
+                	//var title='1';
+                	$('#title').val('1');
+                	
+                } */
+                //alert(_act);
+            }
+            if(url.indexOf('title') !=-1){
+            	/* var str = url.substr(1);
+                strs = str.split("="); */
+                _act ='';
+            }
+          
+
+        
+			var sort=$('#sortStr').val();
+			var title=$('#title').val();
+			//alert(title);
+			$.ajax({
+				url:'__URL__/get_article_data',
+				type: 'get',
+				dataType:'json',
+				async: false,
+				data:'?&act='+_act+'&sort='+sort+'&title='+title+'&p='+p++,
+				success:function(data){
+					var html = '';
+                    if (data) {
+                        for (var i = 0; i < data.length; i++) {
+                        	 var htmls='';
+                             var pic='';
+                            if(data[i].save !=''){
+                            	htmls='<span class="like" detail-id="'+data[i].id+'"><i  class="fa fa-star">'+data[i].save+'</i></span>';
+                            }else{
+                            	/*htmls='<span class="like" detail-id="'+data[i].id+'"><i  class="fa fa-star"></i></span>'*/
+                            }
+                            if(data[i].icon !=''){
+                                pic=
+                                '<img src="/Uploads/New/'+data[i].icon
+                                +'" />';
+
+                            }
+                            html += '<li class="clearfix">' +
+                            '<div  class="list_l">' +
+                            '<h4>' +
+                            '<a href="__URL__/article_detail/id/' + data[i].id + '">' + data[i].title +
+                            '</a>' +
+                            '</h4>' +
+                            '<div>' +
+                            '<time>' + data[i].create_time + '</time>' +
+                           htmls+
+                            '</div>' +
+                            '</div>' +
+                            '<div class="list_r">'+
+                            '<a href="__URL__/article_detail/id/' + data[i].id + '">'+
+                               pic +
+                            '</a>'+
+                            '</div>'
+                            '</li>';
+                        }
+                    }
+					$('.list_guide').append(html);
+				}
+			});
+		};
+		$(window).scroll(function() {
+			var sct=($(document).height()-$(window).height())-80;
+			var sct2=$(document).scrollTop();
+			if(sct2>=sct){
+				mainfn();
+			}
+		});
+	});
+
+</script>
+<script>
+/* $('.fa fa-star').live('click',function(){
+	alert('保存');
+}) */
+
+/* $('.like').live("click",function(){
+	var detail='';
+	detail=$(this).attr('detail-id');
+	
+	$.ajax({
+		url:'__URL__/save_article',
+		type: 'get',
+		dataType:'json',
+		async: false,
+		data:'&id='+detail,
+		success:function(data){
+			if(data==1){
+				alert('保存成功');
+				
+			}else{
+				alert('false')
+			}
+		}
+	
+	});
+	
+}) */
+
+</script>
+</html>
+        
+
+

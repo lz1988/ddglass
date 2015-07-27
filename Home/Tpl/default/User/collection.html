@@ -1,0 +1,61 @@
+<article class="page_content clearfix">
+    <if condition="$cart_list">
+    <div class="d_list_main clearfix">
+        <foreach name="cart_list" item="list">
+        <div class="good_list">
+            <div class="g_main">
+                <div class="img_warp">
+                    <a href="/item/detail/item_id/{$list.item_id}"><img src="{$list.icon}"></a>
+                </div>
+                <p>新款李维斯近视眼镜超轻时</p>
+                <div class="g_price"><span>￥{$list.item_price} </span><em>￥{$list.ori_price}</em></div>
+                <span class="close" col_id="{$list.col_id}"></span>
+            </div>
+        </div>
+        </foreach>
+             
+    </div>
+    <else />
+		<div class="cart_null" style="background:none;">
+	        <div class="n_msg">
+	            <p>您还没有收藏产品</p>
+	            <p><a href="/item/item_list">浏览产品</a></p>
+	        </div>
+	    </div>
+	</if>
+    
+</article>  
+<footer class="footer_nav">
+<script type="text/javascript">
+$(function(){
+    $(".g_main span.close").click(function(){
+    	var _this=this;
+    	var col_id=$(_this).attr('col_id');
+	    $.ajax({
+			url: "{:U('user/collection')}",
+			type: "post",
+			dataType: "json",
+			data: "col_id="+col_id,
+			success: function(data) {
+				if(data.status==1){
+					 $(_this).parent().parent(".good_list").remove()
+					 var num=parseInt($('#num').text());
+					 if(num<10){
+					 	num=num+1
+					 }else{
+					 	num=10;
+					 }
+					 $('#num').html(num);
+				}
+			},
+			cache: false,
+		    timeout: 5000,
+			error: function() {
+			    alert("错误");
+			}
+		});
+    })
+})
+    
+    
+</script>

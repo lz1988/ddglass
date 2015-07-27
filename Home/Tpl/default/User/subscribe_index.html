@@ -1,0 +1,45 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<title>艺筑装饰</title>
+<link type="text/css" rel="stylesheet" href="__ROOT__/Home/Tpl/default/css/common.css" />
+<link rel="stylesheet" type="text/css" href="__ROOT__/Home/Tpl/default/css/jquery.bxslider.css" />
+</head>
+<body style="padding-bottom:0;">
+<div class="content">
+    <section>
+        <div class="index_scroll">
+        	<ul class="bxslider">
+                <li class="bg1"></li>
+                <li class="bg2"></li>
+                <li class="bg3"></li>
+                <li class="bg4"></li>
+                <li class="bg5" onclick="document.location='/user/subscribe'"><a href="/user/subscribe"> </a></li>
+            </ul>
+        </div>    
+    </section>
+</div>
+
+<script type="text/javascript" src="__ROOT__/Home/Tpl/default/js/jquery-1.8.2.js"></script>
+<script type="text/javascript" src="__ROOT__/Home/Tpl/default/js/jquery.bxslider.min.js"></script>
+<script type="text/javascript" src="__ROOT__/Home/Tpl/default/js/comm.js"></script>
+<script type="text/javascript">
+$(function(){	
+	$('.bxslider').bxSlider({
+       
+        mode: 'fade',
+        captions: true,
+        infiniteLoop: false
+    });	
+    var height = $(window).height();
+    $(".bx-viewport").css("height",height);
+    $(".bxslider").css("height",height) ;
+    
+});
+</script>
+
+</body>
+</html>

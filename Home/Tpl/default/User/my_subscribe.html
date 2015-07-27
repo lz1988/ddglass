@@ -1,0 +1,64 @@
+<article class="page_content clearfix">
+<if condition="$sub_list">
+<foreach name="sub_list" item="list">
+    <div class="oppoinment_list">
+        <table>
+            <tr>
+                <td class="title">预约ID</td>
+                <td>{$list.id}</td>
+                <td class="title">预约姓名</td>
+                <td>{$list.username}</td>
+            </tr>
+            <tr>
+                <td class="title">预约时间</td>
+                <td colspan="3">{$list.sub_time}</td>               
+            </tr>
+            <tr>
+                <td class="title">预约地址</td>
+                <td colspan="3">{$list.address}</td>               
+            </tr>
+            <tr>
+                <td class="title">预约电话</td>
+                <td colspan="3">{$list.tel}</td>               
+            </tr>
+            <tr>
+                <td class="title">预约状态</td>
+                <td colspan="3"><if condition="$list.status eq 0">设计师未出发<elseif condition="$list.status eq 1" />设计师已出发<elseif condition="$list.status eq 2" />设计师已上门洽谈<elseif condition="$list.status eq -1" />预约已被取消</if></td>               
+            </tr>
+        </table>
+        <div class="opr_buttom">
+            <a href="tel:4006752788">联系客服</a><a href="javascript:void(0)" id="cancel{$list.id}" <if condition="($list.status eq 0) and ($list.user_id neq 0)">onclick="cancel_sub({$list.id})"<else />class="bg_gary"</if>>取消预约</a>
+        </div>
+    </div>
+</foreach>
+<else />
+	<div class="cart_null" style="background:none;">
+        <div class="n_msg">
+            <p>还没有进行预约</p>
+            <p><a href="/user/subscribe_index">立即预约</a></p>
+        </div>
+    </div>
+</if>
+</article>
+<script type="text/javascript">
+function cancel_sub(id){
+	$.ajax({
+			url: "{:U('user/cancel_sub')}",
+			type: "post",
+			dataType: "json",
+			data: "id="+id,
+			success: function(data) {
+				$('#tsinfo').html(data.info);
+				$('.msg_layer').show();
+				if(data.status==1){
+					$('#cancel'+id).addClass('bg_gary');
+				}
+			},
+			cache: false,
+		    timeout: 5000,
+			error: function() {
+			    alert("错误");
+			}
+	});
+}
+</script>

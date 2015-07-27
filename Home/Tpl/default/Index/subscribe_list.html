@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>验光预约</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/style.css" />
+</head>
+<body>
+<div class="opt_list common_w">
+    <ul>
+        <volist name="datalist" id="data">
+
+            <li>
+                <div class="number">
+                    预约编号：<a href="__URL__/subscribe_detail/id/{$data.id}">{$data.order_sn}</a>
+                    <!--<a class="fr" href="javascript:;">取消</a>-->
+                </div>
+                <dl class="detail">
+                    <dt>
+                        <a href="__URL__/subscribe_detail/id/{$data.id}"><img src="{$data.images_url}" alt="验光师照片"/></a>
+                    </dt>
+                    <dd>
+                        <p>{$data.oname}</p>
+                        <p>{$data.job}</p>
+                        <p>验光费：￥{$data.price}</p>
+                        <p><if condition="$data.isdone eq '0'">未验光<else/> 已验光 <a class="comment" href="__URL__/add_comment/id/{$data.opid}/shopid/{$data['shop_id']}">去评价</a></if></p>
+                    </dd>
+                </dl>
+                <div class="time">
+                    下单时间 {$data.fstcreate}
+                </div>
+            </li>
+        </volist>
+        <!-- <li>
+             <div class="number">
+                 预约编号：123456789
+             </div>
+             <dl class="detail">
+                 <dt>
+                     <img src="__PUBLIC__/Home/images/getheadimg.jpg" alt="验光师照片"/>
+                 </dt>
+                 <dd>
+                     <p>张山</p>
+                     <p>高级验光师</p>
+                     <p>验光费：￥30.00</p>
+                     <p>
+                         已验光
+                         <a class="comment" href="">去评价</a>
+                     </p>
+                 </dd>
+             </dl>
+             <div class="time">
+                 下单时间 2015-7-10 08:12:45
+             </div>
+         </li>-->
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>预约验光师</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/style.css" />
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/font-awesome.min.css" />
+    <style>
+        html,body,.opt_order{
+            height: 100%;
+            min-height: 100%;
+        }
+        .opt_order{
+            padding-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="opt_order common_w">
+    <h3 class="title">
+        您的信息
+    </h3>
+
+    <form action="__URL__/subscribemod" name="form" method="post">
+        <div class="orderMsg">
+            姓名：张山
+        </div>
+        <div class="orderMsg msgSex">
+            性别：男
+        </div>
+        <div class="orderMsg msgPhone">
+            手机：12345566
+        </div>
+        <div class="orderMsg">
+            验光费用：<span class="price">￥30.00</span>
+        </div>
+
+        <div class="order_tips">
+            <span>注：</span>
+            <p>支付成功后，你将获得验光师联系方式，<br/>
+                和一串验证码，致电给验光师约好时间，<br/>
+                到门店提供验证码验证身份即可。</p>
+        </div>
+        <input type="hidden" name="id" value="{$id}"/>
+        <input type="submit" name="submit" class="wechat_pay" value="微信支付" />
+    </form>
+</div>
+</body>
+</html>

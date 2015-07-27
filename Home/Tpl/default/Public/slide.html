@@ -1,0 +1,34 @@
+<article>
+           <!--scroll-->
+            <div class="scroll relative">
+                <div class="scroll_box" id="scroll_img">
+                    <ul class="scroll_wrap">
+                        <foreach name="ad_list" item="ad">
+                        <li><a href="{$ad.news_url}"><img height="171" src="{:C('NEWIMGURL')}{$ad.icon}" width="100%" /></a> <span class="scroll_position_bg opacity6"></span><p class="banner-font">{$ad.title}</p></li>
+                        </foreach>
+                    </ul>
+                </div>
+                
+                <ul class="scroll_position" id='scroll_position'>
+                    <foreach name="ad_list" item="ad">
+                    <li class="on" <eq name="key" value="0"></eq>><a href="javascript:void(0);">{$key+1}</a></li>
+                    </foreach>
+                </ul>
+            </div>
+          <!--scroll-->
+</article>
+<script src="__PUBLIC__/Home/js/jquery.min.js" type="text/javascript"></script>
+<script src='__PUBLIC__/Home/js/hhSwipe.js'></script>
+<script>
+var slider = Swipe(document.getElementById('scroll_img'), {
+    auto: 3000,
+    continuous: true,
+    callback: function(pos) {
+        var i = bullets.length;
+        while (i--) {
+            bullets[i].className = ' ';
+        }
+        bullets[pos].className = 'on';
+    }
+});
+</script>

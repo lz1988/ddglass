@@ -1,0 +1,43 @@
+<article class="page_content clearfix">
+    <if condition="$val_list">
+	<foreach name="val_list" item="list">
+	<div class="opto_list">
+        <div class="op_name clearfix">
+            <span>{$list.create_time|date="Y-m-d",###} 验光单</span><em>{$list.username}</em>
+        </div>
+        <div class="opto_main">           
+            <table>
+                <thead>
+                    <tr>
+                        <th></th><th>右眼（R）</th><th>左眼（L）</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>度数（SPH）</td><td><span>{$list.degree_right|default="-"} </span></td><td><span> {$list.degree_left|default="-"}</span></td>
+                    </tr>
+                    <tr>
+                        <td>瞳距（PD）</td><td colspan="2"><span>{$list.pd|default="-"} </span></td></td>
+                    </tr>
+                    <tr>
+                        <td>散光（CYL）</td><td><span> {$list.sg_right|default="-"}  </span></td><td><span>{$list.sg_left|default="-"}</span></td>
+                    </tr>
+                    <tr>
+                        <td>轴位（AXIS）</td><td><span>{$list.cw_right|default="-"}</span></td><td><span>{$list.cw_left|default="-"}</span></td>
+                    </tr>
+                    <tr>
+                        <td>下加光</td><td><span>{$list.xjg_right|default="-"}</span></td><td><span>{$list.xjg_right|default="-"}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+	</foreach>
+	<else />
+		<div class="cart_null" style="background:none;">
+	        <div class="n_msg">
+	            <p>还没有验光数据</p>
+	        </div>
+	    </div>
+	</if>
+</article>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>分享给好友，免费领眼镜</title>
+    <link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/style.css" />
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/font-awesome.min.css" />
+    <style>
+        #mcover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            z-index: 20000;
+        }
+        #mcover img {
+            position: fixed;
+            right: 18px;
+            top: 5px;
+            width: 260px!important;
+            height: 180px!important;
+            z-index: 20001;
+        }
+    </style>
+</head>
+<body>
+<div id="mcover" onclick="weChat()" style="display:none;">
+    <img src="__PUBLIC__/Home/images/0.png" />
+</div>
+<div class="main_share">
+    <div class="share_part1">
+        <h2>分享给好友，免费领眼镜</h2>
+        <p style="color: #ffda2a;">活动已结束，谢谢参与！</p>
+        <ul>
+            <li>活动规则：</li>
+            <li>
+                <span>1.</span>
+
+                <div>关注“滴滴配镜”，进入活动页面即可参加；</div>
+            </li>
+            <li>
+                <span>2.</span>
+
+                <div>成功邀请好友加油一次，你即可获得8元代金券（每位好友仅限1次）；</div>
+            </li>
+            <li>
+                <span>3.</span>
+
+                <div>累计35位好友为你加油，就能获得价值368元的2015最新款眼镜礼品；</div>
+            </li>
+            <li>
+                <span>4.</span>
+
+                <div>填写收货地址，保存提交后，礼品将由小D寄出。<span class="color">（22元邮费到付）</span></div>
+            </li>
+        </ul>
+        <ul>
+            <li>加油攻略：</li>
+            <li>
+                <span>1.</span>
+
+                <div>为好友加油：点击“我要为好友加油”--关注“滴滴配镜”--返回好友链接，点击“我要为好友加油”--加上油咯</div>
+            </li>
+            <li>
+                <span>2.</span>
+
+                <div>邀请好友为我加油：关注“滴滴配镜”--进入活动页面--点击“邀请好友为我加油”--分享好友--邀请成功</div>
+            </li>
+        </ul>
+
+        <div>
+            <a href="javascript:void(0)" class="invitation_btn">恭喜你，下单成功！</a>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
+<script src="__ROOT__/Public/Home/js/zepto.js"></script>
+<script src="__ROOT__/Public/Home/js/zeptoTouch.js"></script>
+<script type="text/javascript">
+    //选择礼品
+    $('.gifts li').on('tap',function(){
+        $(this).toggleClass('cur');
+        if($(this).hasClass('cur')){
+            $(this).siblings().removeClass('cur');
+        }
+    })
+
+</script>
+
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script language="javascript" type="text/javascript">
+    wx.config({
+        debug: false,//这里是开启测试，如果设置为true，则打开每个步骤，都会有提示，是否成功或者失败
+        appId: '{$signPackage[appId]}',
+        timestamp: '{$signPackage[timestamp]}',//这个一定要与上面的php代码里的一样。
+        nonceStr: '{$signPackage[nonceStr]}',//这个一定要与上面的php代码里的一样。
+        signature: '{$signPackage[signature]}',
+        te:'{$signPackage[str]}',
+        jsApiList: [
+            // 所有要调用的 API 都要加到这个列表中
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            //'onMenuShareQQ',
+            //'onMenuShareWeibo',
+            'openLocation',
+            'getLocation',
+        ]
+    });
+
+    wx.error(function (res) {
+        //alert(res.errMsg);
+    });
+
+
+    /* function getLocation() {
+     wx.getLocation({
+     success: function (res) {
+     var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+     var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+     var speed = res.speed; // 速度，以米/每秒计
+     var accuracy = res.accuracy; // 位置精度
+     //gps.push({'lat':latitude, 'lng':longtitude});
+     alert('xx');
+     },
+     fail:function(){
+     //gps.push('error')
+     }
+     });
+     }
+     setInterval("getLocation()", 1500);*/
+
+    wx.ready(function () {
+
+        wx.onMenuShareTimeline({
+            title: "滴滴配镜，免费领眼镜", // 分享标题
+            link: "http://dd.eyeku.com/activity/show_share_activity/shareopenid/{$openid}", // 分享链接
+            imgUrl: "http://dd.eyeku.com/Public/Home/images/getheadimg.jpg", // 分享图标
+            desc : "推荐---为我加油",
+            success: function () {
+                alert('分享成功')
+                window.location.reload();
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        wx.onMenuShareAppMessage({
+            title: "滴滴配镜，免费领眼镜", // 分享标题
+            desc: "推荐---为我加油", // 分享描述
+            link: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6665fe982e03a365&redirect_uri=http://dd.eyeku.com/activity/show_share_activity/shareopenid/{$openid}&response_type=code&scope=snsapi_base&state=1#wechat_redirect", // 分享链接
+            imgUrl: "http://dd.eyeku.com/Public/Home/images/getheadimg.jpg", // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                // 用户确认分享后执行的回调函数
+                alert('分享成功')
+                window.location.reload();
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    function button1(){
+        $("#mcover").css("display","block")    // 分享给好友按钮触动函数
+    }
+    function button2(){
+        $("#mcover").css("display","block")  // 分享给好友圈按钮触动函数
+    }
+    function weChat(){
+        $("#mcover").css("display","none");  // 点击弹出层，弹出层消失
+    }
+
+    $(function(){
+        $("#for_order").click(function(){
+            var tel = $("input[name='tel']").val();
+            var username = $("input[name='username']").val();
+            var address = $("input[name='address']").val();
+            if (username.length == 0){
+                alert('收件人不能为空');
+                return false;
+            }
+
+            if (tel.length == 0){
+                alert('手机不能为空');
+                return false;
+            }
+
+
+            if (address.length == 0){
+                alert('收货地址不能为空');
+                return false;
+            }
+
+        })
+    })
+    /*$
+     (function(){
+     setTimeout(function () {
+     $("#mcover").show();}, 6000);   // 6000时毫秒是弹出层
+     setTimeout(function () {
+     $("#mcover").hide(); }, 8000);    //8000毫秒是隐藏层
+     })
+     */
+</script>

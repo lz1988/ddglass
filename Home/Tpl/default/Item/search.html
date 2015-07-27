@@ -1,0 +1,81 @@
+<nav>
+    <ul class="page_nav clearfix">
+        <li class="li_one">
+            <span class="trigger">分类筛选</span>
+            <ul class="left_menu">
+                <php>
+                $conf=C('ITEM_SEARCH');
+                $tnamearr='';
+                foreach($newstypearr as $nres){
+                   $tnamearr[$nres[type_id]]=$nres[type_name];
+                }
+                </php>
+                <foreach name="conf" item="list">
+			    <li>
+                    <a href="javascript:void(0)" class="m_list m{$list.id}"><span><php>if($_GET[$key]){echo $tnamearr[$_GET[$key]];}else{echo $list[name];}</php></span></a>
+                    <div class="m_l_main">
+                        <if condition="($list.id eq 2) or ($list.id eq 6)">
+                    	 <div <if condition="$list.id gt 5">class="wrapper"<else />class="wrapper wrapper2"</if>>
+                            <div class="scroller">
+                        </if>
+                        <php>
+                        if($_GET[$key]){
+                        	$new_param2=$where_param;
+			           		unset($new_param2[$key]);
+			                $cea_url=U('Item/item_list',$new_param2);
+			            }
+			            if($_GET[$key]){echo "<a class='clean' href='{$cea_url}'>清除</a>";}</php>
+                        <foreach name="newstypearr" item="list2" key="key2">
+			            <eq name="list2.pid" value="$list.id">
+			            <php>
+			            $new_param=$where_param;
+			            $new_param[$key]=$list2[type_id];
+			            $link_url=U('Item/item_list',$new_param);
+			            </php>
+			            <a href="{$link_url}">{$list2.type_name}</a>
+			            </eq>
+			            </foreach>
+			            <if condition="($list.id eq 2) or ($list.id eq 6)">
+                    	   </div>
+			            </div>
+                        </if>
+                        <span></span>
+                    </div>
+                </li>
+			    </foreach>
+            </ul>
+            
+        </li>
+        <li class="li_two">
+            <form action="" method="GET">
+            <input type="text" name="keyword" value="{$Think.get.keyword}" class="s_input"><input type="submit" value="搜索" class="s_butt">
+            </form>
+        </li>
+       
+    </ul>
+</nav>
+<article class="page_content page_padding clearfix">
+    <div class="null_search">
+        <p class="f_msg">ＳＯＲＲＹ，没有找到“<span>{$Think.get.keyword}</span>”的商品 <br/>
+            请更换其它关键词搜索
+        </p>
+        <div class="search_box clearfix">
+            <form action="{:U('item/item_list')}" method="GET"><input type="text" name="keyword" class="input_s"><input type="submit" class="butt_s" value="搜索"></form>
+        </div>
+        <div class="hot_search">
+            <p>热门搜索词：</p>
+            <div class="h_list clearfix">
+                <a href="/item/item_list.html?keyword=超薄镜片">超薄镜片</a><a href="/item/item_list.html?keyword=超薄镜片">纯钛眼镜</a><a href="/item/item_list.html?keyword=板材">板材</a><a href="/item/item_list.html?keyword=防辐射镜片">防辐射镜片</a><a href="/item/item_list.html?keyword=游泳镜">游泳镜</a><a href="/item/item_list.html?keyword=镜片">镜片</a>      　　　   
+             
+            </div>
+        </div>
+    </div>
+</article>  
+<footer class="footer_nav">
+    <div class="app-nav">
+        <a href="#" class="lottery">近视镜</a>
+        <a href="#" class="recharge">其它镜</a>
+        <a href="#" class="shopping-cart">试戴车</a>
+        <a href="#" class="my">我的</a>
+    </div>
+</footer>

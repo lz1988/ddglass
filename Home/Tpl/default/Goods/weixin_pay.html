@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html class="html_order_success">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>微信安全支付</title>
+    <link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/dd2.css"/>
+    <link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/font-awesome.min.css"/>
+    <script type="text/javascript">
+
+        //调用微信JS api 支付
+        function jsApiCall()
+        {
+            WeixinJSBridge.invoke(
+                    'getBrandWCPayRequest',
+                    {$jsApiParameters},
+                    function(res){
+                        WeixinJSBridge.log(res.err_msg);
+                        //alert(res.err_code+res.err_desc+res.err_msg);
+                        if(res.err_msg == "get_brand_wcpay_request:ok"){
+                            //alert(res.err_code+res.err_desc+res.err_msg);
+                            window.location.href="http://dd.eyeku.com/index/myInfo";
+                        }else{
+                            //返回跳转到订单详情页面
+                            alert('支付失败');
+                            window.location.href="http://dd.eyeku.com/goods";
+
+                        }
+                    }
+            );
+        }
+
+        function callpay()
+        {
+            if (typeof WeixinJSBridge == "undefined"){
+                if( document.addEventListener ){
+                    document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                }else if (document.attachEvent){
+                    document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                    document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                }
+            }else{
+                jsApiCall();
+            }
+        }
+    </script>
+</head>
+<body class="body_order_success">
+<div class="order_success common_w">
+    <div class="icon">
+        <p></p>
+        <p>:{$Think.session.title}</p>
+    </div>
+    <div class="list">
+        <p>订单编号：{$goods_sn}</p>
+
+        <p>实付金额：<span class="price">¥{$totle}</span></p>
+        <p>支付方式：微信支付</p>
+        <p>给卖家留言:{$remark}</p>
+    </div>
+    <a href="javascript:void(0);" onclick="callpay()" class="pay_btn">微信支付</a>
+</div>
+</body>
+</html>

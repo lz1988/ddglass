@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>预约验光师</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/style.css" />
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/font-awesome.min.css" />
+    <style>
+        html,body,.opt_order{
+            height: 100%;
+            min-height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="opt_order common_w">
+    <h3 class="title">
+        您的信息
+    </h3>
+
+    <form action="__URL__/subscribemod" name="form" method="post">
+        <div class="orderMsg">
+            姓名：
+            <input type="text" id="name" name="name"/>
+        </div>
+        <div class="orderMsg msgSex">
+            性别：
+            <span data-sex="男" class="cur"><i class="fa fa-mars"></i>男</span>
+            <span data-sex="女"><i class="fa fa-venus"></i>女</span>
+        </div>
+        <div class="orderMsg msgPhone">
+            手机：
+            <input id="phone" name="mobile" type="tel"/>
+            <input type="button" class="yzm_btn" value="发送验证码"/>
+        </div>
+        <div class="orderMsg">
+            验证码：
+            <input class="yzm_txt" type="tel" name="msm_code"/>
+        </div>
+
+        <h3 class="title">
+            验光费用
+        </h3>
+        <div class="order_price">
+            <p class="price">￥{$price}</p>
+            <p>支付成功后，你将获得验光师联系方式，<br/>
+                和一串验证码，致电给验光师约好时间，<br/>
+                到门店提供验证码验证身份即可。</p>
+        </div>
+        <input type="hidden" name="id" value="{$id}"/>
+        <input id="sexVal" type="hidden" name="sex" value="男"/>
+        <input type="submit" name="submit" class="wechat_pay" value="提交预约" />
+    </form>
+</div>
+</body>
+<script src="__PUBLIC__/Home/js/zepto.js"></script>
+<script src="__PUBLIC__/Home/js/zeptoTouch.js"></script>
+<script>
+    //性别
+    var sexVal='';
+    $('.msgSex span').on('tap',function(){
+        if($(this).hasClass('cur')){
+            sexVal=$(this).attr('data-sex');
+            $('#sexVal').val(sexVal);
+        }else{
+            sexVal=$(this).attr('data-sex');
+            $('#sexVal').val(sexVal);
+            $(this).addClass('cur').siblings().removeClass('cur');
+        }
+    });
+    //发送验证码
+    var i = 60;
+    function dnumbers(){
+        $('.yzm_btn').val(i);
+        i--;
+        if(i==0){
+            $('.yzm_btn').val('发送验证码')
+            $(".yzm_btn").attr('disabled','');
+        }else{
+            setTimeout(dnumbers,1000);
+        }
+    }
+    $(".yzm_btn").on('tap',function(){
+
+        var reg = /^1\d{10}$/;
+        if ($("#phone").val().length == 0){
+            alert('请输入手机号码');
+        }
+        else if ( ! reg.test($("#phone").val()))
+        {
+            alert('手机号码格式错误');
+        }
+        else{
+            $.get("__URL__/get_phone_code",{"mobile":$("#phone").val()},function(data){
+                if(data==10002){
+                    alert('发送失败!');
+                }else if(data==10001) {
+                    alert('发送成功!');
+                    $(".yzm_btn").attr('disabled', 'disabled');
+                    i = 60;
+                    dnumbers();
+                }
+            });
+        }
+
+    });
+
+    $(function(){
+        $("input[type='submit']").click(function(){
+
+            var reg = /^1\d{10}$/;
+
+            if ($("#name").val().length == 0) {
+                alert("请输入姓名");
+                return false;
+            }
+
+            if ($("input[name='sex']").val().length == 0){
+                alert("请选择性别");
+                return false;
+            }
+
+            if ($("input[name='mobile']").val().length == 0){
+                alert("请输入手机号码")
+                return false;
+            }
+
+            if ( ! reg.test($("#phone").val()))
+            {
+                alert('手机号码格式错误');
+                return false;
+            }
+
+            if ($("input[name='msm_code']").val().length == 0){
+                alert('请填写正确验证码');
+                return false;
+            }
+        })
+    })
+
+</script>
+</html>

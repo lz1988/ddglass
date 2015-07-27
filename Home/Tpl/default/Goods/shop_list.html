@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/dd2.css"/>
+    <link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/animate.css"/>
+</head>
+<body>
+<header class="g_search_h">
+    <span>附近 <i class="fa fa-map-marker"></i></span>
+    <span>销量 <i class="fa fa-long-arrow-down"></i></span>
+    <span>价格 <span><i class="fa fa-sort-asc"></i><i class="fa fa-sort-desc"></i></span></span>
+</header>
+<section class="g_search_main common_w">
+    <form action="">
+        <div  class="g_search_area">
+            <div class="g_search">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="商家名称/商品名称关键字"/>
+                <input type="submit" value="GO"/>
+            </div>
+            <a class="screening" href="javascript:;">筛选</a>
+        </div>
+    </form>
+    <ul class="screening_condition">
+        <li>
+            <div class="conditions clearfix">
+               <span class="fl">款式</span>
+                <p class="fr">
+                    <span class="selected">不限</span>
+                    <i class="fa fa-angle-right"></i>
+                </p>
+            </div>
+            <div class="sub_condition">
+                <ol class="clearfix">
+                    <li>不限</li>
+                    <li>男款</li>
+                    <li>女款</li>
+                    <li>通用款</li>
+                </ol>
+            </div>
+        </li>
+        <li>
+            <div class="conditions clearfix">
+                <span class="fl">材质</span>
+                <p class="fr">
+                    <span class="selected">不限</span>
+                    <i class="fa fa-angle-right"></i>
+                </p>
+            </div>
+            <div class="sub_condition">
+                <ol class="clearfix">
+                    <li>不限</li>
+                    <li>胶架</li>
+                    <li>金属</li>
+                    <li>纯钛</li>
+                    <li>特殊</li>
+                </ol>
+            </div>
+        </li>
+        <li>
+            <div class="conditions clearfix">
+                <span class="fl">风格</span>
+                <p class="fr">
+                    <span class="selected">不限</span>
+                    <i class="fa fa-angle-right"></i>
+                </p>
+            </div>
+            <div class="sub_condition">
+                <ol class="clearfix">
+                    <li>不限</li>
+                    <li>商务</li>
+                    <li>简约</li>
+                    <li>时尚</li>
+                    <li>复古</li>
+                </ol>
+            </div>
+        </li>
+    </ul>
+    <div class="g_search_list">
+        <dl>
+            <dt>
+                <img src="__ROOT__/Public/Home/images/gift2.jpg" alt="商品展示图"/>
+            </dt>
+            <dd>
+                <p>Crocs卡洛斯骑士系列男女通用款</p>
+                <p>￥399</p>
+                <div class="clearfix">
+                    <span>东明眼镜梅林店</span>
+                    <span class="fr">
+                        &lt;1.22km
+                    </span>
+                </div>
+            </dd>
+        </dl>
+        <dl>
+            <dt>
+                <img src="__ROOT__/Public/Home/images/gift2.jpg" alt="商品展示图"/>
+            </dt>
+            <dd>
+                <p>Crocs卡洛斯骑士系列男女通用款</p>
+                <p>￥399</p>
+                <div class="clearfix">
+                    <span>东明眼镜梅林店</span>
+                    <span class="fr">
+                        &lt;1.22km
+                    </span>
+                </div>
+            </dd>
+        </dl>
+        <dl>
+            <dt>
+                <img src="__ROOT__/Public/Home/images/gift2.jpg" alt="商品展示图"/>
+            </dt>
+            <dd>
+                <p>Crocs卡洛斯骑士系列男女通用款</p>
+                <p>￥399</p>
+                <div class="clearfix">
+                    <span>东明眼镜梅林店</span>
+                    <span class="fr">
+                        &lt;1.22km
+                    </span>
+                </div>
+            </dd>
+        </dl>
+    </div>
+</section>
+</body>
+<script src="__PUBLIC__/Home/js/zepto.js"></script>
+<script src="__PUBLIC__/Home/js/zeptoTouch.js"></script>
+<script>
+    //点击筛选，显示筛选条件
+    $('.screening').toggle(function(){
+        $('.screening_condition').slideDown();
+    },function(){
+        $('.screening_condition').slideUp();
+    });
+
+    //款式材质风格点击显示隐藏子菜单
+    $('.conditions').each(function(){
+        $(this).toggle(function(){
+            $(this).siblings('.sub_condition').slideDown().addClass('animated flipInX');
+            $(this).find('.fa').removeClass('fa-angle-right').addClass('fa-angle-down');
+        },function(){
+            $(this).siblings('.sub_condition').slideUp().removeClass('animated flipInX');
+            $(this).find('.fa').addClass('fa-angle-right').removeClass('fa-angle-down');
+        });
+    });
+
+    //选中显示相应的筛选条件文字
+    var liTxt='';
+    $('.sub_condition li').on('tap',function(){
+        if($(this).hasClass('cur')){ //取消选择
+            $(this).removeClass('cur');
+            $(this).parents().parents().siblings('.conditions').find('.selected').text('不限');
+        }
+        else{ //选中
+            liTxt=$(this).text();
+            $(this).addClass('cur').siblings().removeClass('cur');
+            $(this).parents().parents().siblings('.conditions').find('.selected').text(liTxt);
+        }
+    });
+</script>
+</html>

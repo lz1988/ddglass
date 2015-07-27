@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport"
+              content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+        <title>我的验光资料</title>
+        <link href="__ROOT__/Public/Admin/css/list.css" rel="stylesheet" type="text/css" />
+        <script src="__ROOT__/Public/Admin/js/jquery-1.6.js" type="text/javascript"></script>
+        <script src="__ROOT__/Public/Admin/js/formvalidator/formValidator-4.1.1.js" type="text/javascript" charset="UTF-8"></script> 
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/style.css"/>
+        <link rel="stylesheet" href="__ROOT__/Public/Home/css/font-awesome.min.css"/>
+    </head>
+    <body>
+        <div class="myfile">
+            <div class="mod_file">
+                <h3 class="tit_file">配镜度数</h3>
+                <div class="datas_file">
+                    <form action="__URL__/add_jia">
+                        <section class="det_file">
+                            <div class="det_data">
+                                <span>&nbsp;</span>
+                                <span>右眼R</span>
+                                <span>左眼L</span>
+                            </div>
+                            <div class="det_data">
+                                <span>度数<br/>(Sph)</span>
+                                <input type="text" name="sph_r" value="{$images.sph_r}"/>
+                                <input type="text" name="sph_l" value="{$images.sph_l}"/>
+                            </div>
+                            <div class="det_data">
+                                <span>总瞳距<br/>(PD)</span>
+                                <input type="text" name="pd" value="{$images.pd}"/>
+                            </div>
+                        </section>
+                        <section class="det_file det_file2">
+                            <div class="det_data">
+                                <span>&nbsp;</span>
+                                <span>右眼R</span>
+                                <span>左眼L</span>
+                            </div>
+                            <div class="det_data">
+                                <span>散光<br/>(Cyl)</span>
+                                <input type="text"  name="cyl_r" value="{$images.cyl_r}"/>
+                                <input type="text" name="cyl_l" value="{$images.cyl_l}"/>
+                            </div>
+                            <div class="det_data">
+                                <span>轴位<br/>(Axis)</span>
+                                <input type="text" name="axis_r" value="{$images.axis_r}"/>
+                                <input type="text" name="axis_l" value="{$images.axis_l}"/>
+                            </div>
+                            <div class="det_data">
+                                <span>下加光<br/>(ADD)</span>
+                                <input type="text" name="xiajiaguang_r" value="{$images.xiajiaguang_r}"/>
+                                <input type="text" name="xiajiaguang_l" value="{$images.xiajiaguang_l}"/>
+                            </div>
+                        </section>
+                        <input type="submit" value="保存" class="save_btn"/>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mod_file">
+                <h3 class="tit_file">隐形眼镜度数</h3>
+                <div class="datas_file">
+                    <form action="__URL__/add_yin">
+                        <section class="det_file">
+                            <div class="det_data">
+                                <span>&nbsp;</span>
+                                <span>右眼R</span>
+                                <span>左眼L</span>
+                            </div>
+                            <div class="det_data">
+                                <span>度数<br/>(Sph)</span>
+                                <input type="text" name="y_sph_r" value="{$yin.y_sph_r}"/>
+                                <input type="text" name="y_sph_l" value="{$yin.y_sph_l}"/>
+                            </div>
+
+                            <div class="det_data">
+                                <span>散光<br/>(Cyl)</span>
+                                <input type="text" name="y_cyl_r" value="{$yin.y_cyl_r}"/>
+                                <input type="text" name="y_cyl_l" value="{$yin.y_cyl_l}"/>
+                            </div>
+                            <div class="det_data">
+                                <span>轴位<br/>(Axis)</span>
+                                <input type="text" name="y_axis_r" value="{$yin.y_axis_r}"/>
+                                <input type="text" name="y_axis_l" value="{$yin.y_axis_l}"/>
+                            </div>
+                        </section>
+                       <!-- <section class="det_file det_file2">
+                            <div class="det_data">
+                                <span>&nbsp;</span>
+                                <span>右眼R</span>
+                                <span>左眼L</span>
+                            </div>
+                            <div class="det_data">
+                                <span>散光<br/>(Cyl)</span>
+                                <input type="text" name="y_cyl_r" value="{$yin.y_cyl_r}"/>
+                                <input type="text" name="y_cyl_l" value="{$yin.y_cyl_l}"/>
+                            </div>
+                            <div class="det_data">
+                                <span>轴位<br/>(Axis)</span>
+                                <input type="text" name="y_axis_r" value="{$yin.y_axis_r}"/>
+                                <input type="text" name="y_axis_l" value="{$yin.y_axis_l}"/>
+                            </div>
+                        </section>-->
+                        <input type="submit" value="保存" class="save_btn"/>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="mod_file">
+                <h3 class="tit_file">上传验光单照片</h3>
+
+                <div class="datas_file">
+                    <foreach name="img" item="vo">
+                        <dl class="upload_img">
+                            <dt>
+                            <img src="{$vo.img}" alt=""/>
+                            </dt>
+                            <dd>
+                                <p>
+                                    <time>上传时间：{$vo.time|date='y-m-d',###}</time>
+                                </p>
+                                <p>
+                                    <a class="delete_btn" href="javascript:;" onclick="delimg({$vo.time})">删除</a>
+                                </p>
+                            </dd>
+                        </dl>
+                    </foreach>    
+
+                    <div class="upload_area clearfix">
+                        <input type="file" name="file" id="file1"/>&nbsp;
+                        <input type="button" name="buttonupload" class="buttonupload save_btn fr" value="上传验光单"/>
+                       <!-- <input type="button" name="buttonupload" class="buttonupload" value="上传验光单"/>-->
+                        <span class="note"></span>
+
+                       <!-- <input type="submit" value="保存" class="save_btn fr"/>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="__ROOT__/Public/Home/js/jquery-1.8.3.min.js"></script>
+        <script>
+            var $title = $('.mod_file .tit_file');
+            $title.toggle(function() {
+                $(this).siblings('.datas_file').slideDown();
+            }, function() {
+                $(this).siblings('.datas_file').slideUp();
+            });
+
+
+            var ajaxFileUpload = function(opts) {
+                return new ajaxFileUpload.prototype.init(opts);
+            };
+            ajaxFileUpload.prototype = {
+                init: function(opts) {
+                    var set = this.extend({
+                        url: '__URL__/upload/goods_img/n/', //路径+模块名+图片保存文件夹名字+方法名+图片首字母+大小+
+                        id: 'fileId',
+                        callback: function() {
+                        }
+                    }, opts || {});
+                    var _this = this;
+                    var id = +new Date();
+                    var form = this.createForm(id), frame = this.createIframe(id, set.url);
+                    var oldFile = document.getElementById(set.id)
+                    var newFile = oldFile.cloneNode(true);
+                    var fileId = 'ajaxFileUploadFile' + id;
+                    oldFile.setAttribute('id', fileId);
+                    oldFile.parentNode.insertBefore(newFile, oldFile);
+                    form.appendChild(oldFile);//注意浏览器安全问题，要将原文件域放到创建的form里提交
+                    form.setAttribute('target', frame.id);//将form的target设置为iframe,这样提交后返回的内容就在iframe里
+                    form.setAttribute('action', set.url);
+                    setTimeout(function() {
+                        form.submit();
+                        if (frame.attachEvent) {
+                            frame.attachEvent('onload', function() {
+                                _this.uploadCallback(id, set.callback);
+                            });
+                        } else {
+                            frame.onload = function() {
+                                _this.uploadCallback(id, set.callback);
+                            }
+                        }
+                    }, 100);
+                },
+                /*
+                 创建iframe，ie7和6比较蛋疼，得像下面那样创建，否则会跳转
+                 */
+                createIframe: function(id, url) {
+                    var frameId = 'ajaxFileUploadFrame' + id, iFrame;
+                    var IE = /msie ((\d+\.)+\d+)/i.test(navigator.userAgent) ? (document.documentMode || RegExp['\x241']) : false,
+                            url = url || 'javascript:false';
+                    if (IE && IE < 8) {
+                        iFrame = document.createElement('<iframe id="' + frameId + '" name="' + frameId + '" />');
+                        iFrame.src = url;
+                    } else {
+                        iFrame = document.createElement('iframe');
+                        this.attr(iFrame, {
+                            'id': frameId,
+                            'name': frameId,
+                            'src': url
+                        });
+                    }
+                    ;
+                    iFrame.style.cssText = 'position:absolute; top:-9999px; left:-9999px';
+                    return document.body.appendChild(iFrame);
+                },
+                /*
+                 创建form
+                 */
+                createForm: function(id) {
+                    var formId = 'ajaxFileUploadForm' + id;
+                    var form = document.createElement('form');
+                    this.attr(form, {
+                        'action': '',
+                        'method': 'POST',
+                        'name': formId,
+                        'id': formId,
+                        'enctype': 'multipart/form-data',
+                        'encoding': 'multipart/form-data'
+                    });
+                    form.style.cssText = 'position:absolute; top:-9999px; left:-9999px';
+                    return document.body.appendChild(form);
+                },
+                /*
+                 获取iframe内容，执行回调函数，并移除生成的iframe和form
+                 */
+                uploadCallback: function(id, callback) {
+                    var frame = document.getElementById('ajaxFileUploadFrame' + id), form = document.getElementById('ajaxFileUploadForm' + id);
+                    data = {};
+                    var db = document.body;
+                    try {
+                        if (frame.contentWindow) {
+                            data.responseText = frame.contentWindow.document.body ? frame.contentWindow.document.body.innerHTML : null;
+                            data.responseXML = frame.contentWindow.document.XMLDocument ? frame.contentWindow.document.XMLDocument : frame.contentWindow.document;
+                        } else {
+                            data.responseText = frame.contentDocument.document.body ? frame.contentDocument.document.body.innerHTML : null;
+                            data.responseXML = frame.contentDocument.document.XMLDocument ? frame.contentDocument.document.XMLDocument : frame.contentDocument.document;
+                        }
+                    } catch (e) {
+                    }
+                    ;
+                    callback && callback.call(data);
+                    setTimeout(function() {
+                        db.removeChild(frame);
+                        db.removeChild(form);
+                    }, 100);
+                },
+                attr: function(el, attrs) {
+                    for (var prop in attrs)
+                        el.setAttribute(prop, attrs[prop]);
+                    return el;
+                },
+                extend: function(target, source) {
+                    for (var prop in source)
+                        target[prop] = source[prop];
+                    return target;
+                }
+            };
+            ajaxFileUpload.prototype.init.prototype = ajaxFileUpload.prototype;
+            /* 
+             说明：ajax文件上传 end
+             */
+
+            $(".buttonupload").click(function() {
+                var path = $(this);
+                ajaxFileUpload({
+                    id: "file1",
+                    callback: function() {
+                        var src = this.responseText;
+                      /*  alert("上传完成");*/
+                        window.location.reload();
+                        $.ajax({
+                            url: "__URL__/updateImges/path/" + src,
+                            type: "get",
+                            dataType: "json",
+                            asyn: false
+                        });
+                    }
+                });
+
+            });
+            function delimg(img) {
+
+
+                $.ajax({
+                    url:'__URL__/delimg',
+                    type:'get',
+                    dataType:'json',
+                    async: false,
+                    data:'&img='+img,
+                    success:function(data){
+                        if(data==1){
+                            window.location.reload();
+                        }
+
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>

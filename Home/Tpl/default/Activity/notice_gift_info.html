@@ -1,0 +1,37 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>分享给好友，免费领眼镜</title>
+    <link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/style.css"/>
+    <style>
+        html, body, .main_share {
+            height: 100%;
+        }
+
+        .share_part1 {
+            min-height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="main_share">
+    <div class="share_part1">
+        <h2>分享给好友，免费领眼镜</h2>
+
+        <div class="tips">恭喜你，油已加满！</br>等着奖品飞过来吧（免邮费哦！）</div>
+        <ol>
+            <li>选择的礼品：<span class="msg">{$order_info.gift}</span>号礼品</li>
+            <li>收件人：<span class="msg">{$order_info.username}</span></li>
+            <li>手机号：<span class="msg">{$order_info.tel}</span></li>
+            <li>收货地址：<span class="msg">{$order_info.address}</span></li>
+        </ol>
+        <div>如有疑问，请在线咨询客服。</div>
+    </div>
+</div>
+</body>
+</html>
+

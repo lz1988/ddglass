@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/dd2.css"/>
+    </head>
+    <body>
+        <section class="common_w">
+            <ul class="history_con">
+                      <volist name="list" id="list" key="key">
+                <li>
+                    <p class="time">
+                        <time></time>
+                    </p>
+                    <dl>
+                        <dt>
+                        <img src="/{$list.img}" alt="" />
+                        </dt>
+                        <dd>
+                            <p>{$list.name}</p>
+                            <p class="price">{$list.addr}</p>
+                        </dd>
+                    </dl>
+                </li>
+                </volist>
+            </ul>
+        </section>
+    </body>
+</html>

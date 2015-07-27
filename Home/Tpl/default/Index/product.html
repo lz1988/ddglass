@@ -1,0 +1,21 @@
+<div class="content">
+    <div class="fixed_box"><img src="__PUBLIC__/Home/images/p_bg.jpg" width="100%"></div>
+    <div class="photo_warp">
+        <foreach name="product_list" item="list">
+        <div class="photo_list">
+            <a href="/index/product_list/type_id/{$list.type_id}">
+                <img src="{$list.images}" width="100%" height="200">
+                <div class="phot_info">
+                    <div class="left">
+                        <p>{$list.keywords}</br>
+                            <em>{$list.type_name}</em>
+                        </p>
+                    </div>
+                    <span>{$list.count}张</span>
+                </div>
+            </a>
+        </div>
+        </foreach>
+
+    </div>
+</div>
