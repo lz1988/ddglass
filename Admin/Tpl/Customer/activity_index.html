@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <title>栏目设置</title>
+            <script src="__ROOT__/Public/Admin/js/jquery-1.6.js"></script>
+            <script src="__ROOT__/Public/Admin/js/public.js"></script>
+            <link type="text/css" rel="stylesheet" href="__ROOT__/Public/Admin/css/admin.css">
+                </head>
+                <body>
+                    <div class="main-wrap">
+                        <div class="path"><p>当前位置：商户管理 >><a>活动管理</a></p></div>
+
+                        <div class="main-cont">
+                        <h3 class="title">
+                       <a href="__APP__/Customer/activity_add?shop_id={$s_id}" class="btn-general" {$adminuser_add}><span>添加活动类型</span></a> 
+                        </h3>
+                                                            <!--<div class="search-area ">
+                                                                <form id="" name="formfind" action="" method="GET">
+                                                                    <div class="item">
+                                                                        <label>用户名称：</label>
+                                                                        <input type="text" size="10" class="input-100" name="sellname" value="{$sellname}" id="account" />
+                            
+                                                                        <input class="button_s" type="submit" name="findsub" value="搜 索">
+                            
+                                                                    </div>
+                                                                </form> -->
+                                                            </div>
+                            <form action="" method="POST" name="orgtype" />
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table" align="center">
+                                <thead class="tb-tit-bg">
+                                    <tr>
+                                        <th width="4%"><div class="th-gap">商铺名称</div></th>
+                                        <!-- <th width="4%"><div class="th-gap">商铺id</div></th> -->
+                                        <th width="4%"><div class="th-gap">活动类型</div></th>
+                                        <th width="4%"><div class="th-gap">活动信息</div></th>
+                                        <th width="4%"><div class="th-gap">开始时间</div></th>
+                                        <th width="4%"><div class="th-gap">结束时间</div></th>
+                                       <!--   <th width="4%"><div class="th-gap">测试</div></th> -->
+                                         <th width="4%"><div class="th-gap">操作</div></th>
+                                         <!-- 添加子栏目 -->
+                                        
+                                        <!-- <th width="9%"><div class="th-gap">评论时间</div></th>
+                                        <th width="62%"><div class="th-gap">评论内容</div></th> -->
+                                    </tr>
+                                </thead>
+                                <tfoot class="tb-foot-bg"></tfoot>
+                                 <tbody  id="tableClass">
+                                    <foreach name="data" item="vo">
+                                        <tr onmouseover="overColor(this)" onmouseout="outColor(this)">
+                                            <td align="center" class="hback">{$vo.name}</td>
+                                            <<!-- td align="center" class="hback">{$vo.id}</td> -->
+                                            <td align="center" class="hback">{$vo.activity_name}</td>
+                                            <td align="center" class="hback">{$vo.activity_info}</td>
+                                            <td align="center" class="hback">{$vo.start_time}</td>
+                                          <td align="center" class="hback">{$vo.end_time}</td>
+                                           <!--  <td align="center">{$vo.end_time}</td>  -->
+                                          <!--    <td align="center" class="hback">{$rs.activity_name}</td> -->
+                                            <td  class="hback">
+                                            <a href="__APP__/Customer/info_edit?id={$vo.id}&shop_id={$vo.shop_id}" class="icon-edit" {$adminuser_edit}>编辑</a>
+                                             <a href="__APP__/Customer/dele_activity?id={$vo.id}&shop_id={$vo.shop_id}" class="icon-edit" {$adminuser_edit}>删除</a>
+                                            <!-- <a href="__APP__/Customer/activity_add?id={$vo.id}&shop_id={$vo.shop_id}" class="icon-edit" {$adminuser_edit}>添加活动类型</a> -->
+                                         &nbsp;
+                                          
+                                        </tr>
+                                    </foreach>
+                                </tbody> 
+                               
+       
+      
+                                
+                                
+                            </table>
+                            </form>
+                            <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin-top:10px;">
+                                <tbody><tr>
+                                        <td align="center" class="page">{$page}</td>
+                                    </tr>
+                                </tbody></table>
+                        </div>
+                    </div>
+
+                </body></html>

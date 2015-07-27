@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>验光师列表</title>
+    <meta name="author" content="OEdev">
+    <script src="__ROOT__/Public/Admin/js/jquery-1.6.js"></script>
+    <script src="__ROOT__/Public/Admin/js/public.js"></script>
+    <link type="text/css" rel="stylesheet" href="__ROOT__/Public/Admin/css/admin.css">
+</head>
+<body>
+<div class="main-wrap">
+<div class="path"><p>{$cur_menu}</p></div>
+
+<div class="main-cont">
+    <h3 class="title">
+        <a href="/admin.php/optometrist/optometrist_add/" class="btn-general"><span>新增验光师</span></a>
+
+        验光师	</h3>
+    </h3>
+    <div></div>
+    <div class="search-area ">
+        <!--<form id="" name="formfind" action="" method="GET">
+            <div class="item">
+
+
+                <label>电话：</label><input type="text"  value="{$Think.get.dianhua}" name="dianhua"/>&nbsp;&nbsp;
+                <a href="/admin.php/customer/index?isdefault=1">默认值</a>&nbsp;&nbsp;
+                <a href="/admin.php/customer/index?tuijian_house=1">样板间</a>&nbsp;&nbsp;
+                <a href="/admin.php/customer/index?recommended_house=1">推荐</a>
+
+            </div>
+
+            <div class="item">
+                <input class="button_s" type="submit" name="findsub" value="筛 选">
+                &lt;!&ndash;<input class="button_s" type="button" name="findsub2" value="显示所有" onclick="document.location='__APP__/{$cur_url}'">&ndash;&gt;
+            </div>
+        </form>-->
+
+        <form action="" method="POST" name="orgtype"/>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table" align="center">
+            <thead class="tb-tit-bg">
+
+            <tr>
+                <th width="5%">
+                    <div class="th-gap"><input type="checkbox" id="all" name="check[]" value="全选"><label for="all"> 全选 </label></div>
+                </th>
+                <th width="5%"><div class="th-gap">
+                    ID</div>
+                </th>
+                <th width="15%"><div class="th-gap">
+                    名称</div>
+                </th>
+                <th><div class="th-gap">
+                    职位</div>
+                </th>
+                <th><div class="th-gap">
+                    服务费</div>
+                </th>
+                <th><div class="th-gap">
+                    店铺</div>
+                </th>
+                <th width="18%"><div class="th-gap">
+                    创建时间</div>
+                </th>
+
+                <th width="12%"><div class="th-gap">操作</div></th>
+            </tr>
+            </thead>
+            <tfoot class="tb-foot-bg"></tfoot>
+            <tbody  id="tableClass">
+            <foreach name="rows" item="li">
+                <tr onmouseover="overColor(this)" onmouseout="outColor(this)">
+                    <td class="hback"><input type="checkbox" name="check[]"></td>
+                    <td class="hback">{$li.id}</td>
+                    <td class="hback">{$li.name}</td>
+                    <td class="hback">{$li.job}</td>
+                    <td class="hback">{$li.service_price}</td>
+                    <td class="hback">{$li.shopname}</td>
+                    <td class="hback">{$li.fstcreate}</td>
+                    <!--<td class="hback"><if condition="$li.isdefault eq '1'">默认值<else/></if></td>-->
+                    <td class="hback">
+                        <a href="/admin.php/optometrist/optometrist_edit/id/{$li.id}">查看</a>
+                        <a href="javascript:void(0)" onclick="del('{$li.id}',this)">删除</a>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+
+        </table>
+        </form>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin-top:10px;">
+            <tbody>
+            <tr>
+                <td align="center" class="page">{$page}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    function del(id, obj) {
+        $.get("__URL__/optometrist_delete/id/" + id, function (data) {
+            if (data == "1") {
+                window.location.reload();
+            } else {
+                alert("删除失败！");
+            }
+        });
+    }
+
+
+
+    var i = 0;
+    $("#all").click(function () {
+        if (i % 2 == 0) {
+            $(":checkbox").attr("checked", 1);
+        } else {
+            $(":checkbox").removeAttr("checked");
+        }
+        i++;
+    })
+
+
+    $(".table tr").slice(1).each(function(){
+        var p = this;
+        $(this).children().slice(1).click(function(){
+            $($(p).children()[0]).children().each(function(){
+                if(this.type=="checkbox"){
+                    if(!this.checked){
+                        this.checked = true;
+                    }else{
+                        this.checked = false;
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
+</body>
+</html>

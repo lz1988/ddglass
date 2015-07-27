@@ -1,0 +1,4 @@
+<option value='0' >--请选择--</option>
+<foreach name="cityiarea" item="name">
+    <option value="{$name.cid}" <if condition="$name.cid eq $fid">selected</if>>{$name.cname}</option>
+</foreach>

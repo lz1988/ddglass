@@ -1,0 +1,161 @@
+<?php
+//模块功能-   
+if (!defined('THINK_PATH')) exit(); 
+$config	= require './config.php';
+$menu= array(
+'SHOW_PAGE_TRACE' => false,
+'DATA_CACHE_TYPE'=> 'file',// Eaccelerator --Memcache
+//'MEMCACHE_HOST'   =>  'tcp://127.0.0.1:11211',  //memcache服务器地址和端口，这里为本机。
+//'DATA_CACHE_TIME' => '60',  //过期的秒数
+'URL_MODEL'=>1,
+'URL_CASE_INSENSITIVE'=>true,
+'TMPL_STRIP_SPACE' =>false,
+'MODULES_MENU_ALL'=>array(
+     'Role'=>array(//职权
+        'Role'=>array(//职权管理
+            'url' =>"Role/role_list/",'role_list'=>"查看",'role_add' =>"添加",'role_del' =>"删除",'role_edit'=>"修改",'member_manage'=>"成员管理","rolepriv_allot"=>"职权分配",
+        ),
+        'Adminuser'=>array(//	管理员管理
+            'url' =>"Adminuser/adminuser_list/",'adminuser_list'=>"查看",'adminuser_add' =>"添加",'adminuser_del' =>"删除",'adminuser_edit'=>"修改",
+        ),
+		'Menu'=>array(//菜单管理
+			'url' =>"Menu/index/",'menu_list'=>"查看",'menu_add' =>"添加",'menu_del' =>"删除",'menu_edit'=>"修改",
+		)
+     ),
+     'Member'=>array(//会员
+        'Member'=>array(//会员管理
+            'url' =>"Member/member_list/",'member_list'=>"查看",'member_add' =>"添加",'member_del' =>"删除",'member_edit'=>"修改",'member_log'=>"会员日志",'member_editsp'=>"修改推广员",
+        )
+     ),
+    
+     'Advert'=>array(
+        'Advert'=>array(//广告列表
+            'url' =>"Advert/advert_list/",'advert_list'=>"查看",'advert_add' =>"添加",'advert_del' =>"删除",'advert_edit'=>"修改",'advert_upall'=>"更新",
+        ),
+        'Adverttype'=>array(//广告组
+            'url' =>"Adverttype/adverttype_list/",'adverttype_list'=>"查看",'adverttype_add' =>"添加",'adverttype_del' =>"删除",'adverttype_edit'=>"修改",
+        ),
+        'Friendlink'=>array(//友情链接列表
+            'url' =>"Friendlink/friendlink_list/",'friendlink_list'=>"查看",'friendlink_add' =>"添加",'friendlink_del' =>"删除",'friendlink_edit'=>"修改",'friendlink_upall'=>"更新",
+        ),
+         
+     ),
+     'Message'=>array(//资讯管理
+        'Messagetype'=>array(//资讯栏目
+            'url' =>"Messagetype/messagetype_list/",'messagetype_list'=>"查看",'messagetype_add' =>"添加",'messagetype_del' =>"删除",'messagetype_edit'=>"修改", 'messagetype_upall'=>"更新",
+        ),
+        'Message'=>array(//资讯管理
+            'url' =>"Message/message_list/",'message_list'=>"查看",'message_add' =>"添加",'message_del' =>"删除",'message_edit'=>"修改",'message_upall'=>"更新",
+        ),
+     ),
+     'Log'=>array(
+        'Logadmin'=>array(//管理员日志
+            'url' =>"Logadmin/logadmin_list/",'logadmin_list'=>"查看",'logadmin_del' =>"删除",
+        ),
+        'Recycle'=>array(//数据回收站
+            'url' =>"Recycle/recycle_list/",'recycle_list'=>"查看",'recycle_del' =>"删除",'recycle_restore' =>"恢复",
+        ),
+        'Siteconfig'=>array(//config
+            'url' =>"Siteconfig/site_list/",'site_list' =>"修改",
+        ),
+     ),
+       
+),
+'ITEM_COLOR_ARR'=>array(//产品颜色
+    '5d762a'=>'军绿色',
+	'1eddff'=>'天蓝色',
+	'd2691e'=>'巧克力色',
+	'ffa500'=>'桔色',
+	'e4e4e4'=>'浅灰色',
+	'98fb98'=>'浅绿色',
+	'ffffb1'=>'浅黄色',
+	'bdb76b'=>'深卡其布色',
+	'666666'=>'深灰色',
+	'4b0082'=>'深紫色',
+	'041690'=>'浅蓝色',
+	'ffffff'=>'白色',
+	'ffb6c1'=>'粉色',
+	'dda0dd'=>'紫罗兰',
+	'800080'=>'紫色',
+	'ff0000'=>'红色',
+	'008000'=>'绿色',
+	'0000ff'=>'蓝色',
+	'855b00'=>'褐色',
+	'990000'=>'酒红色',
+	'ffff00'=>'黄色',
+	'000000'=>'黑色',
+),
+'ITEM_SIZE_YF_ARR'=>array(//产品尺寸-衣服
+    'XXS',
+	'XS',
+	'S',
+	'M',
+	'L',
+	'XL',
+	'XXL',
+	'XXXL',
+	'均码',
+),
+
+'ITEM_SIZE_KZ_ARR'=>array(//产品尺寸-库子  50-90厘米
+    'XXS',
+	'XS',
+	'S',
+	'M',
+	'L',
+	'XL',
+	'XXL',
+	'XXXL',
+	'均码',
+),
+
+'MOD_NAME_ACTION'=>array(//操作方法
+'add'     =>'添加',
+'edit'    =>'修改',
+'del'     =>'删除',
+'list'    =>'查看',
+'log'     =>'日志',
+'upall'   =>'更新',
+'allot'   =>'分配权限',
+'manage'  =>'成员管理',
+'export'  =>'导出',
+'import'  =>'导入',
+'restore' =>'还原',
+'maintenance'=>"维护",
+'stop'    =>"停服",
+'ratio'   =>'分红比例',
+'paygame' =>'充值到游戏',
+'data'    =>'数据分析',
+'channel' =>'渠道数据分析',
+'large'   =>'大类数据分析',
+'audit'   =>'审核',
+'detail'  =>'详情',
+'effect'  =>'查看效果',
+'addoption'=>'添加菜单选项',
+'copy'    =>'复制',
+'info'    =>'详细信息',
+'newcard' =>'新手卡领取记录',
+'user'    =>'用户',
+'click'   =>'点击',
+'optionlist'=>'菜单列表',
+'optionadd'=>'添加菜单',
+'option'=>'菜单',
+'optionedit'=>'菜单修改',
+'optiondel'=>'菜单修改',
+'max'      =>'人数',
+'shuju'    =>'数据',          
+),
+'NOT_DEL'=>array(//不可删除的项目,ALL所有不可删
+    'Role'       =>array(1,2,4,5,17),//角色
+    'Adminuser'  =>array(1,2),//admin用户
+    //'Gametype'   =>'ALL',//游戏类型
+    'Adverttype' =>'ALL',//广告组
+    'Game'       =>array(1,2),//游戏
+    'Logadmin'   =>array(10,11,12,13,14,15),//管理员日志
+    'Messagetype'=>'ALL',//新闻栏目
+    'Payway'     =>array(1),//支付渠道
+),
+);
+return array_merge($config, $menu);
+
+?>

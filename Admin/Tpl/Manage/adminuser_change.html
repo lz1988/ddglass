@@ -1,0 +1,216 @@
+<link href="__ROOT__/Public/Admin/css/list.css" rel="stylesheet" type="text/css" />
+
+<!--新增  -->
+<link rel="stylesheet" href="__ROOT__/Public/Admin/css/jquery.bigautocomplete.css" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/Home/js/jquery-1.8.3.min.js" ></script>
+
+
+<script>
+/* 查询商家  */
+   $(function(){
+     $("#search").on("keyup",function(){
+		   var keywords=$(this).val();
+		   var keyword_two=$('#keyword_two').val();
+		   if(keywords !="")
+		   {
+		   $.ajax({
+		               type: 'POST',
+		               dataType: 'json',
+		               async:false,
+		               url: '__URL__/get_shop?keywords_two='+keyword_two,
+		               data:{'keywords':keywords},
+		               success:function(data){
+		            	   str = '<ul>';
+	                        for (i = 0; i < data.length; i++) {
+	                            str += '<li kid=' + data[i].id + '><a href="javascript:;" id='+data[i].id+'">';
+	                            str +='商铺名： '
+	                            str +=data[i].name;
+	                            str +="&nbsp&nbsp&nbsp&nbsp&nbsp";
+	                            str +='地址：'
+	                            str += data[i].addr;
+	                            str += '</a></li>';
+	                        }
+	                        str += '</ul>';
+	                        $(".search_tips").html(str);
+
+	                        $(".search_tips ul li").click(function () {
+	                            var key_id = $(this).text();
+	                            $(this).attr('kid');
+	                            //alert($(this).attr('kid'));
+	                            $('#shop_id').val($(this).attr('kid'));
+	                            $('#search').val($(this).text());
+	                            $(".search_tips").css('display', 'none');
+	                        });
+
+	                        $(".search_tips").show();
+	                        //$('.other_search').hide();
+
+
+		            	 
+		               
+		                 }
+		            	   
+		            	 
+		            	   
+		          
+		             });
+		       }
+		   
+		   });
+	
+	/* $('#search_tips').live('click',function(){
+		alert($(this).find('a:last').val());
+		
+	}) */
+	
+	
+})    
+</script>
+<style type="text/css">
+tr{height:30px;}
+.STYLE1 {
+	font-size: 12px;
+	font-weight: bold;
+}
+</style>
+ <form name="form1" id="form1" method="POST" action="__URL__/adminuser_change" class="searchinfo"> 
+ <div class="currentposition">
+    <div>{$cur_menu}> {$cur_title}</div>
+</div> 
+<div class="addclass">
+<div class="addtopheight">&nbsp;</div>
+<table width="100%" class="addsearchClass" id="tableClass" border="0" cellpadding="0" cellspacing="0">   
+
+  <input type="hidden" name="admin_id" value="{$arr['admin_id']}" />
+    <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">姓名：</td>
+       <td width="80%" ><div style="float:left;"><input disabled='disabled' type="text" id="admin_name" name="username" value="{$arr['account']}" /></div><div class="note" id="admin_nameTip" style="float:left;">*(6-20)</div></td>
+   </tr>  
+   <!--  <tr>
+       <td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>密码：</td>
+       <td width="80%" ><div style="float:left;"><input type="password" id="password" name="password" value="" /><span class="note">6~16</span></div><div class="note" id="passwordTip" style="float:left;">*(6-20)</div></td>
+   </tr>  -->
+   
+   
+  
+
+   </tr>
+   
+  <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">商铺活动：</td>
+       <td width="80%" ><div style="float:left;">
+       
+       
+       <foreach name="rs_activity" item="vo3">
+      
+       <input type="checkbox" name="acheckbox[]" value="{$vo3['id']}"
+         <foreach name="activity" item="acti">
+        <if condition="$acti['activity_id'] eq $vo3['id']">checked</if></foreach>/>
+        {$vo3['activity_name']} 
+        
+      </foreach> 
+ 
+   </tr>
+     <tr>
+       <td width="10%" height="30" align="right" class="left_txt2">拥有商铺：</td>
+       <td width="80%" ><div style="float:left;">
+       <foreach name='res_user_shop' item='vo'>
+       商铺名：<input type="hidden"  name="user_shop_id"  value="{$vo.id}" > {$vo.name}  &nbsp&nbsp&nbsp&nbsp&nbsp  地址:{$vo.addr} <a href='__URL__/dele_user_shop?act_id={$vo.id}&act_sid={$arr.admin_id}' >删除</a><br>
+       </foreach>
+   
+ 
+   </tr>
+   <tr>
+       <td colspan="2">
+        
+       </td> 
+   </tr>
+    <tr>
+        <td width="10%" height="30" align="right" class="left_txt2">输入商铺所在市：</td>
+        <td width="80%" ><div style="float:left;">
+            <input type="text" id="keyword_two" value="" name=""/>
+
+
+    </tr>
+    <tr>
+    <td width="10%" height="30" align="right" class="left_txt2">输入商铺名：</td>
+    <td width="80%" ><div style="float:left;">
+        <input type="hidden"  name='shop_id' id="shop_id" value="">
+        <input type="text" id="search" value="" name=""/>
+
+
+    </tr>
+    <tr>
+        <td width="10%" height="30" align="right" class="left_txt2"></td>
+        <td width="80%" ><div style="float:left;">
+        </div>
+            <div class="search_tips">
+            </div>
+</div>
+
+    </tr>
+</table>
+    <div class="addoperation">
+        <div>
+            <div id="file">
+
+
+            </div>
+<div class="addoperation">
+<div>
+<div id="file">
+
+<!--<input type="hidden"  name='shop_id' id="shop_id" value="">
+<span class="must">*</span>添加商铺 :<input type="text" id="search" value="" name=""/>-->
+
+<!--</div>
+<div class="search_tips">
+</div>
+</div>-->
+         
+         <div class="addoperation">
+         <input type="submit" class="buttonsave" value="保存" name="sub_authority" />
+          &nbsp;
+          <input type="reset" class="buttoncancel" value="取消" onclick="javascript:history.go(-1);" name="B12" />
+          </div>  
+        
+<div>&nbsp;</div>
+</div> 
+</form>
+ <script>
+ /*   $("#search").on("keyup",function(){
+	 var keywords=$(this).val();
+	 
+	 if(keywords !=''){
+		 $("#search").bigAutocomplete({url:'__URL__/get_shop?keywords='+keywords});
+	 }
+})   */
+/* $('#search').live('keyup blur',function(){
+    var keywords=$(this).val();
+    if(keywords !=''){
+    	 $.ajax({
+    	         type: "POST",
+    	         async:false,
+    		     contentType: "application/json",
+    		     url: "__URL__/get_shop?keywords="+keywords,
+    		     data: "{}",
+    		     dataType: "json",
+    		     success: function (msg) {
+    		     //var datas = eval('(' + msg.d + ')');
+    		     $("#search").autocomplete(msg, {
+    		     formatItem: function (row, i, max) {
+    		    	 return "<table width='500px'><tr><td align='left'>" + row.name + 
+    		    	 "</td><td align='right'><font style='color: #009933; font-family: 黑体; font-style: italic'>约" 
+    		    	 + row.addr + "个宝贝</font>&nbsp;&nbsp;</td></tr></table>";
+    		     },
+    		    formatMatch: function(row, i, max){
+    		    return row.name;
+    		      }
+    		   });
+    		     }
+    		 });
+    }
+    
+})
+ */
+</script>

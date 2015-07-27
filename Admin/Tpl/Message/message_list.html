@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>栏目设置</title>
+<meta name="author" content="OEdev">
+<script src="__ROOT__/Public/Admin/js/jquery-1.6.js"></script>
+<script src="__ROOT__/Public/Admin/js/public.js"></script>
+<script src="__ROOT__/Public/Admin/js/DatePicker/WdatePicker.js" type="text/javascript"></script> 
+<link type="text/css" rel="stylesheet" href="__ROOT__/Public/Admin/css/admin.css">
+</head>
+<body>
+<div class="main-wrap">
+  <div class="path"><p>{$cur_menu}</p></div>
+  
+  <div class="main-cont">
+    <h3 class="title">
+	<a href="__APP__/Message/message_add/" class="btn-general" {$message_add}><span>添加资讯</span></a>
+	
+	{$cur_title}
+	</h3>
+	<div class="search-area ">
+	<form id="" name="formfind" action="" method="GET">
+	<div class="item">
+	<label>标题：</label>
+	<input type="text" name="title" class="input-150" value="{$title}" id="title" />
+	<label>栏目名称：</label>
+	        <select name="type_id" id="type_id">
+	             <option value="0" >--请选择--</option> 
+	             <foreach name="newstypearr" item="name">
+	             <option value="{$name.type_id}" <if condition="$name.type_id eq $type_id">selected</if>>{$name.type_name}</option>
+	             </foreach>
+	          </select> 
+	<label>时间：</label>
+	<input type="text" id="create_time" onClick="WdatePicker()" size="11" class="Wdate" name="create_time" value="{$create_time}" />至
+    <input type="text" id="update_time" onClick="WdatePicker()" size="11" class="Wdate" name="update_time" value="{$update_time}" />
+	
+	<input class="button_s" type="submit" name="findsub" value="搜 索">
+	<input class="button_s" type="button" name="findsub" value="显示所有" onclick="document.location='__APP__/{$cur_url}'">
+	</div>
+	</form>
+	</div>
+	<form action="" method="POST" name="orgtype" />
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table" align="center">
+	  <thead class="tb-tit-bg">
+	  <tr>
+	    <th width="3%"><div class="th-gap">ID</div></th>
+	    <th width="15%"><div class="th-gap">标题</div></th>
+		<th width="10%"><div class="th-gap">栏目名称</div></th>
+		<th width="15%"><div class="th-gap">时间</div></th>
+		<th width="5%"><div class="th-gap">排序</div></th>
+		<th width="3%"><div class="th-gap">点击量</div></th>
+		<th width="3%"><div class="th-gap">状态</div></th>
+		<th width="15%"><div class="th-gap">操作</div></th>
+	  </tr>
+	  </thead>
+	  <tfoot class="tb-foot-bg"></tfoot>
+	  <tbody  id="tableClass">
+	  <foreach name="news_list" item="name">
+	  <tr onmouseover="overColor(this)" onmouseout="outColor(this)">
+	    <td align="left" class="hback">
+	       <input type="checkbox" <?php if(in_array($name['id'],$notdel) OR $notdel=='ALL'){echo "disabled";} ?>  value="{$name.id}" name="id[]">{$name.id}
+	    </td>
+	    <td align="center" class="hback">{$name.title}</td>
+	    <td align="center" class="hback"><?php echo $arr_type[$name[type_id]]?></td>
+		<td align="center" class="hback">{$name.create_time|date='Y-m-d H:i:s',###}</td>
+		<td align="center" class="hback"><input type="hidden" name="sortid[]" value="{$name.id}" /><input type="text" class="textcenter" name="sort[]" value="{$name.sort}" size="3" /></td>
+		<td align="center" class="hback">{$name.click_num|default="0"}</td>
+		<td align="center" class="hback">
+		   <if condition="($name['status'] eq '1')">
+			<img id="flag8" alt="有效" src="__ROOT__/Public/Admin/images/yes.gif" onclick="javascript:fetch_ajax(&#39;flag&#39;,&#39;8&#39;);" style="cursor:pointer;">	
+			<else />
+			<img id="flag8" alt="无效" src="__ROOT__/Public/Admin/images/no.gif" onclick="javascript:fetch_ajax(&#39;flag&#39;,&#39;8&#39;);" style="cursor:pointer;">	
+		  </if>
+		</td>
+		<td align="center" class="hback">
+		<!-- 添加子栏目 -->
+			<a href="__APP__/Message/message_edit/{$name.id}/" class="icon-edit" {$message_edit}>编辑</a>
+			&nbsp;
+			<a {$message_del} href="__APP__/Message/message_del/{$name.id}/" onclick="{if(confirm(&#39;确定要删除吗？一旦删除无法恢复！&#39;)){return true;} return false;}" class="icon-del" <?php if(in_array($name['id'],$notdel) OR $notdel=='ALL'){echo "style='display:none;'";} ?>>删除</a>
+		</td>
+	  </tr>
+	  </foreach>
+	  	   
+	  <tr>
+	    <td align="center" colspan="" class="hback"><input type="checkbox" name="del_idall" onclick="check_all('id');" value=""/>选择</td>
+	    <td align="left" colspan="7" class="hback">
+	       <input type="button" class="button" {$upall} value="更新" onclick="check_from('更新','__APP__/Message/message_upall/')" name="upall" id="upall"/>
+	       <input {$message_del} type="button" class="button" value="删除" onclick="check_from('删除','__APP__/Message/message_del/')" name="delall" id="delall"/>
+	   </td>
+	    
+	  </tr>	
+	   
+	  	</tbody></table>
+	  </form>
+		<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin-top:10px;">
+	  <tbody><tr>
+		<td align="center" class="page">{$page}</td>
+	  </tr>
+	</tbody></table>
+	  </div>
+</div>
+</body></html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+            <title>栏目设置</title>
+            <meta name="author" content="OEdev">
+                <script src="__ROOT__/Public/Admin/js/jquery-1.6.js"></script>
+                <script src="__ROOT__/Public/Admin/js/public.js"></script>
+                <link type="text/css" rel="stylesheet" href="__ROOT__/Public/Admin/css/admin.css">
+                    </head>
+                    <body>
+                        <div class="main-wrap">
+                            <div class="path"><p>{$cur_menu}</p></div>
+
+                            <div class="main-cont">
+                                <h3 class="title">
+                                <if condition="$yourname eq 0">
+                                    <a href="__APP__/Customer/add_customer/" class="btn-general" {$adminuser_add}><span>添加商铺</span></a>
+                                </if>
+
+
+                                </h3>
+                                <if condition="$yourname eq 0">
+                                <div class="search-area ">
+                                    <form id="" name="formfind" action="" method="GET">
+                                        <div class="item">
+                                            <label>商铺名称：</label>
+                                            <input type="text" size="10" class="input-100" name="shopname" value="{$shopname}" id="admin_name" />
+
+                                            <label>商铺地址 ：</label>
+                                            <input type="text" size="10" class="input-100" name="addr" value="{$addr}" id="account" />
+
+
+                                            <label>状态 ：</label>
+                                            <select name="status">
+                                                <option value="3">全部</option>
+                                                <option value="0" <if condition="$status eq 0 ">selected</if>>正常</option>
+                                                <option value="1" <if condition="$status eq 1 ">selected</if>>冻结</option>
+                                            </select>
+                                            <label>是否合作 ：</label>
+                                            <select name="iscooperate">
+                                                <option value=3>全部</option>
+                                                <option value=0 <if condition="$iscooperate eq 0 ">selected</if>>未合作</option>
+                                                <option value=1 <if condition="$iscooperate eq 1 ">selected</if>>合作</option>
+                                            </select>
+
+                                            <select name="activity">
+                                                <option value="0">活动类型    </option>
+                                                <option value="1"<if condition="$activity eq 1">selected</if>>1.减</option>
+                                                <option value="2"<if condition="$activity eq 2">selected</if>>2.折</option>
+                                                <option value="3"<if condition="$activity eq 3">selected</if>>3.送</option>
+                                            </select>
+
+                                            <select  name="service_type">
+                                                <option value="0">服务类型</option>
+                                                <option value="16"<if condition="$service_type eq 16">selected</if>>1.免费调洗</option>
+                                                <option value="17"<if condition="$service_type eq 17">selected</if>>2.有售隐形</option>
+                                                <option value="18"<if condition="$service_type eq 18">selected</if>>3.验光配镜</option>
+                                                <option value="19"<if condition="$service_type eq 19">selected</if>>4.可外加工</option>
+                                            </select>
+                                            <input class="button_s" type="submit" name="findsub" value="搜 索">
+
+                                        </div>
+                                    </form>
+                                </div>
+                                </if>
+                                <form action="" method="POST" name="orgtype" />
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table" >
+                                    <thead class="tb-tit-bg">
+                                        <tr>
+
+                                            <th width="8%"><div class="th-gap">ID</div></th>
+
+                                            <th width="15%"><div class="th-gap">商铺名</div></th>
+                                            <th width="30%"><div class="th-gap">商铺地址</div></th>
+                                            <th width="10%"><div class="th-gap">经度</div></th>
+                                            <th width="10%"><div class="th-gap">纬度</div></th>
+                                            <th width="15%"><div class="th-gap">手机号码</div></th>
+                                            <!--<th width="4%"><div class="th-gap">会员等级</div></th>-->
+
+
+                                            <th width="10%"><div class="th-gap">修改时间</div></th>
+                                            <th width="8%"><div class="th-gap">店铺评分</div></th>
+                                            <!--<th width="4%"><div class="th-gap">总分</div></th>
+                                             <th width="4%"><div class="th-gap">产品分</div></th>
+                                              <th width="4%"><div class="th-gap">服务分</div></th>-->
+
+                                            <th width="10%"><div class="th-gap">邮编</div></th>
+                                            <th width="10%"><div class="th-gap">合作客户</div></th>
+                                            <th width="4%"><div class="th-gap">评论数</div></th>
+                                            <th width="3%"><div class="th-gap">状态</div></th>
+
+                                            <th width="20%"><div class="th-gap">操作</div></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot class="tb-foot-bg"></tfoot>
+                                    <tbody  id="tableClass">
+                                        <foreach name="customer_info" item="vo">
+                                            <tr onmouseover="overColor(this)" onmouseout="outColor(this)">
+
+                                                <td  class="hback">{$vo.id}</td>
+                                                <td  class="hback">{$vo.name}</td>
+                                                <td  class="hback">{$vo.addr}</td>
+                                                <td  class="hback">{$vo.lon}</td>
+                                                <td  class="hback">{$vo.lat}</td>
+                                                <td  class="hback">{$vo.phone}</td>
+                                                <!--<td  class="hback">{$vo.shop_class}</td>-->
+
+                                                <td  class="hback">{$vo.lastmodify}</td>
+                                                <td  class="hback">{$vo.shop_score}</td>
+                                                <!-- <td  class="hback">{$vo.all_score}</td>
+                                                 <td  class="hback">{$vo.goods_score}</td>
+                                                 <td  class="hback">{$vo.service_score}</td>-->
+
+                                                <td  class="hback">{$vo.postcode}</td>
+                                                <td  class="hback"><if condition="$vo.iscooperate eq '1'"><font color="red">合作客户</font><else/>未合作</if></td>
+                                                <td  class="hback"><a href="__APP__/Customer/usercommentlist?id={$vo.id}">{$vo.comment_num}</a></td>
+                                                <td >
+                                                    <if condition="($vo['isdelete'] eq '0')">
+                                                        <img id="flag8" alt="正常" src="__ROOT__/Public/Admin/images/yes.gif" onclick="javascript:fetch_ajax('closed', {$vo.id});" style="cursor:pointer;">
+                                                            <else />
+                                                            <img id="flag8" alt="冻结" src="__ROOT__/Public/Admin/images/no.gif" onclick="javascript:fetch_ajax('open', {$vo.id});" style="cursor:pointer;">
+                                                                </if>
+                                                                </td>
+                                                                <td  class="hback">
+                                                                    <!-- 添加子栏目 -->
+                                                                    <a href="__APP__/Customer/customer_edit?id={$vo.id}" class="icon-edit" {$adminuser_edit}>编辑</a>
+                                                                    &nbsp;
+                                                                    <if condition="$yourname eq 1">
+                                                                    <a href="__APP__/Customer/activity_index?id={$vo.id}" class="icon-edit" {$adminuser_edit}>活动编辑</a>
+                                                                    </if>
+                                                                    &nbsp;
+                                                                    <a  href="__APP__/Customer/customer_del?id={$vo.id}"  class="icon-del" >删除</a>
+                                                                </td>
+
+                                                                </tr>
+                                                                </foreach>
+
+                                                                <tr>
+
+
+                                                                </tr>
+
+                                                                </tbody></table>
+                                                                </form>
+                                                                <table width="95%" border="0" cellspacing="0" cellpadding="0"  style="margin-top:10px;">
+                                                                    <tbody><tr>
+                                                                            <td  class="page">{$page}</td>
+                                                                        </tr>
+                                                                    </tbody></table>
+                                                                </div>
+                                                                </div>
+
+                                                                <!--           以下为子栏目操作页面          -->
+
+                                                                <script type="text/javascript">
+                                                                            //一级列表栏目
+                                                                                    // $("#tableClass tr").hover(function (){
+                                                                                            // 	alert(44);
+                                                                                                    //
+                                                                                                            // });
+
+                                                                                                                    function fetch_ajax(status, cid){
+                                                                                                                    $.get("__URL__/set_status", {cid:cid, status:status}, function (data) {
+                                                                                                                    if (data == "1") {
+                                                                                                                    window.location.reload();
+                                                                                                                    } else {
+                                                                                                                    alert("失败！");
+                                                                                                                    }
+                                                                                                                    });
+                                                                                                                    }
+
+                                                                </script>
+                                                                </body></html>

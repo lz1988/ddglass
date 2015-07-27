@@ -1,0 +1,312 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<head><title>修改验光师</title>
+    <link href="__ROOT__/Public/Admin/css/list.css" rel="stylesheet" type="text/css"/>
+    <script src="__ROOT__/Public/Admin/js/jquery-1.6.js" type="text/javascript"></script>
+    <script src="__ROOT__/Public/Admin/js/DatePicker/WdatePicker.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="__ROOT__/Public/Admin/kindeditor/themes/default/default.css" />
+    <link rel="stylesheet" href="__ROOT__/Public/Admin/kindeditor/plugins/code/prettify.css" />
+    <script charset="utf-8" src="__ROOT__/Public/Admin/kindeditor/kindeditor.js"></script>
+    <script charset="utf-8" src="__ROOT__/Public/Admin/kindeditor/lang/zh_CN.js"></script>
+    <script charset="utf-8" src="__ROOT__/Public/Admin/kindeditor/plugins/code/prettify.js"></script>
+
+    <style type="text/css">
+        tr {
+            height: 30px;
+        }
+
+        .STYLE1 {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        #row{
+            margin-top:10px;
+        }
+    </style>
+    <script language="JavaScript">
+        function addfile(t){
+            $(t).parent().after('<div id="row"><input type="file" name="pictures[]" value="上传明星剧照"/> <a href="javascript:void(0)" onclick="delfile(this)">删除-</a></div>');
+        }
+
+        function delfile(t){
+            $(t).parent(t).remove();
+        }
+    </script>
+
+    <script type="text/javascript">
+        /*
+         说明：ajax文件上传 begin
+         */
+        var ajaxFileUpload = function(opts){
+            return new ajaxFileUpload.prototype.init(opts);
+        };
+        ajaxFileUpload.prototype = {
+            init:function(opts){
+                var set = this.extend({
+                    url:'__APP__/Common/upload/New/n/',//路径+模块名+图片保存文件夹名字+方法名+图片首字母+大小+
+                    id:'fileId',
+                    callback:function(){}
+                },opts || {});
+                var _this = this;
+                var id = +new Date();
+                var form = this.createForm(id),frame = this.createIframe(id,set.url);
+                var oldFile = document.getElementById(set.id)
+                var newFile = oldFile.cloneNode(true);
+                var fileId = 'ajaxFileUploadFile'+id;
+                oldFile.setAttribute('id',fileId);
+                oldFile.parentNode.insertBefore(newFile,oldFile);
+                form.appendChild(oldFile);//注意浏览器安全问题，要将原文件域放到创建的form里提交
+                form.setAttribute('target',frame.id);//将form的target设置为iframe,这样提交后返回的内容就在iframe里
+                form.setAttribute('action',set.url);
+                setTimeout(function(){
+                    form.submit();
+                    if(frame.attachEvent){
+                        frame.attachEvent('onload',function(){_this.uploadCallback(id,set.callback);});
+                    }else{
+                        frame.onload = function(){_this.uploadCallback(id,set.callback);}
+                    }
+                },100);
+            },
+            /*
+             创建iframe，ie7和6比较蛋疼，得像下面那样创建，否则会跳转
+             */
+            createIframe:function(id,url){
+                var frameId = 'ajaxFileUploadFrame'+id,iFrame;
+                var IE = /msie ((\d+\.)+\d+)/i.test(navigator.userAgent) ? (document.documentMode ||  RegExp['\x241']) : false,
+                        url = url || 'javascript:false';
+                if(IE && IE < 8){
+                    iFrame = document.createElement('<iframe id="' + frameId + '" name="' + frameId + '" />');
+                    iFrame.src = url;
+                }else{
+                    iFrame = document.createElement('iframe');
+                    this.attr(iFrame,{
+                        'id':frameId,
+                        'name':frameId,
+                        'src':url
+                    });
+                };
+                iFrame.style.cssText = 'position:absolute; top:-9999px; left:-9999px';
+                return document.body.appendChild(iFrame);
+            },
+            /*
+             创建form
+             */
+            createForm:function(id){
+                var formId = 'ajaxFileUploadForm'+id;
+                var form = document.createElement('form');
+                this.attr(form,{
+                    'action':'',
+                    'method':'POST',
+                    'name':formId,
+                    'id':formId,
+                    'enctype':'multipart/form-data',
+                    'encoding':'multipart/form-data'
+                });
+                form.style.cssText = 'position:absolute; top:-9999px; left:-9999px';
+                return document.body.appendChild(form);
+            },
+            /*
+             获取iframe内容，执行回调函数，并移除生成的iframe和form
+             */
+            uploadCallback:function(id,callback){
+                var frame = document.getElementById('ajaxFileUploadFrame'+id),form = document.getElementById('ajaxFileUploadForm'+id);data = {};
+                var db = document.body;
+                try{
+                    if(frame.contentWindow){
+                        data.responseText = frame.contentWindow.document.body ? frame.contentWindow.document.body.innerHTML : null;
+                        data.responseXML = frame.contentWindow.document.XMLDocument ? frame.contentWindow.document.XMLDocument : frame.contentWindow.document;
+                    }else{
+                        data.responseText = frame.contentDocument.document.body ? frame.contentDocument.document.body.innerHTML : null;
+                        data.responseXML = frame.contentDocument.document.XMLDocument ? frame.contentDocument.document.XMLDocument : frame.contentDocument.document;
+                    }
+                }catch(e){};
+                callback && callback.call(data);
+                setTimeout(function(){
+                    db.removeChild(frame);
+                    db.removeChild(form);
+                },100);
+            },
+            attr:function(el,attrs){
+                for(var prop in attrs) el.setAttribute(prop,attrs[prop]);
+                return el;
+            },
+            extend:function(target,source){
+                for(var prop in source) target[prop] = source[prop];
+                return target;
+            }
+        };
+        ajaxFileUpload.prototype.init.prototype = ajaxFileUpload.prototype;
+        /*
+         说明：ajax文件上传 end
+         */
+
+        KindEditor.ready(function(K) {
+            var editor1 = K.create('textarea[name="content"]', {
+                cssPath : '__ROOT__/Public/Admin/kindeditor/plugins/code/prettify.css',
+                uploadJson : '__ROOT__/Public/Admin/kindeditor/php/upload_json.php',
+                fileManagerJson : '__ROOT__/Public/Admin/kindeditor/php/file_manager_json.php',
+                allowFileManager : true,
+                afterBlur : function() {
+                    this.sync();
+                    K.ctrl(document, 13, function() {
+                        K('form[name=myform]')[0].submit();
+                    });
+                    K.ctrl(this.edit.doc, 13, function() {
+                        K('form[name=myform]')[0].submit();
+                    });
+                }
+            });
+            prettyPrint();
+        });
+
+
+        function upsmall_icon(imgName){
+            $("#updiv1show").show();
+            $("#updiv1hid").hide();
+        }
+
+        function upsmall_large(imgName){
+            $("#updiv2show").show();
+            $("#updiv2hid").hide();
+        }
+
+        function fontbold(){
+            $("[name='bold']:checkbox").each(function() {
+                if (this.checked == true) {
+                    $("#title").css('font-weight','bold');
+                }else{
+                    $("#title").css('font-weight','');
+                }
+            });
+
+        }
+
+        function set_color(color){
+            if(color!=''){
+                $("#title").css('color','#'+color);
+            }else{
+                $("#bgcolor").val('');
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="currentposition">
+    <div>{$cur_menu} > {$cur_title}</div>
+</div>
+<div class="addclass">
+    <div class="addtopheight">&nbsp;</div>
+    <form name="form" action="/admin.php/optometrist/optometrist_editmod" method="post" enctype='multipart/form-data'>
+
+        <table width="100%" class="addsearchClass" id="tableClass" border="0" cellpadding="0" cellspacing="0">
+
+            <tr>
+                <td height="10" align="right" class="left_txt2">名称：</td>
+                <td>
+                    <input type="text" name="name" value="{$data.name}"/>
+                </td>
+            </tr>
+            <tr>
+                <td height="10" align="right" class="left_txt2">职位：</td>
+                <td>
+                    <!--<input type="text" name="job" value="{$data.job}"/>-->
+                    <select name="job">
+                        <option value="高级技师" <if condition="$data.job eq '高级技师'"> selected </if>>高级技师</option>
+                        <option value="初级技师" <if condition="$data.job eq '初级技师'"> selected </if>>初级技师</option>
+                        <option value="高级验光员" <if condition="$data.job eq '高级验光员'"> selected </if>>高级验光员</option>
+                        <option value="中级验光员" <if condition="$data.job eq '中级验光员'"> selected </if>>中级验光员</option>
+                        <option value="初级验光员" <if condition="$data.job eq '初级验光员'"> selected </if>>初级验光员</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td height="10" align="right" class="left_txt2">店铺：</td>
+                <td>
+                    <select name="shop_id">
+                        <volist name="datalist" id="vo">
+                            <option value="{$vo.id}" <if condition="$data['shop_id'] eq $vo['id']">selected</if>>{$vo.name}</option>
+                        </volist>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td height="10" align="right" class="left_txt2">服务费：</td>
+                <td>
+                    <input type="text" name="service_price" value="{$data.service_price}"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td height="10" align="right" class="left_txt2">专长：</td>
+                <td>
+                    <textarea  name="skill" style="width:50%" >{$data.skill}</textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>个人照片：</td>
+                <td width="80%">
+                    <div id="row"><input type="file" name="images_url" value="个人照片"/>
+                        <a href="{$data.images_url}" target="_blank"><img src="{$data.images_url}" width="60px"/></a>
+                        <!--<a href="javascript:void(0)" onclick="addfile(this)">增加+</a>--></div>
+                </td>
+            </tr>
+
+           <!-- <tr>
+                <td width="10%" height="30" align="right" class="left_txt2"><span class="must">*</span>个人介绍：</td>
+                <td width="80%">
+                    <div id="row"><input type="file" name="info_url" value="个人介绍"/>
+                        <a href="{$data.info_url}" target="_blank"> <img src="{$data.info_url}" width="60px"/></a>
+                        &lt;!&ndash;<a href="javascript:void(0)" onclick="addfile(this)">增加+</a>&ndash;&gt;</div>
+                </td>
+            </tr>-->
+
+            <tr>
+                <td height="10" align="right" class="left_txt2"><span class="must">*</span>内容：</td>
+                <td><div style="float:left;"><textarea name="content" id="content" class="textarea" style="width:700px;height:400px;visibility:hidden;" > {$data['content']}</textarea></div><div class="note" style="float:left;" id="contentTip">*</div></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <div class="addoperation">
+                        <input type="submit" class="buttonsave" value="保存" name="sub_authority"/>
+                        &nbsp;
+                        <input type="reset" class="buttoncancel" value="取消" onclick="javascript:history.go(-1);"
+                               name="B12"/>
+                        <input name="id" type="hidden" value="{$data.id}"/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script>
+    var btn = document.getElementById('fileId');
+    btn.onclick = function(){
+        if($("#images").val()==""){
+            alert("你没有选择要上传的图片");
+            return;
+        }
+        ajaxFileUpload({
+            id:'images',
+            callback:function(){
+                var src = this.responseText;
+                $("#upimage1").attr("src","{$newimgurl}"+src);
+                $("#updiv1show").hide();
+                $("#icon").val(src);
+                $("#updiv1hid").show();
+            }
+        });
+    }
+
+    $(function(){
+        setTimeout("show()",500);
+    });
+</script>
+</body>
+</html>
+

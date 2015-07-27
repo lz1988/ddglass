@@ -1,0 +1,48 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+	padding: 0;
+	margin: 0;
+}
+a {text-decoration:none; color:#747474;}
+a:hover { text-decoration:underline; color:red;}
+dl.leftmenu{margin:5px;padding:5px;background:#314f0f;height:650px;}
+dl.leftmenu dt{padding-left:15px;background:#4b751d;font:bold 14px "Microsoft Yahei","Tahoma";line-height:28px;color:#fff;}
+dl.leftmenu a{border:0px;text-decoration:none;}
+dl.leftmenu dd{margin-left:0px; text-align:left;width:105px;}
+dl.leftmenu dd a{display:block;margin:3px;padding-left:20px;text-decoration:none;font:normal 12px "Microsoft Yahei","Tahoma";line-height:24px;color:#fff}
+dl.leftmenu dd a:hover{text-decoration:none;background:#ddeccd;color:#000;}
+dl.leftmenu .current{background:#ddeccd;color:#000;}
+
+.top{
+   background:#4B751D;/*#EEF2FB#E4E4E4*/
+   height:100%;
+   border: 1px solid #9999CC;
+   margin-bottom:2px;
+}
+.toptext{
+   float:right;
+   font-size:14px;
+   margin-top:10px;
+   margin-right:2%;
+   color:#fff;
+}
+.toptext a{ 
+   text-decoration: none;
+   color:#000;
+}
+.logout{
+   background:#CCCC99;
+   padding:3px;
+   font-weight:bold;
+}
+.modifypwd{
+   background:#CCCC99;
+   padding:3px; 
+   font-weight:bold; 
+}
+.clearcache{
+   background:#CCCC99;
+   padding:3px; 
+   font-weight:bold; 
+   margin-left:4px;
+   margin-right:4px;
+}
