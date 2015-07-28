@@ -1,0 +1,303 @@
+body{
+  margin-left:10px;
+}
+.currentposition{
+   background:#ffffff;
+   border-bottom: 5px solid #314F0F;
+   width:100%;
+   margin-left:auto;
+   margin-right:auto; 
+   height:30px;
+   line-height:30px;
+}
+.currentposition div{ 
+   font-size:12px;
+   
+}
+.addconten{
+   margin-top:4px;
+   margin-bottom:4px;
+   /*border: 1px solid #CCCCCC;*/
+   height:33px;
+   background:#fff;
+}
+.addconten div{
+  margin-left:15px;
+  margin-top:8px;
+  color:#4A751B;
+  font-weight:bold;
+  font-size:14px;
+  float:left;
+}
+.addconten a{
+   float:right;
+   margin-right:3%;  
+   margin-top:5px; 
+   margin-bottom:5px;
+}
+.addconten a div{
+   border: 1px solid #CCCCCC; 
+   margin-top:0px; 
+   padding-left:10px;
+   padding-right:10px;
+   height:25px;
+   color:#ffffff;
+   background:#48771B; 
+   font-weight:normal;
+   font-size:12px;
+}
+
+.tableTitle{
+font-size:12px; 
+background-color: #ECEFF4;
+}
+
+.tableTitle tr{
+background-color: #ccc;
+height:50px;
+font-weight:bold;
+}
+.test_tr1{background-color:ccc; height:50px;}
+
+.tableClass{ /**表格里的字体**/
+    font-size:12px; 
+	font-family:"Microsoft YAHEI","Tahoma";
+   
+}
+.searchClass{/**搜索字体**/
+    font-size:13px;
+    /*background:#cccccc;*/
+}
+.searchClass tr{/**搜索tr字体**/ 
+    /*background:#4A751B;*/
+}
+.searchClass tr td{/**搜索tr字体**/ 
+    /*background:#4A751B;*/
+    height:45px;
+}
+
+.searchClass tr th{/**搜索tr字体**/ 
+    background:#4A751B;
+}
+.searchdiv{/**搜索DIV**/  
+  margin-bottom:10px;
+  margin-top:10px;
+}
+.hackerhover{/**鼠标放上去背景颜色**/
+background-color:D0DDE3; //使用CSS伪类达到鼠标移入行变色的效果，比Jquery 的mouseover,hover 好用
+}
+.odd {
+background-color: #FFFFFF; /* pale yellow for odd rows */
+}
+.even {
+background-color: #ECEFF4; /* pale blue for even rows */
+}
+.buttonfind{
+/**查找按钮**/
+}
+
+.buttonfindall{
+/**显示所有按钮**/
+}
+.buttondel{
+/**删除按钮**/
+  
+  margin-right:15px;
+}
+.buttonup{
+/**更新按钮**/  float:left;
+margin-left:15px;
+}
+.buttonsave{
+/**保存按钮**/
+}
+.buttoncancel{
+/**取消按钮**/
+}
+.buttonupload{
+/**上传按钮**/
+}
+
+/**分页**/
+.page{
+  text-align:center; 
+  margin-top:4px;
+  margin-bottom:4px;
+  font-size:12px;
+}
+.current{
+   background-color: #4A751B;
+   padding-left:11px;
+   padding-right:11px;
+   padding-top:5px;
+   padding-bottom:5px;
+   color:#fff;
+}
+.page a{
+   
+   padding-left:6px;
+   padding-right:6px;
+   padding-top:5px;
+   padding-bottom:5px;
+   border: 1px solid #CCCCCC;
+}
+
+.page a:hover{
+   background-color: #4A751B; 
+   color:#fff;
+}
+/*分页跳转*/
+.goto{
+  padding-top:15px;
+}
+.goto input{
+  width:35px;
+  margin-top:0px;
+  margin-bottom:-3px;
+}
+
+.deluppage{
+  border-left: 1px solid #339966;
+  border-right: 1px solid #339966;
+  border-bottom: 1px solid #339966;
+  height:25px;
+}
+.delup{
+  text-align:left;float:left;
+}
+
+a:link {
+	font-size: 12px;
+	line-height: 25px;
+	color: #333333;
+	text-decoration: none;
+	font-family:"Microsoft YAHEI","Tahoma";
+
+}
+a:hover {
+	font-size: 12px;
+	line-height: 25px;
+	color: #666666;
+	text-decoration: none;
+	font-family:"Microsoft YAHEI","Tahoma";
+}
+a:visited {
+	font-size: 12px;
+	line-height: 25px;
+	color: #333333;
+	text-decoration: none;
+	font-family:"Microsoft YAHEI","Tahoma";
+}
+
+/**添加列表的样式**/
+.addclass{
+  border: 1px solid #cccccc;
+  margin-top:15px;
+}
+
+.addsearchClass{/**添加里的样式**/
+    font-size:13px;
+}
+
+.addsearchClass tr{
+   height:35px;
+}
+
+.addtopheight{
+  line-height:5px;
+}
+
+.textcenter{
+   text-align:center;
+}
+.addoperation{
+   margin-left:10%;
+   margin-top:20px;
+}
+
+/**注释样式**/
+.note{
+   color:#ccc;
+   /*margin-left:10px;*/
+}
+/**可以不填写的注释样式**/
+.notnote{
+  color:#ccc;
+}
+
+/**星号样式**/
+.must{
+   color:red; 
+}
+
+.checkboxhome{/**复选按钮**/
+   margin-right:20px;
+}
+
+.adivbutton{
+  float:left;
+  border: 1px solid #cccccc;
+  margin-left:8px;
+  padding:3px;
+  
+  background-color: #9C9994; 
+}
+
+.adivbutton hover{ 
+  background-color: #fff; 
+}
+
+.adivbutton active{ 
+  background-color: #dsf23; 
+}
+.editdiv{
+   float:left;
+   margin-left:10px;
+}
+
+.addclass input,.addclass textarea,.addclass select{
+height:28px;
+line-height:28px;
+border-radius:3px 3px 3px 3px;
+border:1px solid #ccc;
+}
+.addclass select option{
+height:18px;
+line-height:18px;
+padding-top: 3px;
+}
+.addclass textarea{
+height:80px;
+}
+.addclass input[type="radio"],.addclass input[type="checkbox"]{
+height:10px;
+line-height:10px;
+border:1px solid #ccc;
+}
+.addclass input[type="text"]{
+width:250px;
+}
+.input-50{
+width:50px;
+}
+.input-80{
+width:80px;
+}
+.input-100{
+width:100px;
+}
+.input-120{
+width:120px;
+}
+.input-150{
+width:150px;
+}
+.input-200{
+width:200px;
+}
+.input-250{
+width:250px;
+}
+.input-300{
+width:300px;
+}

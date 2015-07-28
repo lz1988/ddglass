@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>微博群发系统</title>
+<link type="text/css" rel="stylesheet" href="customizedUploadButton.css">
+<script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="fileUploader.js"></script>
+<script type="text/javascript" src="customizedUploadButton.js"></script>
+<script type="text/javascript">
+
+$(function(){
+	// 图片上传
+	var uploadButton = new CustomizedUploadButton({
+		text: '<img src="img.png" align="absmiddle" class="icon" id="loadingStatus"/>图片',
+		name: 'imgFile',
+		appendTo: $('.photo'),
+		action: 'index.php',
+		onComplete: function(data, input) {
+			$('#loadingStatus').attr('src', 'img.png');
+			$('#sendInFixedTime').removeAttr('disabled').addClass('A_link');
+			$('#sendInImediate').removeAttr('disabled').addClass('A_link');
+			$('.imgName').remove();
+			$('.load').remove();
+			var fileName = input.val().split('\\').pop();
+			input.parent().after('<div class="imgName"><span>'+fileName+'</span><a href="javascript:void(0)">删除</a></div>');
+			//上传失败
+			$('.photo').append('<span class="fail">图片上传失败！</span>')
+		},
+		loading: function(input) {
+			$('#loadingStatus').attr('src', '');
+			$('#sendInFixedTime').attr('disabled','disabled').removeClass('A_link');
+			$('#sendInImediate').attr('disabled','disabled').removeClass('A_link');
+			$('.photo').append('<span class="load"></span>')
+		}
+	}).show();
+	
+	// 删除上传文件（表面）
+	$('.imgName').find('a').live('click', function() {
+		$('.imgName').remove();
+	});
+})
+</script>
+</head>
+
+<body>
+<div class="wb_content">
+  <!--微博发送器-->
+  <div class="box_content">
+			<div class="photo"> 
+			</div>
+	</div>
+</div>
+</body>
+</html>

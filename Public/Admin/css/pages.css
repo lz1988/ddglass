@@ -1,0 +1,37 @@
+@charset"utf-8";
+ 
+/* 当前网站分页样式 */
+/* Ppage---普通分页；Pnowpage---当前分页；Pnopage---分页无链接；Pfirstpage---首页；Pprevpage---上一页；Pnextpage---下一页；Plastpage---尾页；Ppagetext---分页文字 */
+.Ppage,.Pnowpage,.Pnopage,.Pendpage{display:inline-block;border:1px solid #cdcdcd; padding:3px 10px;height:22px;line-height:22px;margin:0 3px;}
+
+.Pprevpage{display:inline-block;border:1px solid #cdcdcd; padding:3px 16px;height:20px;line-height:20px;margin:0 3px;background:url(../images/bgZ010.gif) -168px -1px  no-repeat;}
+.Pnextpage{display:inline-block;border:1px solid #cdcdcd; padding:3px 16px;height:22px;line-height:22px;margin:0 3px;background:url(../images/bgZ010.gif) -234px -1px  no-repeat;}
+
+.Ppage:hover{background:url(../images/bgZ010.gif) -1px -71px no-repeat;border-color:#d9b52b;color:#960303;}
+
+.Pprevpage:hover{background:url(../images/bgZ010.gif) -168px -41px  no-repeat;border-color:#cdcdcd;color:#960303;}
+
+.Pnowpage{background: url(../images/bgZ010.gif) -1px -71px no-repeat; border-color:#cdcdcd; color:#960303;}
+.Pnopage{color:#999;}
+.Pnopage:hover{background: url("../images/bgZ010.gif") no-repeat scroll -168px -1px transparent; border: 1px solid #CDCDCD; color:#999999;}
+.Pnextpage:hover{background:url(../images/bgZ010.gif) -234px -41px  no-repeat;border-color:#cdcdcd;color:#960303;}
+
+.Ppagetext strong{ font-weight:normal; color:#c00;}
+.Pjump{ margin: 0 4px;border: 1px solid #D9D9D9;width: 46px; } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

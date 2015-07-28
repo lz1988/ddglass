@@ -1,0 +1,67 @@
+.msgbox_wrapper {
+	 background-color: #fff; overflow: hidden; vertical-align:top; border:2px solid #F2F2F2;
+}
+.msgbox_title_wrapper {
+	list-style-type:none;margin:0; height:24px; background-color: #F2F2F2; vertical-align: middle; padding:4px; vertical-align:middle; 
+}
+.msgbox_title_wrapper img {
+  	position:static;
+ 	+position:relative;
+  	vertical-align:middle
+}
+.msgbox_title {
+	float:left;line-height: 22px; height:22px; padding-left: 10px; color:#000; font-size: 12px; font-weight: bold
+}
+
+.msgbox_title font{ color:yellow; }
+
+.msgbox_close {
+	float:right;line-height:22px; display:table-cell; height:22px;color:#000; font-size: 12px; font-weight: bold; cursor:pointer;padding-right: 8px;
+}
+.msgbox_main {
+	text-align: center; padding: 12px; 
+}
+.msgbox_bg {
+	background-color: black;
+}
+.msgbox_button {
+	padding:3px 10px; font-family:"Courier New", Courier, monospace;
+}
+.msgbox_inputbox {
+	width:320px; height:100px;
+	border: 1px solid #010; font-family:"Courier New", Courier, monospace;
+}
+
+/****/
+.msgbox_wrapper1 {
+	border: #231 3px solid; background-color: #fff; overflow: hidden; vertical-align:top;
+}
+.msgbox_title_wrapper1 {
+	list-style-type:none;margin:0;border: #aaa 1px solid; height:24px; background-color: #963; vertical-align: middle; padding:4px; vertical-align:middle;
+}
+.msgbox_title_wrapper1 img {
+  	position:static;
+ 	+position:relative;
+  	vertical-align:middle
+}
+.msgbox_title1 {
+	float:left;line-height: 22px; height:22px; padding-left: 10px; color: #fff; font-size: 12px; font-weight: bold
+}
+
+.msgbox_title1 font{ color:#f33; }
+
+.msgbox_close1 {
+	float:right;line-height:22px; display:table-cell; height:22px; color: #f00; font-size: 12px; font-weight: bold; cursor:pointer;padding-right: 8px;
+}
+.msgbox_main1 {
+	text-align: center; padding: 12px;color: #f0f; overflow: auto;
+}
+.msgbox_bg1 {
+	background-color: #0f0
+}
+.msgbox_button1 {
+	border: 1px solid #0f0; font-family:"Courier New", Courier, monospace;
+}
+.msgbox_inputbox1 {
+	border: 1px solid #0f0; font-family:"Courier New", Courier, monospace;
+}

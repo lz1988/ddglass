@@ -157,9 +157,27 @@
                 $(".main_index_h").show();
                 $('.mask_index').hide();
                 p = 0;
-
-                mainfn();
-
+                setTimeout(function(){
+                    var num=0;
+                    var url = location.search;
+                    if (url.indexOf('act') != -1) {
+                        //act = 1;
+                        var str = url.substr(1);
+                        strs = str.split("=");
+                        num = strs[1];
+                    }
+                     $(".store a").eq(num).addClass('cur').siblings().removeClass('cur');
+                     if(num==0){
+                         mainfn();
+                         $('#sort_btn1').css('display','block');
+                         $('#sort_btn2').css('display','none');
+                     }else{
+                         mainfn2();
+                         $('#sort_btn1').css('display','none');
+                         $('#sort_btn2').css('display','block');
+                     }
+                },100)
+               // mainfn();
 
             }
         };
@@ -612,7 +630,7 @@
                     <a href="__URL__/searchMap/" class="fa fa-square fa-stack-2x"><i class="fa  fa-map-marker fa-stack-1x"></i></a>
                 </span>
 
-        <div class="store">
+        <div id="store" class="store">
             <a href="javascript:;" id='all' class="cur" data-shangjia='0'>眼镜店</a>
             <a href="javascript:;" id='discount' data-shangjia='1'>验光师</a>
         </div>

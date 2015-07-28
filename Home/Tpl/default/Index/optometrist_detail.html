@@ -15,7 +15,7 @@
         <p>{$data.job}</p>
     </div>
     <div class="price">
-        验光费：<span class="money">￥<span>{$data.service_price}</span></span>
+        我的收费：<span class="money">￥<span>{$data.service_price}</span></span>
     </div>
 </header>
 <section class="opt_main common_w">
@@ -25,6 +25,11 @@
             <img class="fl" id="p_score" src="" alt=""/>
             <span class="fr"><a href="__URL__/op_comment_list/id/{$data.id}">{$count}条评论</a></span>
         </span>
+    </div>
+
+    <div class="opt_det">
+        <p class="txt">服务范围</p>
+        <div class="details">1111</div>
     </div>
 
     <div class="opt_addr">
@@ -37,18 +42,18 @@
     </div>
 
     <div class="opt_intro">
-        <p class="title">验光师专长</p>
+        <p class="title">我的专长</p>
         <p>
            {$data.skill}
         </p>
     </div>
     <div class="opt_det">
-        <p class="txt">验光师图文介绍</p>
+        <p class="txt">我的简介</p>
         <!--<img src="__PUBLIC__/Home/images/getheadimg.jpg" alt=""/>-->
         <div class="details">{$data.content}</div>
     </div>
 </section>
-<a class="opt_appointment" href="__URL__/subscribe/id/{$data.id}">预约验光</a>
+<a class="opt_appointment" href="__URL__/subscribe/id/{$data.id}">约我验光</a>
 <script src="__PUBLIC__/Home/js/zepto.js"></script>
 <script src="__PUBLIC__/Home/js/zeptoTouch.js"></script>
 <script language="JavaScript">

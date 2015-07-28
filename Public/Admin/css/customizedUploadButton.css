@@ -1,0 +1,32 @@
+.upload_button {
+	position: relative;
+	overflow: hidden;
+	display:block;
+	width: 60px; 
+	padding: 4px 0px 0px 0px;
+	text-align: center;
+	/*background: white;*/
+	border: 0px solid black; 
+	margin: auto;
+	margin-left: 0px;
+	color: #4c4c4c;
+	font-size: 13px;
+}
+.upload_button input {
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	font-family: Arial;
+	font-size: 16px;
+	margin: 0;
+	padding: 0;
+	cursor: default;
+	opacity: 0;
+	filter:alpha(opacity:0);
+}
+.icon {
+	width:18px;
+	padding-bottom:6px;
+	padding-right:5px;
+}

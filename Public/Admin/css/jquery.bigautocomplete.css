@@ -1,0 +1,21 @@
+/* 商家搜索css  */
+.search_tips{
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	display: none;
+}
+.search_tips li{
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 1px solid #ccc;	
+	background: url(../images/search.jpg) no-repeat 5px center;
+	background-size: 18px;
+}
+.search_tips li:last-child{
+	border: 0;
+}
+.search_tips li a{ 
+	display: block;
+	padding-left: 26px;
+}layout div{word-wrap:break-word;word-break:break-all;padding:1px 5px;}
